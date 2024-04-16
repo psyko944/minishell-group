@@ -28,8 +28,12 @@ static t_lexed_list	*smart_recut(t_lexed_list *l)
 		__builtin_printf("%s\n", l->content);
 		if (l->content)
 			node = cut_expression(l);
+		else
+			node = lex_new_node(NULL, l->soft_content);
 		if (node)
 			lex_add_back(&res, node);
+		else
+			return (free_lexer(l), free_lexer(res));
 		l = l->next;
 	}
 	free_lexer(l);

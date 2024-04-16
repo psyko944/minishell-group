@@ -31,7 +31,7 @@ int	quote_len(const char *c)
 	return (c2 - c + 1);
 }
 /*
-int	main(int ac, char **av)
+int	main(int ac, char **av) // Quote related tests
 {
 	printf("%d\n", quote_len(av[ac - 1]));
 }
