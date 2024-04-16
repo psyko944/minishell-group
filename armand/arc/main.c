@@ -1,5 +1,5 @@
 #include "parser.h"
-
+/*
 int	main(int ac, char **av)
 {
 	t_parsed_cmd_cont	*parsed = parse_command(av[ac - 1], 0);
@@ -18,4 +18,20 @@ int	main(int ac, char **av)
 		cur = cur->next;
 	}
 	free_parsed_cmd(parsed);
+}
+/**/
+
+int	main(int ac, char **av)
+{
+	t_cmd_symbol	*cmd = cut_command(av[ac - 1]);
+	t_cmd_symbol	*cur = cmd;
+	int				i = 0;
+
+	while (cur)
+	{
+		printf("%d: %s\n", i, cur->content);
+		cur = cur->next;
+		++i;
+	}
+	free_parse(cmd);
 }

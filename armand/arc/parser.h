@@ -58,4 +58,20 @@ void				interpret_command_variables(t_parsed_cmd *cmd,
 t_parsed_cmd_cont	*parse_command(const char *cmd, t_env_var *env);
 t_parsed_cmd	*free_parsed_cmd(t_parsed_cmd_cont *cmd);
 
+typedef enum	e_type {
+	FILE,
+}	t_type;
+
+typedef struct s_parse_tree	{
+	char	**data;
+	struct s_parse_tree	*r_node;
+	struct s_parse_tree	*l_node;
+}	t_parse_tree;
+
+
+
+
+
+
+
 #endif

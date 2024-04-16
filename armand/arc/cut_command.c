@@ -18,7 +18,7 @@ size_t	ft_strlen(const char *str)
 
 static unsigned int	is_sep(const char *str)
 {
-	const char		*ops[] = {"|", "<", ">", "<<", ">>", "&&", "||", NULL};
+	const char		*ops[] = {"<<", ">>", "&&", "||", "|", "<", ">", ")", NULL};
 	unsigned int	sep_len;
 	unsigned int	i;
 

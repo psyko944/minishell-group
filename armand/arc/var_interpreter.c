@@ -2,7 +2,7 @@
 
 #include "libft.h"
 #include "parser.h"
-
+/*
 // Renvoie l'adresse de dest après avoir ajouté notre value
 static char	*interpret_single_variable(char *dest, char *key, t_env_var *vars)
 {
@@ -44,7 +44,7 @@ static char	*interpret_variables(char *s, t_env_var *vars)
 	}
 	return (res);
 }
-
+/**/
 void	interpret_command_variables(t_parsed_cmd *cmd, t_env_var *env)
 {
 	while (cmd)
