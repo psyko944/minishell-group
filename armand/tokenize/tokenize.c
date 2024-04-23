@@ -27,7 +27,6 @@ t_token	*tokenize(const char *s)
 	res = NULL;
 	while (*s)
 	{
-		__builtin_printf("Tokenizing: %s\n", s);
 		while (ft_isspace(*s))
 			++s;
 		if (!*s)

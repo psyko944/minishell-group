@@ -3,27 +3,49 @@
 #include <stdlib.h>
 
 // Inc string todo
-t_token	*get_parenthesis(const char **s_ptr)
+int	get_par_len(const char *s)
 {
-	t_token		*res;
-	const char	*s;
-	int			step;
-	int			len;
+	int	step;
+	int	ret;
+	int	par_count;
 
-	s = *s_ptr;
-	len = 1;
-	while (**s_ptr && **s_ptr != ')')
+	ret = 1;
+	par_count = 1;
+	s += 1;
+	while (par_count && *s)
 	{
-		if (**s_ptr == '"' || **s_ptr == '\'')
+		if (*s == '(')
+			par_count += 1;
+		else if (*s == ')')
+			par_count -= 1;
+		if (*s == '"' || *s == '\'')
 			step = skip_quote(s);
 		else
 			step = 1;
-		if (step == -1)
-			return (NULL); // Err message
-		len += step;
-		*s_ptr += step;
+		s += step;
+		ret += step;
 	}
-	return (new_token(PARENTHESIS, ft_strndup_e(s + 1, len - 2))); // A vérifier
+	if (par_count)
+		return (-1);
+	return (ret);
+}
+
+t_token	*get_parenthesis(const char **s_ptr)
+{
+	int			len;
+	const char	*temp;
+
+	while (ft_isspace(**s_ptr))
+		++*s_ptr;
+	temp = *s_ptr;
+	__builtin_printf("temp: %s\n", temp);
+	len = get_par_len(temp);
+	if (len == -1)
+		return (NULL);
+	__builtin_printf("Return: %s\n", ft_strndup_e(temp + 1, len - 2));
+	*s_ptr += len;
+	__builtin_printf("s: %s\n", *s_ptr);
+	return (new_token(PARENTHESIS, ft_strndup_e(temp + 1, len - 2))); // A vérifier
 }
 
 size_t	is_sep(const char	*s)
@@ -51,7 +73,6 @@ t_token	*get_word(const char **s)
 	int			step;
 	t_token		*res;
 
-	__builtin_printf("%s\n", *s);
 	s2 = *s;
 	len = 0;
 	step = is_sep(s2);
