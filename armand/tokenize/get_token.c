@@ -1,18 +1,6 @@
 #include "tokenize.h"
+#include "libft/libft.h"
 #include <stdlib.h>
-
-static int	skip_quote(const char *s)
-{
-	char		c;
-	const char	*s2;
-
-	c = *s;
-	s += 1;
-	s2 = ft_strchr(s, c);
-	if (!s2)
-		return (-1);
-	return (s2 - s + 1);
-}
 
 // Inc string todo
 t_token	*get_parenthesis(const char **s_ptr)
@@ -35,11 +23,10 @@ t_token	*get_parenthesis(const char **s_ptr)
 		len += step;
 		*s_ptr += step;
 	}
-	// __builtin_printf("%s\n", );
-	return (new_token(PARENTHESIS, ft_strndup_e(s + 1, len - 1))); // A vérifier
+	return (new_token(PARENTHESIS, ft_strndup_e(s + 1, len - 2))); // A vérifier
 }
 
-size_t	is_sep(char	*s)
+size_t	is_sep(const char	*s)
 {
 	const char	*seps[] = { "||", "&&", ">>", "<<", "(", "<", ">", "|", NULL};
 	int			i;
@@ -57,7 +44,7 @@ size_t	is_sep(char	*s)
 }
 
 // Cas spécial separateur todo
-t_token	*get_word(char **s)
+t_token	*get_word(const char **s)
 {
 	const char	*s2;
 	int			len;
@@ -82,5 +69,5 @@ t_token	*get_word(char **s)
 		len += step;
 		*s += step;
 	}
-	return (new_token(TEXT, ft_strndup_e(s2, len)));
+	return (new_token(TEXT, cut_command(ft_strndup_e(s2, len))));
 }

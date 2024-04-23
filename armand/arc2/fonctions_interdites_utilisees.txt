@@ -1,6 +1,0 @@
-strstr
-printf
-strcmp
-strchr
-
-Enlever les include string.h, inutiles

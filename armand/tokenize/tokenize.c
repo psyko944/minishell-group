@@ -35,7 +35,7 @@ t_token	*tokenize(const char *s)
 		if (*s == '(')
 			new = get_parenthesis(&s);
 		else
-			new = get_word(&s, res);
+			new = get_word(&s);
 		if (new)
 			res = add_back(new, &res);
 		else

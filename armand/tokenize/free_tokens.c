@@ -10,7 +10,12 @@ t_token	*free_tokens(t_token *ls)
 	{
 		cur = ls;
 		ls = ls->next;
-		//	
+		if (cur->type == TEXT)
+			free(*((char **)cur->content));
+		if (cur->type == PARENTHESIS)
+			free_tokens(cur->content);
+		else
+			free(cur->content);
 		free(cur);
 	}
 	return (NULL);
