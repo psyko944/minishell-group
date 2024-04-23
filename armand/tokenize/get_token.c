@@ -42,7 +42,6 @@ t_token	*get_parenthesis(const char **s_ptr)
 	len = get_par_len(temp);
 	if (len == -1)
 		return (NULL);
-	__builtin_printf("Return: %s\n", ft_strndup_e(temp + 1, len - 2));
 	*s_ptr += len;
 	__builtin_printf("s: %s\n", *s_ptr);
 	return (new_token(PARENTHESIS, ft_strndup_e(temp + 1, len - 2))); // A vérifier
