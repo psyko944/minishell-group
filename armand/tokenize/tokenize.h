@@ -4,12 +4,21 @@
 typedef enum e_token_type {
 	TEXT,
 	SEPARATOR,
-	PARENTHESIS
+	PARENTHESIS,
+
+	N_PIPE,
+	N_AND,
+	N_OR,
+	N_INFILE,
+	N_OUTFILE,
+	N_HEREDOC,
+	N_APPEND
 }	t_token_type;	
 
 typedef struct s_token {
 	t_token_type	type;
 	void			*content;
+	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
 

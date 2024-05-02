@@ -11,6 +11,7 @@ t_token	*new_token(t_token_type type, void *content)
 	if (res)
 	{
 		res->next = NULL;
+		res->prev = NULL;
 		res->type = type;
 		if (type == PARENTHESIS)
 		{

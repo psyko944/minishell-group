@@ -15,6 +15,7 @@ static t_token	*add_back(t_token *node, t_token **ls)
 		while (cur->next)
 			cur = cur->next;
 		cur->next = node;
+		node->prev = cur;
 	}
 	return (*ls);
 }
