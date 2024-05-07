@@ -1,4 +1,4 @@
-#ifndef BUILTINS_H
+#ifndef BUILTINS_HGJS_DEBUG_TOPICS
 # define BUILTINS_H
 
 # include <stdio.h>
@@ -17,6 +17,6 @@ typedef struct s_env_var
 t_env_var *get_env(char **envp);
 void mini_echo(int ac, char **av);
 void    remove_env(t_env_var **envp, char *key);
-void    ft_unset(t_env_var *envp, int ac, char **av);
-
+void    ft_unset(t_env_var **envp, int ac, char **av);
+void    ft_cd(t_env_var *env, int ac, char **av);
 # endif
