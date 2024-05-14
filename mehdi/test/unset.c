@@ -4,33 +4,33 @@
 void    remove_env(t_env_var **envp, char *key)
 {
     t_env_var *tmp;
-    t_env_var *remove;
 
+    if (!envp || !*envp)
+        return ;
     tmp = *envp;
-    while (tmp && tmp->next)
-    {
-        if (!ft_strncmp(key, tmp->key, ft_strlen(tmp->key)))
-        {
-            printf("tmp->key = %s\n", tmp->key);
-            remove = tmp->next;
-            tmp->next = tmp->next->next;
-        }
-        tmp = tmp->next;
-    }
-    printf("\n\n==test==\n\n");
-    tmp = *envp;
-    if (tmp && (!ft_strncmp(key, tmp->key, ft_strlen(tmp->key))))
+    if (!ft_strncmp(tmp->key, key, ft_strlen(tmp->key)))
     {
         *envp = tmp->next;
         free(tmp);
+        remove_env(envp, key);
+    }
+    else
+    {
+        tmp = *envp;
+        remove_env(&tmp->next, key);
     }
 }
 
-void    ft_unset(t_env_var *envp, int ac, char **av)
+void    ft_unset(t_env_var **envp, int ac, char **av)
 {
     int i;
 
     (void)ac;
     i = 1;
-    remove_env(&envp, av[i++]);
+    if (!av[i])
+    {
+        printf("pas d'arguments\n");
+        return ;
+    }
+    remove_env(envp, av[i]);
 }
