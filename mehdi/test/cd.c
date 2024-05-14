@@ -1,6 +1,34 @@
 #include "builtins.h"
 
-static char    *get_pwd(t_env_var *env)
+static int  check_dir(char *path)
+{
+    if (path == NULL || ft_strlen(path) == 0)
+        return (-1);
+    if (chdir(path) != 0)
+    {
+        perror("chdir");
+        return (-1);
+    }
+    printf("reussi\n");
+    return (0);
+}
+
+static char    *get_home(t_env_var *env)
+{
+    char    *home;
+    t_env_var *tmp;
+
+    tmp = env;
+    while (tmp)
+    {
+        if (!ft_strncmp("HOME", tmp->key, 4))
+            home = ft_strdup(tmp->content);
+        tmp = tmp->next;
+    }
+    return (home);
+}
+
+char    *get_pwd(t_env_var *env)
 {
     char    *pwd;
     t_env_var *tmp;
@@ -17,10 +45,27 @@ static char    *get_pwd(t_env_var *env)
 
 void    ft_cd(t_env_var *env, int ac, char **av)
 {
-    const char *target_dir = av[1];
-    (void)ac;
     const char *cur_dir = get_pwd(env);
-    if (!cur_dir)
-        return (NULL);
-    
+    char    *path;
+
+    if (ac == 1)
+    {
+        path = get_home(env);
+        if (!path)
+            return ;
+    }
+    else if (ac == 2)
+        path = av[1];
+    else
+        return ;
+    if (!ft_strncmp(path, "-", 1))
+    {
+        printf("%s", get_pwd(env));
+        return ;
+    }
+    if (check_dir(path))
+    {
+        printf("error changement de path\n");
+        return ;
+    }
 }

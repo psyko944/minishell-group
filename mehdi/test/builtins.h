@@ -19,4 +19,6 @@ void mini_echo(int ac, char **av);
 void    remove_env(t_env_var **envp, char *key);
 void    ft_unset(t_env_var **envp, int ac, char **av);
 void    ft_cd(t_env_var *env, int ac, char **av);
+char    *get_pwd(t_env_var *env);
+void	addback_env(t_env_var **alst, t_env_var *new);
 # endif

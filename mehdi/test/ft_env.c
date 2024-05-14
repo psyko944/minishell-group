@@ -47,7 +47,7 @@ static char	*get_value(char *line)
 	return (content);
 }
 
-static void	addback_env(t_env_var **alst, t_env_var *new)
+void	addback_env(t_env_var **alst, t_env_var *new)
 {
 	t_env_var	*last;
 
