@@ -10,4 +10,7 @@ typedef struct s_ast {
 	struct s_ast	*r;
 }	t_ast;
 
+t_ast	*ast(t_token *tokens);
+t_ast	*clear_ast(t_ast *ast);
+
 #endif

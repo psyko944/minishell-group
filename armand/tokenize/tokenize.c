@@ -8,7 +8,10 @@ static t_token	*add_back(t_token *node, t_token **ls)
 	t_token	*cur;
 
 	if (!*ls)
+	{
 		*ls = node;
+		node->prev = NULL;
+	}
 	else
 	{
 		cur = *ls;

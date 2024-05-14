@@ -1,4 +1,5 @@
 #include "ast.h"
+#include "../tokenize/libft/libft.h"
 #include <stdlib.h>
 
 // Ajouter messages erreur de parsing
@@ -14,6 +15,7 @@ int	check_format(t_token *tokens)
 		else if (i % 2 == 0 && tokens->type == SEPARATOR)
 			return (0);
 		tokens = tokens->next;
+		++i;
 	}
 	return (1);
 }
@@ -63,8 +65,9 @@ t_ast	*ast(t_token *tokens)
 	t_token	*last_op;
 	int		tok_count;
 
+	last_op = NULL;
 	if (!check_format(tokens))
-		return (free_tokens(tokens));
+		return ((t_ast *)free_tokens(tokens));
 	while (tokens->next)
 		tokens = tokens->next;
 	while (tokens)
