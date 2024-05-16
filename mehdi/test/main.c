@@ -40,12 +40,14 @@ static void	print_env_sep(t_env_var *lst)
 int main(int ac, char **av, char **envp)
 {
 	t_env_var *new;
+	char buffer[100];
 	new = get_env(envp);
 	//ft_unset(&new, ac, av);
 	printf("%s\n", get_pwd(new));
 	ft_cd(new, ac, av);
-	printf("%s\n", get_pwd(new));
+	printf("curent_dir = %s\n", getcwd(buffer, 50));
 	print_pwd(envp);
+	printf("try get_env = %s\n", getenv("PWD"));
 	//print_env(new);
 	//print_env(new);
 	//mini_echo(ac, av);

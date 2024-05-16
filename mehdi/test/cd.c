@@ -28,6 +28,17 @@ static char    *get_home(t_env_var *env)
     return (home);
 }
 
+char    *get_pwd2(void)
+{
+    char    *pwd;
+
+    pwd = ft_calloc(4096, sizeof(char));
+    if (!pwd)
+        return (perror("minishell"), NULL);
+    getcwd(pwd, 4096);
+    return (pwd);
+}
+
 char    *get_pwd(t_env_var *env)
 {
     char    *pwd;
@@ -51,6 +62,7 @@ void    ft_cd(t_env_var *env, int ac, char **av)
     if (ac == 1)
     {
         path = get_home(env);
+        printf("path = %s\n", path);
         if (!path)
             return ;
     }
