@@ -7,7 +7,8 @@ static void	print_env(t_env_var *lst)
 	tmp = lst;
 	while (tmp)
 	{
-		printf("%s=%s\n", tmp->key, tmp->content);
+		if (tmp->content != NULL)
+			printf("%s=%s\n", tmp->key, tmp->content);
 		tmp = tmp->next;
 	}
 }

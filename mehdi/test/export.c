@@ -1,4 +1,4 @@
-// #include "builtins.h"
+#include "builtins.h"
 
 // void    ft_export(t_env_var *env, int ac, char **av)
 // {
