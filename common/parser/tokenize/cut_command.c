@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cut_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/21 13:29:59 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:34:31 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
-#include "libft/libft.h"
+#include "../../libft/libft.h"
 
 #include <stdlib.h>
 
@@ -68,7 +68,6 @@ char	**cut_command(char *s)
 	if (!s)
 		return (NULL);
 	len = count_args(s);
-	__builtin_printf("%d args\n", len);
 	res = malloc(sizeof(char *) * (len + 1));
 	if (!res)
 	{

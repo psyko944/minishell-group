@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/21 13:29:42 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:06:53 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../libft/libft.h"
 #include "ast.h"
 #include <stdlib.h>
 
@@ -20,6 +21,8 @@ int	check_format(t_token *tokens)
 {
 	int	i;
 
+	if (!tokens)
+		return (0);
 	i = 0;
 	while (tokens)
 	{
@@ -32,12 +35,12 @@ int	check_format(t_token *tokens)
 	return (1);
 }
 
-t_ast	*clear_ast(t_ast *ast)
+t_ast	*free_ast(t_ast *ast)
 {
 	if (!ast)
 		return (NULL);
 	if (ast->type == PARENTHESIS)
-		clear_ast(ast->content);
+		free_ast(ast->content);
 	else if (ast->type == TEXT)
 	{
 		free(*((char **)ast->content));
@@ -46,11 +49,12 @@ t_ast	*clear_ast(t_ast *ast)
 	}
 	else
 	{
-		clear_ast(ast->l);
-		clear_ast(ast->r);
+		free_ast(ast->l);
+		free_ast(ast->r);
 		free(ast->content);
 		free(ast);
 	}
+	return (NULL);
 }
 
 static t_token_type	get_sep_type(char *sep)
@@ -78,7 +82,7 @@ t_ast	*ast(t_token *tokens)
 	int		tok_count;
 
 	if (!check_format(tokens))
-		return (free_tokens(tokens));
+		return ((t_ast *)free_tokens(tokens));
 	while (tokens->next)
 		tokens = tokens->next;
 	while (tokens)

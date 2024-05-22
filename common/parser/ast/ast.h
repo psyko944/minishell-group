@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:28:15 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/21 13:28:21 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:58:59 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,6 @@ typedef struct s_ast {
 	struct s_ast	*r;
 }	t_ast;
 
+t_ast	*ast(t_token *tokens);
+t_ast	*free_ast(t_ast *ast);
 #endif

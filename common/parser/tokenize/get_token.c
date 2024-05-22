@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:24 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/21 13:34:07 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:42:54 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
-#include "libft/libft.h"
+#include "../../libft/libft.h"
 #include <stdlib.h>
 
 // Inc string todo
@@ -50,14 +50,12 @@ t_token	*get_parenthesis(const char **s_ptr)
 	while (ft_isspace(**s_ptr))
 		++*s_ptr;
 	temp = *s_ptr;
-	__builtin_printf("temp: %s\n", temp);
 	len = get_par_len(temp);
 	if (len == -1)
 		return (NULL);
 	*s_ptr += len;
-	__builtin_printf("s: %s\n", *s_ptr);
 	return (new_token(PARENTHESIS,
-			ft_strndup_e(temp + 1, len - 2))); // Verifie ?
+			ft_strndup_e(temp + 1, len - 2)));
 }
 
 size_t	is_sep(const char	*s)

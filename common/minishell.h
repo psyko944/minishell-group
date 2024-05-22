@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 16:00:51 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/01/12 16:00:52 by arlarzil         ###   ########.fr       */
+/*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
+/*   Updated: 2024/05/22 15:34:13 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isspace(char c)
-{
-	return (c == 32 || (8 <= c && c <= 13));
-}
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+void	init_signals();
+void	init();
+
+#endif

@@ -36,6 +36,7 @@ SRCS 		=	$(SRCPATH)ft_tolower.c		\
 				$(SRCPATH)ft_isascii.c		\
 				$(SRCPATH)ft_isdigit.c		\
 				$(SRCPATH)ft_isprint.c		\
+				$(SRCPATH)ft_isspace.c		\
 				$(SRCPATH)ft_memcmp.c		\
 				$(SRCPATH)ft_putendl_fd.c	\
 				$(SRCPATH)ft_strcpy.c		\
