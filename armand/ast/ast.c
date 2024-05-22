@@ -1,7 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ast.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arlarzil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
+/*   Updated: 2024/05/21 13:29:42 by arlarzil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ast.h"
 #include <stdlib.h>
 
 // Ajouter messages erreur de parsing
+// Attention, les operateurs hors 1&& || | decalent les choses
+// CF: a && << EOF b
 int	check_format(t_token *tokens)
 {
 	int	i;
@@ -41,10 +55,10 @@ t_ast	*clear_ast(t_ast *ast)
 
 static t_token_type	get_sep_type(char *sep)
 {
-	const char			*seps[] = { "||", "&&", "<<", ">>", "|", "<", ">", 
+	const char			*seps[] = {"||", "&&", "<<", ">>", "|", "<", ">",
 		NULL };
-	const t_token_type	types[] = { N_PIPE, N_AND, N_HEREDOC, N_APPEND, N_PIPE, 
-		N_INFILE, N_OUTFILE };
+	const t_token_type	types[] = {N_PIPE, N_AND, N_HEREDOC, N_APPEND, N_PIPE,
+		N_INFILE, N_OUTFILE};
 	int					i;
 
 	i = 0;
@@ -83,7 +97,3 @@ t_ast	*ast(t_token *tokens)
 	}
 	return ((t_ast *)last_op);
 }
-
-
-// a && b && c
-// 

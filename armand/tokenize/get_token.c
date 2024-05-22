@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_token.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arlarzil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/21 13:30:24 by arlarzil          #+#    #+#             */
+/*   Updated: 2024/05/21 13:34:07 by arlarzil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tokenize.h"
 #include "libft/libft.h"
 #include <stdlib.h>
@@ -44,12 +56,13 @@ t_token	*get_parenthesis(const char **s_ptr)
 		return (NULL);
 	*s_ptr += len;
 	__builtin_printf("s: %s\n", *s_ptr);
-	return (new_token(PARENTHESIS, ft_strndup_e(temp + 1, len - 2))); // A vérifier
+	return (new_token(PARENTHESIS,
+			ft_strndup_e(temp + 1, len - 2))); // Verifie ?
 }
 
 size_t	is_sep(const char	*s)
 {
-	const char	*seps[] = { "||", "&&", ">>", "<<", "(", "<", ">", "|", NULL};
+	const char	*seps[] = {"||", "&&", ">>", "<<", "(", "<", ">", "|", NULL};
 	int			i;
 	size_t		sep_len;
 
