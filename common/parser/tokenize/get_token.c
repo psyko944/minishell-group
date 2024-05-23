@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:24 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/22 16:42:54 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:13:09 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	get_par_len(const char *s)
 			step = skip_quote(s);
 		else
 			step = 1;
+		if (step == -1)
+			return (-1);
 		s += step;
 		ret += step;
 	}
@@ -60,7 +62,7 @@ t_token	*get_parenthesis(const char **s_ptr)
 
 size_t	is_sep(const char	*s)
 {
-	const char	*seps[] = {"||", "&&", ">>", "<<", "(", "<", ">", "|", NULL};
+	const char	*seps[] = {"||", "&&", "|", NULL};
 	int			i;
 	size_t		sep_len;
 
@@ -75,7 +77,6 @@ size_t	is_sep(const char	*s)
 	return (0);
 }
 
-// Cas spécial separateur todo
 t_token	*get_word(const char **s)
 {
 	const char	*s2;
@@ -97,6 +98,8 @@ t_token	*get_word(const char **s)
 			step = skip_quote(*s);
 		else
 			step = 1;
+		if (step == -1)
+			return (NULL);
 		len += step;
 		*s += step;
 	}

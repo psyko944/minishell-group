@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/22 16:34:31 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:17:14 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static void	fill_tab(char *s, char **res, int len)
 		{
 			if (*s == '"' || *s == '\'')
 				s += skip_quote(s);
-			++s;
+			else
+				++s;
 		}
 		*s = 0;
 		++s;

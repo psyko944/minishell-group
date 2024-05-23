@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:32:51 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/21 13:33:04 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:56:07 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ typedef enum e_token_type {
 	N_PIPE,
 	N_AND,
 	N_OR,
-	N_INFILE,
-	N_OUTFILE,
-	N_HEREDOC,
-	N_APPEND
+	COMMAND
 }	t_token_type;	
 
 typedef struct s_token {

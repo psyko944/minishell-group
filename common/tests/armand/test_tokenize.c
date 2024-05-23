@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:40 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/22 16:35:40 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:24:45 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_tokens(t_token *tokens, int ind)
 	while (tokens)
 	{
 		print_ind(ind);
-		printf("Token type: %d\n", tokens->type);
+		printf("Token %p type: %d\n", tokens, tokens->type);
 		if (tokens->type == TEXT)
 			print_double_tab(tokens->content, ind + 1);
 		else if (tokens->type == SEPARATOR)
@@ -49,7 +49,11 @@ void	print_tokens(t_token *tokens, int ind)
 			printf("%s\n", (char *)tokens->content);
 		}
 		else if (tokens->type == PARENTHESIS)
+		{
 			print_tokens(tokens->content, ind + 1);
+			print_ind(ind + 1);
+			printf("Content adress: %p\n", tokens->content);
+		}
 		tokens = tokens->next;
 	}
 }

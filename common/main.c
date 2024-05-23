@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/22 16:46:56 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:43:06 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ static int	handle_command(char *command, int *exit_cmd)
 {
 	t_ast	*ast_tree;
 
+	if (!command)
+		*exit_cmd = 0;
 	// __builtin_printf("%s\n", command);
-	ast_tree = ast(tokenize(command));
+	ast_tree = build_ast(tokenize(command));
 	free_ast(ast_tree);
 	free(command);
 	return (1);
@@ -43,8 +45,6 @@ int	main(int ac, char **av, char **envp)
 	while (exit_cmd)
 	{
 		command = readline("$> ");
-		if (!command)
-			break ;
 		handle_command(command, &exit_cmd);
 		add_history(command);
 	}
