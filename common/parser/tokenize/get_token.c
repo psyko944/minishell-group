@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:24 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 16:13:09 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:07:13 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ t_token	*get_word(const char **s)
 	const char	*s2;
 	int			len;
 	int			step;
-	t_token		*res;
 
 	s2 = *s;
 	len = 0;
@@ -103,5 +102,5 @@ t_token	*get_word(const char **s)
 		len += step;
 		*s += step;
 	}
-	return (new_token(TEXT, cut_command(ft_strndup_e(s2, len))));
+	return (new_token(TEXT, cut_command(s2)));
 }

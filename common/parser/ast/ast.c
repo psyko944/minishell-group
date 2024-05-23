@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 16:30:20 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:27:24 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,12 @@ t_ast	*build_ast(t_token *tokens)
 {
 	t_token	*next_tok;
 	t_token	*last_op;
-	int		tok_count;
 
 	if (!check_format(tokens))
 		return ((t_ast *)free_tokens(tokens));
 	last_op = NULL;
+	if (!tokens->next)
+		return ((t_ast *)tokens);
 	while (tokens->next)
 		tokens = tokens->next;
 	while (tokens)

@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 16:17:14 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:27:31 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,27 @@
 
 #include <stdlib.h>
 
-static int	count_args(char *s)
+static int	command_sep(const char *s)
+{
+	const char	*seps[] = {">>", "<<", ">", "<", NULL};
+	int			i;
+	int			len;
+
+	i = 0;
+	while (seps[i])
+	{
+		len = ft_strlen(seps[i]);
+		if (ft_strncmp(s, seps[i], len) == 0)
+			return (len);
+		++i;
+	}
+	return (0);
+}
+
+static int	count_args(const char *s)
 {
 	int	res;
+	int	step;
 
 	res = 0;
 	while (*s)
@@ -26,15 +44,42 @@ static int	count_args(char *s)
 			++s;
 		if (*s)
 			res += 1;
-		while (*s && !ft_isspace(*s))
+		step = command_sep(s);
+		if (!step)
 		{
-			if (*s == '"' || *s == '\'')
-				s += skip_quote(s);
-			else
-				s += 1;
+			while (s[step] && !ft_isspace(s[step]) && !command_sep(s + step))
+			{
+				if (*s == '\'' || *s == '"')
+					step += skip_quote(s);
+				else
+					step += 1;
+			}
 		}
+		s += step;
 	}
 	return (res);
+}
+
+// ft_memmove(s + 1, s, ft_strlen(s))
+static void	add_spaces(char *s)
+{
+	int	step;
+
+	while (*s)
+	{
+		step = command_sep(s);
+		if (step)
+		{
+			ft_memmove(s + 1, s, ft_strlen(s));
+			*s = ' ';
+			s += step + 1;
+			ft_memmove(s + 1, s, ft_strlen(s));
+			*s = ' ';
+			s += 1;
+		}
+		else
+			++s;
+	}
 }
 
 static void	fill_tab(char *s, char **res, int len)
@@ -61,20 +106,23 @@ static void	fill_tab(char *s, char **res, int len)
 	res[i] = NULL;
 }
 
-char	**cut_command(char *s)
+char	**cut_command(const char *s)
 {
 	int		len;
 	char	**res;
+	char	*s2;
 
 	if (!s)
 		return (NULL);
 	len = count_args(s);
 	res = malloc(sizeof(char *) * (len + 1));
 	if (!res)
-	{
-		free(s);
 		return (NULL);
-	}
-	fill_tab(s, res, len);
+	s2 = ft_calloc(ft_strlen(s) + len, 1);
+	ft_strcpy(s2, s);
+	if (!s2)
+		return (free(res), NULL);
+	add_spaces(s2);
+	fill_tab(s2, res, len);
 	return (res);
 }

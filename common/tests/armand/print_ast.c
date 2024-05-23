@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:59:53 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 16:38:21 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:45:03 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_ast(t_ast *ast, int ind)
 	else
 	{
 		print_ind(ind);
-		printf("Separator: %p %s\n", ast, 
+		printf("Separator: %p %s\n", ast,
 			(ast->type == 3 ? "PIPE" : ast->type == 4 ? "AND" : "OR"));
 		print_ind(ind + 1);
 		printf("l: %p r: %p\n", ast->l, ast->r);

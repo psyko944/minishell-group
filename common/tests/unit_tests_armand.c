@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:54:42 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 16:46:52 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:25:49 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	unit_tests_armand(int ac, char **av, char **envp)
 	print_tokens(tok, 0);
 	printf("-- AST --\n");
 	ast_tree = build_ast(tok);
-	print_ast(ast_tree, 0);
-	free_ast(ast_tree);
+	if (ast_tree)
+	{
+		print_ast(ast_tree, 0);
+		free_ast(ast_tree);
+	}
+	else
+		printf("AST is empty\n");
 }
