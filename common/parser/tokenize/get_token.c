@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:24 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 19:07:13 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:48:03 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,5 @@ t_token	*get_word(const char **s)
 		len += step;
 		*s += step;
 	}
-	return (new_token(TEXT, cut_command(s2)));
+	return (new_token(TEXT, cut_command(s2, len)));
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:57:41 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 15:58:37 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:41:00 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isspace(int c)
 {
-	return (c == 32 | (8 <= c && c <= 13));
+	return (c == 32 || (8 <= c && c <= 13));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:32:51 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 18:51:58 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:48:01 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_token {
 t_token	*get_parenthesis(const char **s_ptr);
 t_token	*get_word(const char **s);
 t_token	*new_token(t_token_type type, void *content);
-char	**cut_command(const char *s);
+char	**cut_command(const char *s, int len);
 int		skip_quote(const char *s);
 
 t_token	*tokenize(const char *s);

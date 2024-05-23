@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cut_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 19:27:31 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:49:56 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static void	fill_tab(char *s, char **res, int len)
 	res[i] = NULL;
 }
 
-char	**cut_command(const char *s)
+char	**cut_command(const char *s, int tot_len)
 {
 	int		len;
 	char	**res;
@@ -118,8 +118,8 @@ char	**cut_command(const char *s)
 	res = malloc(sizeof(char *) * (len + 1));
 	if (!res)
 		return (NULL);
-	s2 = ft_calloc(ft_strlen(s) + len, 1);
-	ft_strcpy(s2, s);
+	s2 = ft_calloc(tot_len + len, 1);
+	ft_strncpy(s2, s, tot_len);
 	if (!s2)
 		return (free(res), NULL);
 	add_spaces(s2);
