@@ -91,6 +91,8 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 
+char	*ft_realloc(char *src, size_t size);
+
 // Bonus functions
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);

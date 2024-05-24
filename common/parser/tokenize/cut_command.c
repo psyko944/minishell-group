@@ -60,7 +60,6 @@ static int	count_args(const char *s)
 	return (res);
 }
 
-// ft_memmove(s + 1, s, ft_strlen(s))
 static void	add_spaces(char *s)
 {
 	int	step;
@@ -114,14 +113,15 @@ char	**cut_command(const char *s, int tot_len)
 
 	if (!s)
 		return (NULL);
-	len = count_args(s);
-	res = malloc(sizeof(char *) * (len + 1));
-	if (!res)
-		return (NULL);
-	s2 = ft_calloc(tot_len + len, 1);
-	ft_strncpy(s2, s, tot_len);
+	s2 = ft_calloc(tot_len + 1, 1);
 	if (!s2)
-		return (free(res), NULL);
+		return (NULL);
+	ft_strncpy(s2, s, tot_len);
+	len = count_args(s2);
+	s2 = ft_realloc(s2, tot_len + len + 1);
+	res = malloc(sizeof(char *) * (len + 1));
+	if (!s2 || !res)
+		return (free(s2), free(res), NULL);
 	add_spaces(s2);
 	fill_tab(s2, res, len);
 	return (res);
