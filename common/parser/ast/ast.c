@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 19:27:24 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:57:26 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_ast	*free_ast(t_ast *ast)
 static t_token_type	get_sep_type(char *sep)
 {
 	const char			*seps[] = {"||", "&&", "|", NULL };
-	const t_token_type	types[] = {N_PIPE, N_AND, N_PIPE};
+	const t_token_type	types[] = {N_OR, N_AND, N_PIPE};
 	int					i;
 
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cut_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 19:49:56 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:06:52 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,12 @@ char	**cut_command(const char *s, int tot_len)
 
 	if (!s)
 		return (NULL);
-	s2 = ft_calloc(tot_len + 1, 1);
+	s2 = ft_calloc(tot_len + 2, 1);
 	if (!s2)
 		return (NULL);
 	ft_strncpy(s2, s, tot_len);
 	len = count_args(s2);
+	printf("%s len: %d\n", s2, tot_len + len + 1);
 	s2 = ft_realloc(s2, tot_len + len + 1);
 	res = malloc(sizeof(char *) * (len + 1));
 	if (!s2 || !res)
