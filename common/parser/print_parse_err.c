@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   print_parse_err.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 10:25:07 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/28 17:25:21 by arlarzil         ###   ########.fr       */
+/*   Created: 2024/05/28 17:22:22 by arlarzil          #+#    #+#             */
+/*   Updated: 2024/05/28 17:28:08 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
+#include "../libft/libft.h"
 
-void	ft_putstr_fd(const char *s, int fd)
+void	print_parse_err(const char *tok)
 {
-	if (s)
-		write(fd, s, ft_strlen(s));
+	ft_putstr_fd("Parse error near token: '", 1);
+	ft_putstr_fd(tok, 1);
+	ft_putstr_fd("'\n", 1);
 }

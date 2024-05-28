@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:32:51 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/24 17:27:18 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:26:14 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ int		skip_quote(const char *s);
 
 t_token	*tokenize(const char *s);
 t_token	*free_tokens(t_token *t);
+
+void	print_parse_err(const char *tok);
 
 #endif

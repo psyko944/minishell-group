@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/28 16:57:26 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:28:43 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	check_format(t_token *tokens)
 	while (tokens->next)
 	{
 		if (i % 2 && tokens->type != SEPARATOR)
-			return (0);
+			return (print_parse_err(tokens->content), 0);
 		else if (i % 2 == 0 && tokens->type == SEPARATOR)
-			return (0);
+			return (print_parse_err(tokens->content), 0);
 		tokens = tokens->next;
 		++i;
 	}
 	if (tokens->type == SEPARATOR)
-		return (0);
+		return (print_parse_err("newline"), 0);
 	return (1);
 }
 
