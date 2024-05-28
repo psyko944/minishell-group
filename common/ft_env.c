@@ -52,6 +52,8 @@ void	addback_env(t_env_var **alst, t_env_var *new)
 {
 	t_env_var	*last;
 
+	if (!new)
+		return (NULL);
 	if (*alst)
 	{
 		last = *alst;
