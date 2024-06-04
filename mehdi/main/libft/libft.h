@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:36:34 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/29 03:49:02 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:21:20 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define LIBFT_H
 
 # include <aio.h>
+# include <stdlib.h>
+# include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
 
 typedef struct s_list {
 	void			*content;
@@ -82,6 +88,8 @@ char	*ft_strnstr(const char *big, const char *little, size_t len);
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin2(char *s1, char *s2);
+char	*ft_strjoin3(char const *s1, char const *s2, char const *s3);
 char	*ft_strtrim(char const *s1, char const *set);
 
 char	**ft_split(char const *s, char c);
@@ -93,7 +101,10 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 
 char	*ft_realloc(char *src, size_t size);
 
+char	*get_next_line(int fd);
+
 char	**ft_cpy_matrix(char **matrix);
+void	free_matrix(char **matrix);
 
 // Bonus functions
 t_list	*ft_lstnew(void *content);

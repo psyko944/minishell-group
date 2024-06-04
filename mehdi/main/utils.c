@@ -1,4 +1,4 @@
-#include "parser/tokenize/tokenize.h"
+#include "minishell.h"
 #include <stdlib.h>
 void    free_env(t_env_var **env)
 {

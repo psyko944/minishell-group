@@ -1,4 +1,4 @@
-#include "parser/tokenize/tokenize.h"
+#include "minishell.h"
 #include <stdlib.h>
 
 static char	*get_key(char *line)
@@ -83,7 +83,7 @@ t_env_var *get_env(char **envp)
 {
     t_env_var *env;
     int  i = 0;
-	if (if (!envp) || (!envp[0][0]))
+	if ((!envp) || (!envp[0][0]))
 		return (NULL);
     while (envp[i])
     {
