@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:06:49 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/05 16:44:06 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/05 18:57:25 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static char	**fill_tab(const char *exp, const char *path, char **res)
 		{
 			res[i] = ft_strdup(entry->d_name);
 			if (!res[i])
-				return (perror("malloc"), 0/*free_tab(res)*/);
+				return (perror("malloc"), ((char **)0)/*free_tab(res)*/);
 			++i;
 		}
 		entry = readdir(dir);
