@@ -50,6 +50,7 @@ SRCS 		=	$(SRCPATH)ft_tolower.c		\
 				$(SRCPATH)ft_strjoin2.c	\
 				$(SRCPATH)ft_strjoin3.c	\
 				$(SRCPATH)get_next_line.c	\
+				$(SRCPATH)line_no_nl.c	\
 				
 SRCBONUS	=	$(SRCPATH)ft_lstnew.c		\
 				$(SRCPATH)ft_lstadd_front.c	\
