@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   save_history.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/01 15:15:36 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/01/01 16:07:45 by mekherbo         ###   ########.fr       */
+/*   Created: 2024/06/05 17:05:43 by mekherbo          #+#    #+#             */
+/*   Updated: 2024/06/05 17:06:29 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 static void	cleanup(char *line, char *keep)
@@ -27,12 +28,12 @@ static void	cleanup(char *line, char *keep)
 		keep[j] = line[i];
 		j++;
 	}
-	line[end] = '\0';
+	line[end - 1] = '\0';
 	keep[j] = '\0';
 	return ;
 }
 
-char	*get_next_line(int fd)
+char	*line_no_nl(int fd)
 {
 	char		*line;
 	static char	keep[BUFFER_SIZE + 1] = {0};

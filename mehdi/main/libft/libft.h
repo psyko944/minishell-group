@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:36:34 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/04 18:21:20 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:06:23 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_realloc(char *src, size_t size);
 
 char	*get_next_line(int fd);
+char	*line_no_nl(int fd);
 
 char	**ft_cpy_matrix(char **matrix);
 void	free_matrix(char **matrix);
