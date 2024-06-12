@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   free_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:21:34 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/12 17:23:48 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:50:57 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-void    free_tab(char **tab)
+void	free_tab(char **tab)
 {
-    char    **temp;
+	char	**temp;
 
-    temp = tab;
-    while (*tab)
-    {
-        free(*tab);
-        ++tab;
-    }
-    free(temp);
+	temp = tab;
+	while (*tab)
+	{
+		free(*tab);
+		++tab;
+	}
+	free(temp);
 }

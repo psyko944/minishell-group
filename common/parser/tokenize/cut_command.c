@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cut_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 17:38:46 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:52:16 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,7 @@ char	**cut_command(const char *s, int tot_len)
 	res = malloc(sizeof(char *) * (len + 1));
 	if (!s2 || !res)
 		return (perror("malloc"), free(s2), free(res), NULL);
-	printf("%s\n", s2);
 	add_spaces(s2);
-	printf("%s\n", s2);
 	fill_tab(s2, res, len);
 	tmp = ft_dup_tab(res);
 	free(res);

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   vars.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <armand.larzilliere@gmail.com>    +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 14:38:37 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/24 14:38:46 by arlarzil         ###   ########.fr       */
+/*   Created: 2024/06/12 19:05:44 by arlarzil          #+#    #+#             */
+/*   Updated: 2024/06/12 19:24:43 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef VARS_H
+# define VARS_H
 
-char	**free_tab(char **tab)
-{
-	char	**tabptr;
+# include "../minishell.h"
 
-	tabptr = tab;
-	while (*tabptr)
-		free(*(tabptr++));
-	free(tab);
-	return (NULL);
-}
+char	*replace_vars(char *s, t_env_var *env);
+char	**cut_vars(char *s);
+char	*concat_tab(char **tab);
+
+#endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_n_out.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:17:19 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 17:13:37 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:50:00 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include "minishell.h"
 #include "libft/libft.h"
 
-void	print_parse_err(const char *s); 
+void	print_parse_err(const char *s);
 
 static int	handle_fd(const char *op, const char *file, t_command *storage)
 {
-	const char	*ops[] = {">>", "<<", ">", "<", 0}; 
+	const char	*ops[] = {">>", "<<", ">", "<", 0};
 	const void	*funcs[] = {open_app, open_here, open_out, open_in};
 	int			(*fun)(const char *, t_command *);
 	int			i;
