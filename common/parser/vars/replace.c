@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:18:22 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 19:18:56 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:34:54 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static char	*isolate_var(char *s)
 		while (s[i] != '}')
 			i += 1;
 		s[i] = 0;
+		++s;
 	}
 	return (s);
 }

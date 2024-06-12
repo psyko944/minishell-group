@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 18:49:35 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:41:09 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@ typedef struct s_command {
 	int		in;
 	int		out;
 }	t_command;
+
+typedef struct s_env_var
+{
+	char				*key;
+	char				*content;
+	struct s_env_var	*next;
+}	t_env_var;
+
+typedef struct s_global
+{
+    t_env_var	*env;
+	char		**envp;	
+}   t_global;
+
 
 int		open_app(const char *f, t_command *store);
 int		open_here(const char *f, t_command *store);
