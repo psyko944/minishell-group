@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/06/04 20:57:59 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/06/12 21:11:33 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ tests/unit_test_mehdi.c \
 tests/unit_tests_armand.c \
 tests/armand/print_ast.c \
 tests/armand/test_tokenize.c \
+builtin/cd.c
 
 # colors
 
@@ -53,7 +54,7 @@ CFLAGS = -Wall -Wextra -Werror -g3
 
 OBJS = $(SRCS:.c=.o)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
 		$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
 
 $(LIBFT):
@@ -71,10 +72,12 @@ all:	$(NAME)
 -include $(SRCS:.c=.d)
 
 clean:
-	$(RM) $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) clean
+	$(RM) $(OBJS)
 	@echo "$(BLUE)minishell object files cleaned!$(DEF_COLOR)"
 
 fclean: clean
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME)
 	@echo "$(CYAN)$(NAME) have been deleted$(DEF_COLOR)"
 

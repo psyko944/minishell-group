@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/04 08:23:59 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:37:01 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,29 @@ typedef struct s_env_var
 
 typedef struct s_global
 {
-    t_env_var *env;
+    t_env_var	*env;
+	char		**envp;	
 }   t_global;
 
 
 void	init_signals(void);
 void	init(void);
 void    get_history(t_global *mini_s);
-t_env_var *get_env(char **envp);
-void    free_env(t_env_var **env);
 
+
+// env functions
+t_env_var *get_env(t_global *mini_s,char **envp);
+t_env_var *first_node(char *env_line);
+void    free_env(t_global *mini_s);
+void    err_msg(char *msg);
+
+
+// builtins
+
+void mini_echo(int ac, char **av);
+void    remove_env(t_env_var **envp, char *key);
+void    ft_unset(t_env_var **envp, int ac, char **av);
+void    ft_cd(t_env_var *env, int ac, char **av);
+char    *get_pwd(void);
 
 #endif

@@ -28,7 +28,7 @@ static char    *get_home(t_env_var *env)
     return (home);
 }
 
-char    *get_pwd2(void)
+char    *get_pwd(void)
 {
     char    *pwd;
 
@@ -56,7 +56,7 @@ char    *get_pwd_2(t_env_var *env)
 
 void    ft_cd(t_env_var *env, int ac, char **av)
 {
-    const char *cur_dir = get_pwd(env);
+    //const char *cur_dir = get_pwd();
     char    *path;
 
     if (ac == 1)
@@ -72,7 +72,7 @@ void    ft_cd(t_env_var *env, int ac, char **av)
         return ;
     if (!ft_strncmp(path, "-", 1))
     {
-        printf("%s", get_pwd(env));
+        printf("%s", get_pwd());
         return ;
     }
     if (check_dir(path))

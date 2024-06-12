@@ -19,14 +19,17 @@
 void    unit_test_mehdi(int ac, char **av, char **envp)
 {
     t_env_var   *env;
-    t_global    minichienne;
+    t_global    mini_s;
     (void)ac;
     (void)av;
-    env = get_env(envp);
+    env = get_env(&mini_s, envp);
     if (!env)
         printf("no env\n");
-    minichienne.env = env;
-    get_history(&minichienne);
+    mini_s.env = env;
+    get_history(&mini_s);
+    free_env(&mini_s);
+    
+    //printf("%s\n", get_pwd());
     //print_env(env);
-    free_env(&env);
+    //free_matrix(mini_s.envp);
 }

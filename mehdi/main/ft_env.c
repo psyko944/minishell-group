@@ -66,7 +66,7 @@ void	addback_env(t_env_var **alst, t_env_var *new)
 }
 
 
-static t_env_var *first_node(char *env_line)
+t_env_var *first_node(char *env_line)
 {
     t_env_var   *new;
 
@@ -79,12 +79,16 @@ static t_env_var *first_node(char *env_line)
     return (new);
 }
 
-t_env_var *get_env(char **envp)
+t_env_var *get_env(t_global *mini_s, char **envp)
 {
     t_env_var *env;
     int  i = 0;
 	if ((!envp) || (!envp[0][0]))
 		return (NULL);
+	(void)mini_s;
+	mini_s->envp = ft_cpy_matrix(envp);
+	 if (!mini_s->envp)
+	 	(err_msg("envp error"), exit(EXIT_FAILURE));
     while (envp[i])
     {
         if (i == 0)

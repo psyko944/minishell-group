@@ -1,33 +1,32 @@
 #include "minishell.h"
 
-// static int    check_history_name(t_global *mini_s, char *history_name)
-// {
-//     int fd;
-
-//     fd = open(history_name, O_RDONLY);
-//     if (fd == -1)
-//         return (fd);
-// }
-
-void    get_history(t_global *mini_s)
+static char *check_history_name(t_global *mini_s)
 {
-    char    *history_filename;
-    char    *save_history;    
-    int     fd;
+    t_env_var *tmp;
+    tmp = mini_s->env;
+    if (!tmp)
+        return (NULL);
+    while (tmp && ft_strncmp("HOME", tmp->key, 4))
+        tmp = tmp->next;
+    if (tmp && tmp->content)
+        return (tmp->content);
+    return (NULL);
+}
+
+void get_history(t_global *mini_s)
+{
+    char *history_filename;
+    char *save_history;
+    int fd;
     if (mini_s->env)
     {
-        t_env_var *tmp;
-        tmp = mini_s->env;
-        if (!tmp)
-            return ;
-        while (tmp && ft_strncmp("HOME", tmp->key, 4))
-            tmp = tmp->next;
-        if (tmp && tmp->content)
-            history_filename = tmp->content;
+        history_filename = check_history_name(mini_s);
+        if (!history_filename)
+            return;
     }
-    history_filename = ft_strjoin3(history_filename,"/.",HISTORY_NAME);
+    history_filename = ft_strjoin3(history_filename, "/.", HISTORY_NAME);
     if (!history_filename)
-        return ;
+        return;
     fd = open(history_filename, O_RDONLY);
     if (fd == -1)
         return (free(history_filename));
