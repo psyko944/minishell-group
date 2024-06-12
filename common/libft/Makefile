@@ -46,6 +46,7 @@ SRCS 		=	$(SRCPATH)ft_tolower.c		\
 				$(SRCPATH)ft_puthex_fd.c	\
 				$(SRCPATH)ft_putptr.c		\
 				$(SRCPATH)ft_realloc.c		\
+				$(SRCPATH)ft_dup_tab.c		\
 
 SRCBONUS	=	$(SRCPATH)ft_lstnew.c		\
 				$(SRCPATH)ft_lstadd_front.c	\
