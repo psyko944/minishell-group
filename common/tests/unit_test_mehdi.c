@@ -21,5 +21,6 @@ void    unit_test_mehdi(int ac, char **av, char **envp)
     (void)ac;
     (void)av;
     env = get_env(envp);
-    print_env(env);
+    //print_env(env);
+    free_env(&env);
 }

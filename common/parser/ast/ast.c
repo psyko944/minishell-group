@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 16:49:20 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:21:12 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ t_ast	*free_ast(t_ast *ast)
 	if (ast->type == PARENTHESIS)
 		free_ast(ast->content);
 	else if (ast->type == TEXT)
-	{
-		free(*((char **)ast->content));
-		free(ast->content);
-	}
+		free_tab(ast->content);
 	else
 	{
 		free_ast(ast->l);
@@ -88,12 +85,6 @@ void	ast_step(t_token *tokens, t_token **last_op)
 	}
 	else if (tokens->type == PARENTHESIS)
 		tokens->content = build_ast(tokens->content);
-	else if (tokens->type == TEXT)
-	{
-		temp = ft_dup_tab(tokens->content);
-		free(*((char *)tokens->content));
-		free(tokens->content);
-	}
 }
 
 t_ast	*build_ast(t_token *tokens)

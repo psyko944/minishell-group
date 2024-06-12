@@ -53,7 +53,7 @@ void	addback_env(t_env_var **alst, t_env_var *new)
 	t_env_var	*last;
 
 	if (!new)
-		return (NULL);
+		return ;
 	if (*alst)
 	{
 		last = *alst;
@@ -75,6 +75,7 @@ static t_env_var *first_node(char *env_line)
         return (NULL);
     new->key = get_key(env_line);
     new->content = get_value(env_line);
+	new->next = NULL;
     return (new);
 }
 

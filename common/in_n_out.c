@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_n_out.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:17:19 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 16:41:50 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:13:37 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	get_files(char **command, t_command *storage)
 	}
 	return (1);
 }
-
+/*
 char	**copy_tab(char **tab)
 {
 	int		i = 0;
@@ -108,3 +108,4 @@ int	main(int ac, char **av)
 	}
 	free(cp);
 }
+*/
