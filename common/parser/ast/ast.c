@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/28 17:28:43 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:49:20 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ static t_token_type	get_sep_type(char *sep)
 
 void	ast_step(t_token *tokens, t_token **last_op)
 {
+	char	**temp;
+
 	if (tokens->type == SEPARATOR)
 	{
 		tokens->type = get_sep_type(tokens->content);
@@ -86,6 +88,12 @@ void	ast_step(t_token *tokens, t_token **last_op)
 	}
 	else if (tokens->type == PARENTHESIS)
 		tokens->content = build_ast(tokens->content);
+	else if (tokens->type == TEXT)
+	{
+		temp = ft_dup_tab(tokens->content);
+		free(*((char *)tokens->content));
+		free(tokens->content);
+	}
 }
 
 t_ast	*build_ast(t_token *tokens)

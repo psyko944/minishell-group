@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   in_n_out.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <armand.larzilliere@gmail.com>    +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:17:19 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/30 03:09:09 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:41:50 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "minishell.h"
+#include "libft/libft.h"
+
+void	print_parse_err(const char *s); 
 
 static int	handle_fd(const char *op, const char *file, t_command *storage)
 {
 	const char	*ops[] = {">>", "<<", ">", "<", 0}; 
-	const int	(*funcs[])(const char *, t_command *)
-	= {open_app, open_here, open_out, open_in};
+	const void	*funcs[] = {open_app, open_here, open_out, open_in};
 	int			(*fun)(const char *, t_command *);
 	int			i;
 
@@ -24,10 +27,12 @@ static int	handle_fd(const char *op, const char *file, t_command *storage)
 	fun = 0;
 	while (ops[i])
 	{
-		if (strncmp(ops[i], op) == 0)
+		if (ft_strncmp(ops[i], op, ft_strlen(ops[i])) == 0)
 		{
 			fun = funcs[i];
+			break ;
 		}
+		i += 1;
 	}
 	if (fun && !file)
 		return (print_parse_err("newline"), -1);
@@ -43,12 +48,9 @@ static void	replace_elements(char **tab)
 	i = 0;
 	free(*tab);
 	free(*(tab + 1));
-	while (*tab[i + 2])
-	{
-		tab[i] = tab[i + 2];
-		++i;
-	}
-	tab[i] = 0;
+	while (tab[i])
+		i += 1;
+	ft_memmove(tab, tab + 2, (i - 1) * sizeof(char *));
 }
 
 int	get_files(char **command, t_command *storage)
@@ -68,4 +70,41 @@ int	get_files(char **command, t_command *storage)
 			i += 1;
 	}
 	return (1);
+}
+
+char	**copy_tab(char **tab)
+{
+	int		i = 0;
+	char	**res;
+
+	while (tab[i])
+		i += 1;
+	res = calloc(i + 1, sizeof(char *));
+	i = 0;
+	while (tab[i])
+	{
+		res[i] = strdup(tab[i]);
+		i += 1;
+	}
+	return (res);
+}
+
+int	main(int ac, char **av)
+{
+	char		*tab[] = {"<", "in",  "ls", NULL};
+	t_command	storage;
+	char		**cp = copy_tab(tab);
+
+	storage.tab = cp;
+	storage.in = 0;
+	storage.out = 0;
+	get_files(cp, &storage);
+	int i = 0;
+	while (cp[i])
+	{
+		__builtin_printf("%s\n", cp[i]);
+		free(cp[i]);
+		i += 1;
+	}
+	free(cp);
 }

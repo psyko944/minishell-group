@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   opener.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <armand.larzilliere@gmail.com>    +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:38:17 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/30 17:04:58 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:28:16 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <unistd.h>
 #include "minishell.h"
 
 int	open_app(const char *f, t_command *store)

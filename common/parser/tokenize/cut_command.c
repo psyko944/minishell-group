@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/28 17:06:52 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:51:24 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ char	**cut_command(const char *s, int tot_len)
 {
 	int		len;
 	char	**res;
+	char	**tmp;
 	char	*s2;
 
 	if (!s)
@@ -122,8 +123,13 @@ char	**cut_command(const char *s, int tot_len)
 	s2 = ft_realloc(s2, tot_len + len + 1);
 	res = malloc(sizeof(char *) * (len + 1));
 	if (!s2 || !res)
-		return (free(s2), free(res), NULL);
+		return (perror("malloc"), free(s2), free(res), NULL);
 	add_spaces(s2);
 	fill_tab(s2, res, len);
-	return (res);
+	tmp = ft_dup_tab(res);
+	free(res);
+	free(*res);
+	if (!tmp)
+		perror("malloc");
+	return (tmp);
 }
