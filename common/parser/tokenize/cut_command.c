@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 18:06:36 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:03:30 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ char	**cut_command(const char *s, int tot_len)
 		return (NULL);
 	ft_strncpy(s2, s, tot_len);
 	len = count_args(s2);
-	//printf("%s len: %d, tot len> %d\n", s2, len, tot_len);
 	s2 = ft_realloc(s2, tot_len + len * 2 + 2);
 	res = malloc(sizeof(char *) * (len + 1));
 	if (!s2 || !res)

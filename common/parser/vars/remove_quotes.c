@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:44:10 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 17:52:32 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:04:31 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	*remove_quotes(char *s)
 
 	step = 0;
 	i = 0;
-	// printf("quote: %s\n", s);
 	while (s[i + step])
 	{
 		if (s[i + step] == '\'' || s[i + step] == '"')

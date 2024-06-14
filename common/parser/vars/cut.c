@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:12:12 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 18:05:44 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:04:41 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	skip_var(const char **s)
 {
 	if (**s == '$')
 	{
-		if (*(*s += 1) == '{')
+		*s += 1;
+		if (**s == '{')
 			*s = ft_strchr(*s, '}');
 		else
 		{
@@ -48,12 +49,10 @@ static int	var_count(const char *s)
 	res = 0;
 	while (*s)
 	{
-		// printf("New var starting %s\n", s);
 		if (skip_var(&s) == -1)
 			return (-1);
 		++res;
 	}
-	// printf("%d\n", res);
 	return (res);
 }
 
@@ -61,12 +60,10 @@ static int	get_word_len(char *s)
 {
 	int	i;
 
-	// printf("in:\t\t%s\n", s);
 	i = 0;
-
 	if (*s == '$')
 	{
-		if (s[i] == '?')
+		if (s[++i] == '?')
 			return (2);
 		if (s[1] == '{')
 			return (ft_strchr(s, '}') - s + 1);
@@ -74,14 +71,15 @@ static int	get_word_len(char *s)
 			i += 1;
 	}
 	else
+	{
 		while (s[i] && s[i] != '$')
 		{
-			// printf("yeehuu %s\n", &s[i]);
 			if (s[i] == '\'')
-				return (i + get_word_len(ft_strchr(s + i + 1, '\'') + 1) + 
-					ft_strchr(s + i + 1, '\'') - s + i + 1);
+				return (i + get_word_len(ft_strchr(s + i + 1, '\'') + 1)
+					+ ft_strchr(s + i + 1, '\'') - s + i + 1);
 			++i;
 		}
+	}
 	return (i);
 }
 
@@ -102,24 +100,9 @@ char	**cut_vars(char *s)
 	while (i < len)
 	{
 		w_len = get_word_len(s);
-		// printf("word: %s tot len:%d\n", s, w_len);
 		res[i] = ft_strndup_e(s, w_len);
 		s += w_len;
 		i += 1;
 	}
 	return (res);
 }
-/*
-int	main(int ac, char **av)
-{
-	char	**tab = cut_vars(av[ac - 1]);
-	char	**pt = tab;
-
-	while (*pt)
-	{
-		printf("%s\n", *pt);
-		free(*pt);
-		++pt;
-	}
-	free(tab);
-}*/
