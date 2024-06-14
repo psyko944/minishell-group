@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 20:37:01 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:51:24 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ void    get_history(t_global *mini_s);
 
 // env functions
 t_env_var *get_env(t_global *mini_s,char **envp);
+void	addback_env(t_env_var **alst, t_env_var *new);
 t_env_var *first_node(char *env_line);
+char	*get_value(char *line);
 void    free_env(t_global *mini_s);
 void    err_msg(char *msg);
 
@@ -72,5 +74,6 @@ void    remove_env(t_env_var **envp, char *key);
 void    ft_unset(t_env_var **envp, int ac, char **av);
 void    ft_cd(t_env_var *env, int ac, char **av);
 char    *get_pwd(void);
+void	pwd_env(t_global *mini_s);
 
 #endif

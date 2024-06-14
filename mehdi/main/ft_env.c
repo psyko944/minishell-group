@@ -22,7 +22,7 @@ static char	*get_key(char *line)
 	return (key);
 }
 
-static char	*get_value(char *line)
+char	*get_value(char *line)
 {
 	int		i;
 	int		j;
