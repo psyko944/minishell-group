@@ -6,11 +6,11 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:40 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 14:24:45 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:07:24 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../parser/tokenize/tokenize.h"
+#include <tokenize.h>
 #include <stdio.h>
 
 void	print_ind(int ind)

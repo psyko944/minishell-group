@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:24 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 19:48:03 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:06:29 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenize.h"
-#include "../../libft/libft.h"
+#include <tokenize.h>
+#include <libft.h>
 #include <stdlib.h>
 
 // Inc string todo

@@ -6,12 +6,12 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 11:53:07 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:06:48 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/libft.h"
-#include "ast.h"
+#include <libft.h>
+#include <ast.h>
 #include <stdlib.h>
 
 // Ajouter messages erreur de parsing

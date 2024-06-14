@@ -6,11 +6,11 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:31:02 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/22 15:59:34 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:06:17 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/libft.h"
+#include <libft.h>
 
 int	skip_quote(const char *s)
 {

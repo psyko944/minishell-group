@@ -6,13 +6,13 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:18:22 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 12:22:28 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:05:17 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/libft.h"
-#include "../../minishell.h"
-#include "vars.h"
+#include <libft.h>
+#include <minishell.h>
+#include <vars.h>
 #include <stdlib.h>
 
 static char	*isolate_var(char *s)
@@ -63,8 +63,9 @@ char	*replace_vars(char *s, t_env_var *env)
 		return (NULL);
 	while (temp[i])
 	{
+		//printf("temp[%d]: %s\n", i, temp[i]);
 		temp[i] = get_var(temp[i], env);
 		i += 1;
 	}
-	return (concat_tab(temp));
+	return (remove_quotes(concat_tab(temp)));
 }
