@@ -27,6 +27,7 @@ void    unit_test_mehdi(int ac, char **av, char **envp)
         printf("no env\n");
     mini_s.env = env;
     get_history(&mini_s);
+    pwd_env(&mini_s);
     free_env(&mini_s);
     
     //printf("%s\n", get_pwd());

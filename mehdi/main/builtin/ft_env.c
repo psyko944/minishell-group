@@ -1,4 +1,4 @@
-#include "builtins.h"
+#include "../minishell.h"
 
 static char	*get_key(char *line)
 {
@@ -21,7 +21,7 @@ static char	*get_key(char *line)
 	return (key);
 }
 
-static char	*get_value(char *line)
+char	*get_value(char *line)
 {
 	int		i;
 	int		j;
@@ -63,7 +63,7 @@ void	addback_env(t_env_var **alst, t_env_var *new)
 }
 
 
-static t_env_var *first_node(char *env_line)
+t_env_var *first_node(char *env_line)
 {
     t_env_var   *new;
 
