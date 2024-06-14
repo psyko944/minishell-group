@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   merge_wildcards.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:29:19 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/05 18:56:33 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:27:14 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include <libft.h>
 #include <stdlib.h>
 
 int	tab_len(char **tab)
@@ -28,7 +28,6 @@ char	**merge_wildcards(char **dest, int i, char **merge)
 	int		len1;
 	int		len2;
 	char	**res;
-	int		pos;
 
 	if (!merge || *merge == NULL)
 	{

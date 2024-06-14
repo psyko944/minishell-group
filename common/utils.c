@@ -1,19 +1,27 @@
-#include "parser/tokenize/tokenize.h"
+#include <minishell.h>
 #include <stdlib.h>
-void    free_env(t_env_var **env)
+
+void    free_env(t_global *mini_s)
 {
     t_env_var *tmp;
 
-    tmp = *env;
-    if (!env || !*env)
+    if (mini_s->envp)
+        free_matrix(mini_s->envp);
+    if (!mini_s->env)
         return ;
+    tmp = mini_s->env;
     while (tmp)
     {
         free(tmp->key);
         free(tmp->content);
-        tmp = (*env)->next;
-        free(*env);
-        *env = tmp;
+        tmp = (mini_s->env)->next;
+        free(mini_s->env);
+        mini_s->env = tmp;
     }
-    *env = NULL;
+    mini_s->env = NULL;
+}
+
+void    err_msg(char *msg)
+{
+    ft_putstr_fd(msg, 2);
 }

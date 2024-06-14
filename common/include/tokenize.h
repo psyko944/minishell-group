@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:32:51 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 18:54:21 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:29:58 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,6 @@ typedef struct s_token {
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_env_var
-{
-	char				*key;
-	char				*content;
-	struct s_env_var	*next;
-}	t_env_var;
-
-t_env_var	*get_env(char **envp);
-void		free_env(t_env_var **env);
 t_token		*get_parenthesis(const char **s_ptr);
 t_token		*get_word(const char **s);
 t_token		*new_token(t_token_type type, void *content);

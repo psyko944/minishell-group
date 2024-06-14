@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_tokenize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:40 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 18:07:24 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:36:12 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	print_tokens(t_token *tokens, int ind)
 		else if (tokens->type == SEPARATOR)
 		{
 			print_ind(ind + 1);
-			printf("%s\n", (char *)tokens->content);
+			printf("in sep = %s\n", (char *)tokens->content);
 		}
 		else if (tokens->type == PARENTHESIS)
 		{

@@ -23,6 +23,8 @@ SRCS 		=	$(SRCPATH)ft_tolower.c		\
 				$(SRCPATH)ft_memset.c		\
 				$(SRCPATH)ft_split.c		\
 				$(SRCPATH)ft_strjoin.c		\
+				$(SRCPATH)ft_strjoin2.c		\
+				$(SRCPATH)ft_strjoin3.c		\
 				$(SRCPATH)ft_strcmp.c		\
 				$(SRCPATH)ft_strncmp.c		\
 				$(SRCPATH)ft_calloc.c		\
@@ -49,6 +51,10 @@ SRCS 		=	$(SRCPATH)ft_tolower.c		\
 				$(SRCPATH)ft_realloc.c		\
 				$(SRCPATH)ft_dup_tab.c		\
 				$(SRCPATH)free_tab.c		\
+				$(SRCPATH)ft_matrix.c		\
+				$(SRCPATH)get_next_line.c	\
+				$(SRCPATH)save_history.c	\
+
 
 SRCBONUS	=	$(SRCPATH)ft_lstnew.c		\
 				$(SRCPATH)ft_lstadd_front.c	\

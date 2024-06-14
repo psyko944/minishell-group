@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opener.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:38:17 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 16:28:16 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:29:07 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	open_app(const char *f, t_command *store)
 
 int	open_here(const char *f, t_command *store)
 {
+	(void)f;
 	printf("Heredoc still to do\n");
 	if (store->in)
 		close(store->out);

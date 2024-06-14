@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   in_n_out.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:17:19 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 18:50:00 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:28:39 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "minishell.h"
-#include "libft/libft.h"
+#include <libft.h>
 
 void	print_parse_err(const char *s);
 

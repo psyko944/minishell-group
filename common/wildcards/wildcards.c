@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:06:49 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 18:47:33 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:27:59 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include <libft.h>
 #include <stdbool.h>
 #include <dirent.h>
 #include <stdlib.h>
@@ -66,7 +66,7 @@ static char	**fill_tab(const char *exp, const char *path, char **res)
 	i = 0;
 	dir = opendir(path);
 	if (dir == NULL)
-		return (perror("opendir"), 0);
+		return (perror("opendir"), NULL);
 	entry = readdir(dir);
 	while (entry)
 	{
