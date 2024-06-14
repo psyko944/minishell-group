@@ -6,12 +6,12 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:19:39 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/11 18:34:27 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:03:17 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "../libft/libft.h"
+#include "../../libft/libft.h"
 #include <stdio.h>
 
 static int	get_full_len(char **tab)

@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vars.h                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 19:05:44 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 11:48:25 by arlarzil         ###   ########.fr       */
+/*   Created: 2024/06/14 11:49:45 by arlarzil          #+#    #+#             */
+/*   Updated: 2024/06/14 12:20:09 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VARS_H
-# define VARS_H
-
-# include "../../minishell.h"
-
-char	*replace_vars(char *s, t_env_var *env);
-char	**cut_vars(char *s);
-char	*concat_tab(char **tab);
-
-#endif
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1)
+	{
+		if (*s1 != *s2)
+			break ;
+		++s1;
+		++s2;
+	}
+	return (*s2 - *s1);
+}

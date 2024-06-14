@@ -6,13 +6,13 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 18:52:16 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:52:46 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
 #include "../../libft/libft.h"
-
+#include <stdio.h>
 #include <stdlib.h>
 
 static int	command_sep(const char *s)

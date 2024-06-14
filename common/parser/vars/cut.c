@@ -6,12 +6,12 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:12:12 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/11 18:34:07 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:21:51 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "../libft/libft.h"
+#include "../../minishell.h"
+#include "../../libft/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -22,24 +22,24 @@ static int	var_count(const char *s)
 	res = 0;
 	while (*s)
 	{
-		printf("Word start: %s\n", s);
 		if (*s == '$')
 		{
-			++s;
-			if (*s == '{')
+			if (*(++s) == '{')
 				s = ft_strchr(s, '}');
+			else
+			{
+				while (*s && *s != ' ' && *s != '$')
+					++s;
+			}
 			if (!s)
 				return (-1);
-			while (*s && *s != ' ' && *s != '$')
-				++s;
-			++res;
 		}
 		else
 		{
-			++res;
 			while (*s && *s != '$')
 				++s;
 		}
+		++res;
 	}
 	return (res);
 }
@@ -51,8 +51,10 @@ static int	get_word_len(char *s)
 	i = 1;
 	if (*s == '$')
 	{
+		if (s[i] == '?')
+			return (2);
 		if (s[1] == '{')
-			return (ft_strchr(s, '}') - s);
+			return (ft_strchr(s, '}') - s + 1);
 		while (s[i] && s[i] != ' ' && s[i] != '$')
 			i += 1;
 	}

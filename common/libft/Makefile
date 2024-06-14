@@ -23,6 +23,7 @@ SRCS 		=	$(SRCPATH)ft_tolower.c		\
 				$(SRCPATH)ft_memset.c		\
 				$(SRCPATH)ft_split.c		\
 				$(SRCPATH)ft_strjoin.c		\
+				$(SRCPATH)ft_strcmp.c		\
 				$(SRCPATH)ft_strncmp.c		\
 				$(SRCPATH)ft_calloc.c		\
 				$(SRCPATH)ft_memchr.c		\

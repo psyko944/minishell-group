@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 17:21:12 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:53:07 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ static t_token_type	get_sep_type(char *sep)
 
 void	ast_step(t_token *tokens, t_token **last_op)
 {
-	char	**temp;
-
 	if (tokens->type == SEPARATOR)
 	{
 		tokens->type = get_sep_type(tokens->content);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:18:22 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/12 19:34:54 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:22:28 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*replace_vars(char *s, t_env_var *env)
 	char	**temp;
 	int		i;
 
+	i = 0;
 	temp = cut_vars(s);
 	if (!temp)
 		return (NULL);

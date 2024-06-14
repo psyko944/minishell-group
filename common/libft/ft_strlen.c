@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:46:29 by arlarzil          #+#    #+#             */
-/*   Updated: 2023/11/07 17:23:34 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:13:17 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #define MAGIC1	0x0101010101010101
 #define MAGIC2	0x8080808080808080
-
+/*
 static inline uint8_t	align_ptr(const char *p)
 {
 	const char	*e;
@@ -47,4 +47,15 @@ size_t	ft_strlen(const char *s)
 	if (*e)
 		++e;
 	return (e - s);
+}
+*/
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i += 1;
+	return (i);
 }
