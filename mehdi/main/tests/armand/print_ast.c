@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   print_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:59:53 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 18:45:03 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:36:03 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "../../parser/ast/ast.h"
+#include <ast.h>
 
 void	print_double_tab(const char **s, int ind);
 void	print_ind(int ind);

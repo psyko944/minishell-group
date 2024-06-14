@@ -6,11 +6,11 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:59 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 14:49:07 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:02:14 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <minishell.h>
 
 void	init(void)
 {

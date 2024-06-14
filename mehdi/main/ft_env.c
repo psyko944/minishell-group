@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include <minishell.h>
 #include <stdlib.h>
 
 static char	*get_key(char *line)

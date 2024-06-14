@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   vars.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 10:25:07 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 15:57:30 by mekherbo         ###   ########.fr       */
+/*   Created: 2024/06/12 19:05:44 by arlarzil          #+#    #+#             */
+/*   Updated: 2024/06/14 18:05:30 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
+#ifndef VARS_H
+# define VARS_H
 
-void	ft_putstr_fd(const char *s, int fd)
-{
-	if (s)
-		write(fd, s, ft_strlen(s));
-}
+# include "minishell.h"
+
+char	*replace_vars(char *s, t_env_var *env);
+char	**cut_vars(char *s);
+char	*concat_tab(char **tab);
+char	*remove_quotes(char *s);
+
+#endif

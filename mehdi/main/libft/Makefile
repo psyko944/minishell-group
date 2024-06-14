@@ -41,6 +41,7 @@ SRCS 		=	$(SRCPATH)ft_tolower.c		\
 				$(SRCPATH)ft_putendl_fd.c	\
 				$(SRCPATH)ft_strcpy.c		\
 				$(SRCPATH)ft_strlcpy.c		\
+				$(SRCPATH)ft_dup_tab.c      \
 				$(SRCPATH)ft_strtrim.c		\
 				$(SRCPATH)ft_atoi.c			\
 				$(SRCPATH)ft_puthex_fd.c	\
@@ -51,6 +52,7 @@ SRCS 		=	$(SRCPATH)ft_tolower.c		\
 				$(SRCPATH)ft_strjoin3.c	\
 				$(SRCPATH)get_next_line.c	\
 				$(SRCPATH)save_history.c	\
+				$(SRCPATH)ft_strcmp.c		\
 				
 SRCBONUS	=	$(SRCPATH)ft_lstnew.c		\
 				$(SRCPATH)ft_lstadd_front.c	\

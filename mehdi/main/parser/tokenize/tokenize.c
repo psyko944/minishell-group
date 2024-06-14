@@ -6,12 +6,12 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:31:15 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/22 16:00:01 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:06:08 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenize.h"
-#include "../../libft/libft.h"
+#include <tokenize.h>
+#include <libft.h>
 
 #include <stdlib.h>
 

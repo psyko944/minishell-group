@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 10:25:07 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 15:57:30 by mekherbo         ###   ########.fr       */
+/*   Created: 2024/05/21 13:28:15 by arlarzil          #+#    #+#             */
+/*   Updated: 2024/06/14 18:31:45 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
+#ifndef AST_H
+# define AST_H
 
-void	ft_putstr_fd(const char *s, int fd)
-{
-	if (s)
-		write(fd, s, ft_strlen(s));
-}
+# include <minishell.h>
+# include <tokenize.h>
+
+typedef struct s_ast {
+	t_token_type	type;
+	void			*content;
+	struct s_ast	*l;
+	struct s_ast	*r;
+}	t_ast;
+
+t_ast	*build_ast(t_token *tokens);
+t_ast	*free_ast(t_ast *ast);
+#endif

@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   exec_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 10:25:07 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 15:57:30 by mekherbo         ###   ########.fr       */
+/*   Created: 2024/06/14 16:34:48 by mekherbo          #+#    #+#             */
+/*   Updated: 2024/06/14 17:18:37 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
-
-void	ft_putstr_fd(const char *s, int fd)
+#include "minishell.h"
+void    search_node(t_global *mini_s, t_ast *tree_ast)
 {
-	if (s)
-		write(fd, s, ft_strlen(s));
+    return ;
 }

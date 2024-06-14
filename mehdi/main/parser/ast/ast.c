@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 19:27:24 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:31:07 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/libft.h"
-#include "ast.h"
+#include <libft.h>
+#include <ast.h>
 #include <stdlib.h>
 
 // Ajouter messages erreur de parsing
@@ -25,14 +25,14 @@ int	check_format(t_token *tokens)
 	while (tokens->next)
 	{
 		if (i % 2 && tokens->type != SEPARATOR)
-			return (0);
+			return (print_parse_err(tokens->content), 0);
 		else if (i % 2 == 0 && tokens->type == SEPARATOR)
-			return (0);
+			return (print_parse_err(tokens->content), 0);
 		tokens = tokens->next;
 		++i;
 	}
 	if (tokens->type == SEPARATOR)
-		return (0);
+		return (print_parse_err("newline"), 0);
 	return (1);
 }
 
@@ -43,10 +43,7 @@ t_ast	*free_ast(t_ast *ast)
 	if (ast->type == PARENTHESIS)
 		free_ast(ast->content);
 	else if (ast->type == TEXT)
-	{
-		free(*((char **)ast->content));
-		free(ast->content);
-	}
+		free_matrix(ast->content);
 	else
 	{
 		free_ast(ast->l);
@@ -59,7 +56,7 @@ t_ast	*free_ast(t_ast *ast)
 static t_token_type	get_sep_type(char *sep)
 {
 	const char			*seps[] = {"||", "&&", "|", NULL };
-	const t_token_type	types[] = {N_PIPE, N_AND, N_PIPE};
+	const t_token_type	types[] = {N_OR, N_AND, N_PIPE};
 	int					i;
 
 	i = 0;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cut_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 19:49:56 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:06:36 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
-#include "../../libft/libft.h"
-
+#include <libft.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 static int	command_sep(const char *s)
@@ -109,20 +109,27 @@ char	**cut_command(const char *s, int tot_len)
 {
 	int		len;
 	char	**res;
+	char	**tmp;
 	char	*s2;
 
 	if (!s)
 		return (NULL);
-	s2 = ft_calloc(tot_len + 1, 1);
+	s2 = ft_calloc(tot_len + 2, 1);
 	if (!s2)
 		return (NULL);
 	ft_strncpy(s2, s, tot_len);
 	len = count_args(s2);
-	s2 = ft_realloc(s2, tot_len + len + 1);
+	//printf("%s len: %d, tot len> %d\n", s2, len, tot_len);
+	s2 = ft_realloc(s2, tot_len + len * 2 + 2);
 	res = malloc(sizeof(char *) * (len + 1));
 	if (!s2 || !res)
-		return (free(s2), free(res), NULL);
+		return (perror("malloc"), free(s2), free(res), NULL);
 	add_spaces(s2);
 	fill_tab(s2, res, len);
-	return (res);
+	tmp = ft_dup_tab(res);
+	free(res);
+	free(s2);
+	if (!tmp)
+		perror("malloc");
+	return (tmp);
 }

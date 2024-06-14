@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include <minishell.h>
 
 static int  check_dir(char *path)
 {

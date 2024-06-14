@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   run_wildcards.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 10:25:07 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 15:57:30 by mekherbo         ###   ########.fr       */
+/*   Created: 2024/06/05 18:50:07 by arlarzil          #+#    #+#             */
+/*   Updated: 2024/06/14 18:34:00 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
+#include <libft.h>
 
-void	ft_putstr_fd(const char *s, int fd)
+char	**merge_wildcards(char **dest, int i, char **merge);
+char	**get_matches(const char *exp, const char *path);
+
+char	**run_wildcards(char **a, char *path)
 {
-	if (s)
-		write(fd, s, ft_strlen(s));
+	char	**res;
+	int		i;
+
+	res = a;
+	i = 0;
+	while (res[i])
+	{
+		if (ft_strchr(res[i], '*'))
+			res = merge_wildcards(res, i, get_matches(res[i], path));
+		++i;
+	}
+	return (res);
 }

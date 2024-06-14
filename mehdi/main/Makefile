@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/06/14 14:44:50 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/06/14 18:37:48 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,23 @@ parser/tokenize/get_token.c \
 parser/tokenize/new_token.c \
 parser/tokenize/quotes.c \
 parser/tokenize/tokenize.c \
+parser/vars/concat.c \
+parser/vars/cut.c \
+parser/vars/replace.c \
+parser/vars/remove_quotes.c \
+wildcards/merge_wildcards.c \
+wildcards/run_wildcards.c \
+wildcards/wildcards.c \
+in_n_out.c \
+opener.c \
+parser/print_parse_err.c \
 tests/unit_test_main.c \
 tests/unit_test_mehdi.c \
 tests/unit_tests_armand.c \
 tests/armand/print_ast.c \
 tests/armand/test_tokenize.c \
 builtin/pwd_env.c \
-builtin/cd.c
+builtin/cd.c \
 
 # colors
 

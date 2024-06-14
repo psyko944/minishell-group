@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include <minishell.h>
 
 static char *check_history_name(t_global *mini_s)
 {

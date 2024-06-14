@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_dup_tab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 10:25:07 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 15:57:30 by mekherbo         ###   ########.fr       */
+/*   Created: 2024/06/12 16:45:35 by arlarzil          #+#    #+#             */
+/*   Updated: 2024/06/12 18:50:34 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
-#include <unistd.h>
 
-void	ft_putstr_fd(const char *s, int fd)
+char	**ft_dup_tab(char **tab)
 {
-	if (s)
-		write(fd, s, ft_strlen(s));
+	int		i;
+	char	**res;
+
+	i = 0;
+	while (tab[i])
+		++i;
+	res = ft_calloc(i + 1, sizeof(char *));
+	if (!tab)
+		return (NULL);
+	i = 0;
+	while (tab[i])
+	{
+		res[i] = ft_strdup(tab[i]);
+		i += 1;
+	}
+	return (res);
 }

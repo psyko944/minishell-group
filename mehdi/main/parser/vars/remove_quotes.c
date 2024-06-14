@@ -1,26 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes.c                                           :+:      :+:    :+:   */
+/*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 13:31:02 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 18:06:17 by arlarzil         ###   ########.fr       */
+/*   Created: 2024/06/14 16:44:10 by arlarzil          #+#    #+#             */
+/*   Updated: 2024/06/14 17:52:32 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-
-int	skip_quote(const char *s)
+char	*remove_quotes(char *s)
 {
-	char		c;
-	const char	*s2;
+	int		i;
+	int		step;
+	char	quote;
 
-	c = *s;
-	s += 1;
-	s2 = ft_strchr(s, c);
-	if (!s2)
-		return (-1);
-	return (s2 - s + 2);
+	step = 0;
+	i = 0;
+	// printf("quote: %s\n", s);
+	while (s[i + step])
+	{
+		if (s[i + step] == '\'' || s[i + step] == '"')
+		{
+			quote = s[i + step];
+			step += 1;
+			while (s[i + step] && s[i + step] != quote)
+			{
+				s[i] = s[i + step];
+				++i;
+			}
+			step += 1;
+		}
+		else
+			i += 1;
+	}
+	s[i] = 0;
+	return (s);
 }

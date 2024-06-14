@@ -6,11 +6,11 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:43:08 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/14 15:06:49 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:05:52 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include <minishell.h>
 
 static void		replace_pwd(t_global *mini_s, char *pwd)
 {

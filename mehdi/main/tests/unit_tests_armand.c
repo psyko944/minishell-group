@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   unit_tests_armand.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:54:42 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 19:25:49 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:01:14 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parser/ast/ast.h"
+#include <ast.h>
 #include <stdio.h>
 
 void	print_tokens(t_token *tokens, int ind);
@@ -22,7 +22,7 @@ void	unit_tests_armand(int ac, char **av, char **envp)
 {
 	t_token	*tok;
 	t_ast	*ast_tree;
-
+	
 	printf("--- Testing: %s ---\n", av[ac - 1]);
 	(void)envp;
 	printf("-- Tokens --\n");
