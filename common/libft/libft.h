@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:36:34 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 19:44:51 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:46:52 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 // Extra
 char	**ft_dup_tab(char **tab);
 void	free_tab(char **tab);
+char	**merge_tabs(char **a, char **b);
+int		tab_size(char **a);
+char	**tab_add_back(char **tab, char *elem);
+
 #endif

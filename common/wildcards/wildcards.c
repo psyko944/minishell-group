@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:06:49 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 19:27:59 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:49:55 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,31 @@ char	**get_matches(const char *exp, const char *path)
 	if (!res)
 		return (perror("malloc"), NULL);
 	res = fill_tab(exp, path, res);
+	return (res);
+}
+
+char	**fill_wild_tab(char **base, const char *path)
+{
+	char	**temp;
+	char	**res;
+
+	res = NULL;
+	while (*base)
+	{
+		if (ft_strchr(*base, '*'))
+		{
+			temp = get_matches(*base, path);
+			if (!temp)
+				return (free_tab(res), NULL);
+			if (!res)
+				res = temp;
+			else
+				res = merge_tabs(res, temp);
+			free(*base);
+		}
+		else
+			res = tab_add_back(res, *base);
+		++base;
+	}
 	return (res);
 }

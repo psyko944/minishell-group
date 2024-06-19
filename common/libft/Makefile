@@ -54,6 +54,9 @@ SRCS 		=	$(SRCPATH)ft_tolower.c		\
 				$(SRCPATH)ft_matrix.c		\
 				$(SRCPATH)get_next_line.c	\
 				$(SRCPATH)save_history.c	\
+				$(SRCPATH)merge_tabs.c		\
+				$(SRCPATH)tab_size.c		\
+				$(SRCPATH)tab_add_back.c	\
 
 
 SRCBONUS	=	$(SRCPATH)ft_lstnew.c		\
