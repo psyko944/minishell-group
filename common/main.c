@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 19:55:33 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:13:30 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_env_var *env)
 	}
 }
 
-static int	handle_command(char *command, int *exit_cmd, t_env_var *env)
+static int	handle_command(char *command, int *exit_cmd, t_global *env)
 {
 	t_ast	*ast_tree;
 
@@ -109,23 +109,23 @@ int	main(int ac, char **av, char **envp)
 {
 	char		*command;
 	int			exit_cmd;
-	t_env_var	*env;
+	t_global	env;
 	int			status;
 
-	env = get_env(envp);
+	env.env = get_env(&env, envp);
 	exit_cmd = 1;
 	status = 0;
 	while (exit_cmd)
 	{
 		command = readline("$> ");
 		if (command)
-			handle_command(ft_strdup(command), &exit_cmd, env);
+			handle_command(ft_strdup(command), &exit_cmd, &env);
 		else
 			break ;
 		add_history(command);
 	}
 	rl_clear_history();
-	exit_cmd = ft_atoi(env->content);
+	exit_cmd = ft_atoi(env.env->content);
 	// free_env(env);
 	return (exit_cmd);
 }
