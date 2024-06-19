@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/19 17:13:30 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:00:42 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@
 char	*replace_vars(char *s, t_env_var *env);
 int	get_files(char **command, t_command *storage);
 
-static void	ph_execve_and_co(char **tab)
-{
-	while (*tab)
-	{
-		printf("%s\n", *tab);
-		free(tab);
-		++tab;
-	}
-}
+// static void	ph_execve_and_co(char **tab)
+// {
+// 	while (*tab)
+// 	{
+// 		printf("%s\n", *tab);
+// 		free(tab);
+// 		++tab;
+// 	}
+// }
 
-static int	ph_exec_node(t_ast *node, t_env_var *env)
+static int	ph_exec_node(t_ast *node, t_global *env)
 {
 	t_command	command;
 	int			i;
@@ -47,7 +47,7 @@ static int	ph_exec_node(t_ast *node, t_env_var *env)
 	printf("We're running: ");
 	while (command.tab[i])
 	{
-		command.tab[i] = replace_vars(command.tab[i], env);
+		command.tab[i] = replace_vars(command.tab[i], env->env);
 		// get_matches(command.tab, ".");
 		i += 1;
 	}
@@ -70,10 +70,11 @@ static int	culnode(void)
 	return (1);
 }
 
-static int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_env_var *env)
+static int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 {
 	int	status;
-
+	if (!tree)
+		return (0);
 	while (1)
 	{
 		if (tree->type == TEXT)
@@ -91,6 +92,7 @@ static int	handle_command(char *command, int *exit_cmd, t_global *env)
 {
 	t_ast	*ast_tree;
 
+	ast_tree = NULL;
 	if (!command)
 		*exit_cmd = 0;
 	else
@@ -112,6 +114,8 @@ int	main(int ac, char **av, char **envp)
 	t_global	env;
 	int			status;
 
+	(void)ac;
+	(void)av;
 	env.env = get_env(&env, envp);
 	exit_cmd = 1;
 	status = 0;
