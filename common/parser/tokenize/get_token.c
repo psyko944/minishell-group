@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:24 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 18:06:29 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:08:06 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,27 @@ size_t	is_sep(const char	*s)
 	return (0);
 }
 
+int	get_sub_tok_count(const char *s)
+{
+	int	len;
+	int	step;
+
+	len = 0;
+	step = 0;
+	while (*s && !is_sep(s))
+	{
+		if (*s == '\'' || *s == '"')
+			step = skip_quote(s);
+		else
+			step = 1;
+		if (step == -1)
+			return (-1);
+		len += step;
+		s += step;
+	}
+	return (len);
+}
+
 t_token	*get_word(const char **s)
 {
 	const char	*s2;
@@ -91,16 +112,6 @@ t_token	*get_word(const char **s)
 		*s += step;
 		return (new_token(SEPARATOR, ft_strndup_e(s2, step)));
 	}
-	while (**s && !is_sep(*s))
-	{
-		if (**s == '\'' || **s == '"')
-			step = skip_quote(*s);
-		else
-			step = 1;
-		if (step == -1)
-			return (NULL);
-		len += step;
-		*s += step;
-	}
-	return (new_token(TEXT, cut_command(s2, len)));
+	*s += get_sub_tok_count(s2);
+	return (new_token(TEXT, (void *)s2));//cut_command(s2, len)));
 }

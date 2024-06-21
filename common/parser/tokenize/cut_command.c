@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 20:03:30 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:03:33 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	**cut_command(const char *s, int tot_len)
 	char	**tmp;
 	char	*s2;
 
-	if (!s)
+	if (!s || tot_len < 0)
 		return (NULL);
 	s2 = ft_calloc(tot_len + 2, 1);
 	if (!s2)
