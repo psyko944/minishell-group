@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/06/19 21:02:57 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/06/21 19:45:50 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,11 @@ builtin/cd.c \
 exec/get_cmd.c \
 exec/exec_cmd.c \
 env_utils.c \
+init/shlvl.c \
+builtin/unset.c \
+builtin/export.c \
+builtin/parse_builtins.c\
+builtin/echo.c \
 main.c
 # tests/unit_test_main.c \
 # tests/unit_test_mehdi.c \
@@ -97,6 +102,7 @@ fclean: clean
 	@echo "$(CYAN)$(NAME) have been deleted$(DEF_COLOR)"
 
 re: fclean all
+	@$(MAKE) -C $(LIBFT_DIR) re
 	@echo "$(GREEN)Cleaned and rebuilt everything for minishell!$(DEF_COLOR)"
 
 .PHONY: all clean fclean re libft

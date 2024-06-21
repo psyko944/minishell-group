@@ -1,66 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd_env.c                                          :+:      :+:    :+:   */
+/*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/14 14:43:08 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/21 19:22:43 by mekherbo         ###   ########.fr       */
+/*   Created: 2024/06/20 18:11:55 by mekherbo          #+#    #+#             */
+/*   Updated: 2024/06/20 19:08:14 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	print_pwd(void)
-{
-	char	*pwd;
-
-	pwd = get_pwd();
-	if (pwd)
-	{
-		printf("%s\n", pwd);
-		free(pwd);
-	}
-}
-
-static void	replace_pwd(t_global *mini_s, char *pwd)
+static void	replace_shlvl(t_env_var *env, int shlvl)
 {
 	t_env_var	*tmp;
 	int			n;
+	char		*tmp_s;
 
 	n = 0;
-	tmp = mini_s->env;
+	tmp = env;
 	while (tmp)
 	{
-		if (!ft_strncmp("PWD", tmp->key, 3))
+		if (!ft_strncmp(tmp->key, "SHLVL", 5))
 		{
 			free(tmp->content);
-			tmp->content = get_value(pwd);
+			tmp->content = ft_itoa(shlvl);
 			n = 1;
 		}
 		tmp = tmp->next;
 	}
 	if (!n)
-		addback_env(&mini_s->env, first_node(pwd));
+	{
+		tmp_s = ft_itoa(shlvl);
+		addback_env(&env, first_node(ft_strjoin("SHLVL=", tmp_s)));
+		free(tmp);
+	}
 }
 
-void	pwd_env(t_global *mini_s)
+void	get_shlvl(t_global *mini_s)
 {
-	char	*pwd;
-	char	*tmp;
-
-	pwd = get_pwd();
-	tmp = NULL;
-	if (!pwd)
-		perror("PWD error");
-	else
-	{
-		tmp = ft_strjoin("PWD=", pwd);
-		free(pwd);
-	}
-	if (!tmp)
-		perror("PWD error");
-	replace_pwd(mini_s, tmp);
-	free(tmp);
+	if (getenv("SHLVL"))
+		mini_s->shlvl = ft_atoi(getenv("SHLVL"));
+	if (mini_s->shlvl)
+		replace_shlvl(mini_s->env, mini_s->shlvl);
 }

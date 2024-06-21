@@ -7,12 +7,6 @@
 # include <stdbool.h>
 # include "libft/libft.h"
 
-typedef struct s_env_var
-{
-	char				*key;
-	char				*content;
-	struct s_env_var	*next;
-}	t_env_var;
 
 t_env_var *get_env(char **envp);
 void mini_echo(int ac, char **av);

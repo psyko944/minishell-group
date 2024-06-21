@@ -1,37 +1,50 @@
-#include "builtins.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 01:37:32 by mekherbo          #+#    #+#             */
+/*   Updated: 2024/06/21 19:46:22 by mekherbo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static bool check_option(char *cmd)
+#include <minishell.h> 
+
+static bool	check_option(char *cmd)
 {
-    int i;
+	int	i;
 
-    if (*cmd != '-')
-        return (false);
-    i = 1;
-    while (cmd[i] == 'n')
-        i++;
-    if (!cmd[i])
-        return (true);
-    return (false);
+	if (*cmd != '-')
+		return (false);
+	i = 1;
+	while (cmd[i] == 'n')
+		i++;
+	if (!cmd[i])
+		return (true);
+	return (false);
 }
 
-void mini_echo(int ac, char **av)
+void	mini_echo(t_global *mini_s, char **tab)
 {
-    int i;
-    bool n_line;
+	int		i;
+	bool	n_line;
 
-    n_line = true;
-    i = 1;
-    while (av[i] && check_option(av[i]))
-    {
-        n_line = false;
-        i++;
-    }
-    while (av[i])
-    {
-        printf("%s", av[i++]);
-        if (i < ac)
-            printf(" ");
-    }
-    if (n_line)
-        printf("\n");
+	(void)mini_s;
+	n_line = true;
+	i = 1;
+	while (tab[i] && check_option(tab[i]))
+	{
+		n_line = false;
+		i++;
+	}
+	while (tab[i])
+	{
+		printf("%s", tab[i++]);
+		if (tab[i + 1])
+			printf(" ");
+	}
+	if (n_line)
+		printf("\n");
 }
