@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 19:47:48 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:12:45 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_global
 {
     t_env_var	*env;
 	char		**envp;	
+	int			last_pid;
 }   t_global;
 
 typedef struct s_command {
@@ -87,6 +88,10 @@ int	open_app(const char *f, t_command *store);
 int	open_in(const char *f, t_command *store);
 int	open_out(const char *f, t_command *store);
 
+char    **fill_wild_tab(char **base, const char *path);
+char	*get_cmd(char *cmd, char **envp);
+void	cmd_runtime(t_command *cmd, t_global *env);
 void    err_msg(char *msg);
+void    status_env(t_env_var **env, int exit_status);
 // exec functions
 #endif

@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/06/19 17:18:48 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/06/19 21:02:57 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,9 @@ opener.c \
 parser/print_parse_err.c \
 builtin/pwd_env.c \
 builtin/cd.c \
+exec/get_cmd.c \
+exec/exec_cmd.c \
+env_utils.c \
 main.c
 # tests/unit_test_main.c \
 # tests/unit_test_mehdi.c \

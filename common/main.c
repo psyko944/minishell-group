@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/19 18:00:42 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:12:00 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@ int	get_files(char **command, t_command *storage);
 // 	}
 // }
 
+static void print_env(t_env_var *lst)
+{
+    t_env_var *tmp;
+
+	tmp = lst;
+	while (tmp)
+	{
+		if (tmp->content != NULL && tmp->key) 
+			printf("%s=%s\n", tmp->key, tmp->content);
+		tmp = tmp->next;
+    }
+}
+
 static int	ph_exec_node(t_ast *node, t_global *env)
 {
 	t_command	command;
@@ -48,9 +61,10 @@ static int	ph_exec_node(t_ast *node, t_global *env)
 	while (command.tab[i])
 	{
 		command.tab[i] = replace_vars(command.tab[i], env->env);
-		// get_matches(command.tab, ".");
 		i += 1;
 	}
+	command.tab = fill_wild_tab(command.tab, ".");
+	node->content = command.tab;
 	i = 0;
 	s = get_files(command.tab, &command);
 	if (s == 0)
@@ -61,6 +75,7 @@ static int	ph_exec_node(t_ast *node, t_global *env)
 		i += 1;
 	}
 	printf("with fds %d %d\n", command.in, command.out);
+	//cmd_runtime(&command, env);
 	return (0);
 }
 
@@ -98,12 +113,12 @@ static int	handle_command(char *command, int *exit_cmd, t_global *env)
 	else
 	{
 		ast_tree = build_ast(tokenize(command));
+		if (!ast_tree)
+			__builtin_printf("PAAARSE\n");
 		ph_exec_tree(ast_tree, exit_cmd, env);
 		free_ast(ast_tree);
 		free(command);
 	}
-	if (!ast_tree)
-		__builtin_printf("PAAARSE\n");
 	return (1);
 }
 
@@ -119,6 +134,8 @@ int	main(int ac, char **av, char **envp)
 	env.env = get_env(&env, envp);
 	exit_cmd = 1;
 	status = 0;
+	status_env(&env.env, status);
+	print_env(env.env);
 	while (exit_cmd)
 	{
 		command = readline("$> ");
