@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opener.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:38:17 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 19:29:07 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:35:10 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	open_app(const char *f, t_command *store)
 
 	if (store->out)
 		close(store->out);
-	fd = open(f, O_APPEND | O_CREAT);
+	fd = open(f, O_APPEND | O_CREAT, 0644);
 	if (fd < 0)
 	{
 		perror(f);
@@ -47,7 +47,7 @@ int	open_out(const char *f, t_command *store)
 
 	if (store->out)
 		close(store->out);
-	fd = open(f, O_WRONLY | O_CREAT | O_TRUNC);
+	fd = open(f, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
 		perror(f);
