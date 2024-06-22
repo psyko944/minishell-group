@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/21 20:19:41 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/22 23:28:06 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int	main(int ac, char **av, char **envp)
 	int			exit_cmd;
 	t_global	env;
 	int			status;
+	int			fd;
 
 	(void)ac;
 	(void)av;
@@ -149,6 +150,7 @@ int	main(int ac, char **av, char **envp)
 	status = 0;
 	env.shlvl = 1;
 	status_env(&env.env, status);
+	fd = get_history(&env);
 	while (exit_cmd)
 	{
 		command = readline("$> ");
@@ -160,10 +162,12 @@ int	main(int ac, char **av, char **envp)
 		else
 			break ;
 		add_history(command);
+		ft_append_history(command, fd);
 		get_shlvl(&env);
 	}
 	rl_clear_history();
 	exit_cmd = ft_atoi(env.env->content);
-	// free_env(env);
+	free_env(&env);
+	close(fd);
 	return (exit_cmd);
 }

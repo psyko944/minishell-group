@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/21 20:02:52 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/22 23:35:58 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define COMMAND_NOT_FOUND 127
 # define COMMAND_SIGINT 130
 # define COMMAND_SIGQUIT 131
-# define HISTORY_NAME ".ValhallaShell"
+# define HISTORY_NAME "ValhallaShell"
 
 typedef struct s_env_var
 {
@@ -63,7 +63,8 @@ typedef struct s_command {
 
 void	init_signals(void);
 void	init(void);
-void    get_history(t_global *mini_s);
+int    	get_history(t_global *mini_s);
+void	ft_append_history(char *cmd, int fd);
 
 
 // env functions

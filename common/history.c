@@ -6,11 +6,16 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:09:23 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/20 19:11:18 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/23 00:37:47 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	ft_append_history(char *cmd, int fd)
+{
+	ft_putendl_fd(cmd, fd);
+}
 
 static char	*check_history_name(t_global *mini_s)
 {
@@ -26,7 +31,7 @@ static char	*check_history_name(t_global *mini_s)
 	return (NULL);
 }
 
-void	get_history(t_global *mini_s)
+int	get_history(t_global *mini_s)
 {
 	char	*history_filename;
 	char	*save_history;
@@ -36,19 +41,20 @@ void	get_history(t_global *mini_s)
 	{
 		history_filename = check_history_name(mini_s);
 		if (!history_filename)
-			return ;
+			return (-1);
 	}
 	history_filename = ft_strjoin3(history_filename, "/.", HISTORY_NAME);
 	if (!history_filename)
-		return ;
-	fd = open(history_filename, O_RDONLY);
+		return (-1);
+	fd = open(history_filename, O_CREAT | O_RDWR | O_APPEND, 0600);
 	if (fd == -1)
-		return (free(history_filename));
-	close(fd);
+		return (free(history_filename), fd);
 	save_history = line_no_nl(fd);
-	while ((save_history))
+	while (save_history)
 	{
 		add_history(save_history);
 		free(save_history);
+		save_history = line_no_nl(fd);
 	}
+	return (fd);
 }
