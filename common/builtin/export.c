@@ -6,13 +6,13 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:47:04 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/23 00:59:55 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/24 02:33:18 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static bool parse_key(char *value)
+static bool parse_key(char *value, int *join)
 {
 	int i;
 	char *line;
@@ -28,7 +28,10 @@ static bool parse_key(char *value)
 		if (!ft_isalnum(line[i]) && line[i] != '_')
 			return (free(line), false);
 		if (line[i] == '+' && !line[i + 1])
+		{
+			*join = 1;
 			break;
+		}
 	}
 	return (free(line), true);
 }
@@ -53,23 +56,35 @@ static bool parse_value(char *value)
 
 static void parse_export(t_env_var *env, char *value)
 {
-	if (!parse_key(value) || !parse_value(value))
+	int	 join;
+	char	*key;
+
+	join = 0;
+	key = NULL;
+	if (!parse_key(value, &join) || !parse_value(value))
 		return ;
-	addback_env(&env, first_node(value));
+	if (join)
+		concat_env(&env, value);
+	else
+	{
+		key = get_key(value);
+		if (search_in_env(env, key))
+			replace_env(env, value);
+		else
+			addback_env(&env, first_node(value));
+		free(key);
+	}
 }
-// static void check_back()
 
 void print_export_env(t_env_var *env)
 {
-	size_t i;
 	t_env_var *tmp;
 
 	tmp = env;
-	i = 0;
 	while (tmp)
 	{
 		if (tmp->content != NULL && ft_strncmp(tmp->key, "?", 1))
-			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->content);
+			printf("declare -x %s=\%s\n", tmp->key, tmp->content);
 		else
 			printf("declare -x %s=''\n", tmp->key);
 		tmp = tmp->next;

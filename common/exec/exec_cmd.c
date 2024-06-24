@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/21 20:24:02 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/24 03:55:12 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 
 	if (parse_builtins(env, cmd))
 		return ;
+	fprintf(stderr, "test\n");
 	if (cmd->in)
 		dup2(cmd->in, STDIN_FILENO);
 	if (pipe(fd) == -1)

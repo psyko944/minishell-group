@@ -6,12 +6,26 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:12:48 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/20 19:13:21 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/24 02:02:33 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <stdlib.h>
+
+int	search_in_env(t_env_var *env, char *key)
+{
+	t_env_var *tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->key, key, ft_strlen(tmp->key)))
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
 
 void	free_env(t_global *mini_s)
 {
