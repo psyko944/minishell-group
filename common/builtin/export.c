@@ -6,16 +6,16 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:47:04 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/24 02:33:18 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:19:15 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static bool parse_key(char *value, int *join)
+static bool	parse_key(char *value, int *join)
 {
-	int i;
-	char *line;
+	int		i;
+	char	*line;
 
 	i = 0;
 	line = get_key(value);
@@ -30,16 +30,16 @@ static bool parse_key(char *value, int *join)
 		if (line[i] == '+' && !line[i + 1])
 		{
 			*join = 1;
-			break;
+			break ;
 		}
 	}
 	return (free(line), true);
 }
 
-static bool parse_value(char *value)
+static bool	parse_value(char *value)
 {
-	int i;
-	char *line;
+	int		i;
+	char	*line;
 
 	i = -1;
 	line = get_value(value);
@@ -54,9 +54,9 @@ static bool parse_value(char *value)
 	return (true);
 }
 
-static void parse_export(t_env_var *env, char *value)
+static void	parse_export(t_env_var *env, char *value)
 {
-	int	 join;
+	int		join;
 	char	*key;
 
 	join = 0;
@@ -76,9 +76,9 @@ static void parse_export(t_env_var *env, char *value)
 	}
 }
 
-void print_export_env(t_env_var *env)
+void	print_export_env(t_env_var *env)
 {
-	t_env_var *tmp;
+	t_env_var	*tmp;
 
 	tmp = env;
 	while (tmp)
@@ -91,16 +91,16 @@ void print_export_env(t_env_var *env)
 	}
 }
 
-void ft_export(t_global *mini_s, char **tab)
+void	ft_export(t_global *mini_s, char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!tab[1])
 	{
 		print_export_env(mini_s->env);
-		return;
+		return ;
 	}
-	 while (tab[++i])
+	while (tab[++i])
 		parse_export(mini_s->env, tab[i]);
 }

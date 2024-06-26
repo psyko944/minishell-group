@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:14:22 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/24 02:03:28 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:04:46 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static void	addfront_env(t_env_var **env, t_env_var *new)
 
 void	concat_env(t_env_var **env, char *value)
 {
-	t_env_var *tmp;
-	char	*key;
-	char	*concat;
+	t_env_var	*tmp;
+	char		*key;
+	char		*concat;
 
 	key = get_key(value);
 	concat = get_value(value);
@@ -38,6 +38,7 @@ void	concat_env(t_env_var **env, char *value)
 	}
 	free(concat);
 }
+
 void	status_env(t_env_var **env, int status)
 {
 	char	*str_status;
@@ -56,7 +57,7 @@ void	status_env(t_env_var **env, int status)
 
 void	replace_env(t_env_var *env, char *value)
 {
-	t_env_var *tmp;
+	t_env_var	*tmp;
 	char		*key;
 	char		*content;
 

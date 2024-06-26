@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/22 23:28:06 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:30:42 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ static int    ph_exec_node(t_ast *node, t_global *env)
     printf("We're running: ");
     if (get_files(command.tab, &command) == 0)
         return (printf("caca\n"), 0);
+	
     i = 0;
+    node->content = command.tab;
     while (command.tab[i])
     {
         printf("[%s] ", command.tab[i]);

@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:09:23 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/23 00:37:47 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:00:06 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ int	get_history(t_global *mini_s)
 		free(save_history);
 		save_history = line_no_nl(fd);
 	}
-	return (fd);
+	return (free(history_filename), fd);
 }
