@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <armand.larzilliere@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/21 17:55:59 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/27 20:32:57 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_ast	*free_ast(t_ast *ast)
 		return (NULL);
 	if (ast->type == PARENTHESIS)
 		free_ast(ast->content);
-	else if (ast->type == TEXT)
+	else if (ast->type == COMMAND)
 		free_tab(ast->content);
 	else
 	{
