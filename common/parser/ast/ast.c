@@ -6,7 +6,7 @@
 /*   By: arlarzil <armand.larzilliere@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/27 20:32:57 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:56:38 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ int	check_format(t_token *tokens)
 
 t_ast	*free_ast(t_ast *ast)
 {
+	printf("Freeind %p\n", ast);
 	if (!ast)
 		return (NULL);
 	if (ast->type == PARENTHESIS)
 		free_ast(ast->content);
 	else if (ast->type == COMMAND)
 		free_tab(ast->content);
-	else
+	else if (ast->type & (N_AND | N_OR | N_PIPE))
 	{
 		free_ast(ast->l);
 		free_ast(ast->r);
