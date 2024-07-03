@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/03 02:52:29 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/03 20:47:49 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,48 +93,18 @@ static int    ph_exec_node(t_ast *node, t_global *env)
     return (0);
 }
 
-static char *cut_content(char *content, int i)
+ static void exec_pipe(t_ast *tree, int *exit_cmd, t_global *mini_s)
 {
-	char *new_str;
-	int	j;
-
-	j = -1;
-	new_str = malloc(sizeof(char) * i);
-	if (!new_str)
-		return (NULL);
-	while(content[++j] && j < i - 1)
-		new_str[j] = content[j];
-	new_str[j] = 0;
-	//free(content);
-	return (new_str);
-}
-
-static char *parse_pipe(char *content)
-{
-	char	*before_pipe;
-	int		i;
-
-	i = -1;
-	before_pipe = NULL;
-	while (content[++i])
-	{
-		if (content[i] == '|')
-		{
-			before_pipe = cut_content(content, i);
-			if (before_pipe)
-				return (before_pipe);
-		}
-	}
-	return (content);
-}
- static int exec_pipe(t_ast *tree, int *exit_cmd, t_global *mini_s)
-{
-		mini_s->pipe = true;
-		tree->l->content = parse_pipe(tree->l->content);
-		ph_exec_tree(tree->l, exit_cmd, mini_s);
-		mini_s->pipe = false;
-		ph_exec_tree(tree->r, exit_cmd, mini_s);
-		return (printf(0));
+		ft_putstr_fd("loop nb\n", 2);
+		if (mini_s->count_pipe == 0)
+			mini_s->count_pipe = true;
+		mini_s->count_pipe++;
+		if (mini_s->count_pipe == 1)
+			ph_exec_tree(tree->l, exit_cmd, mini_s);
+		else
+			return ;
+		//	ph_exec_tree(tree->r, exit_cmd, mini_s);
+		//else
 }
 
 int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
@@ -146,6 +116,7 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 	{
 		if (tree->type == TEXT)
 		{
+			fprintf(stderr, "dada\n");
 			return (ph_exec_node(tree, env));
 		}
 		else if (tree->type == PARENTHESIS)
@@ -156,8 +127,7 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 			return (ph_exec_tree(tree->r, exit_cmd, env));
 		}
 		else if (tree->type == N_PIPE)
-			return exec_pipe(tree, exit_cmd, env);
-			//return (ph_exec_tree(tree->r, exit_cmd, env));
+			exec_pipe(tree, exit_cmd, env);
 		else if (tree->type == N_OR)
 		{
 			ph_exec_tree(tree->l, exit_cmd, env);

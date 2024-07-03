@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/03 02:59:43 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:32:18 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	exec_cmd(t_command *cmd, t_global *env)
 		if (cmd->tab[0])
 			ft_putstr_fd(cmd->tab[0], STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-		status_env(&env->env, COMMAND_NOT_FOUND);
+		exit(COMMAND_NOT_FOUND);
 	}
 	else
 	{
@@ -33,7 +33,6 @@ static void	exec_cmd(t_command *cmd, t_global *env)
 		}
 		exit(EXIT_FAILURE);
 	}
-	exit(ft_atoi(env->env->content));
 }
 
 void	cmd_runtime(t_command *cmd, t_global *env)
@@ -69,7 +68,11 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 	else
 	{
 		if (env->pipe)
+		{
+			fprintf(stderr, "pipe\n");
 			dup2(fd[0], STDIN_FILENO);
+		}
+		env->pipe = false;
 		close(fd[0]);
 		close(fd[1]);
 		wait(NULL);

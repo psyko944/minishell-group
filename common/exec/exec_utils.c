@@ -10,7 +10,7 @@ int wait_status(t_global *mini_s)
 		mini_s->pid = wait(&mini_s->wstatus);
 		if (mini_s->pid == -1)
 			break ;
-		if (WIFSIGNALED(mini_s->wstatus) && WTERMSIG(mini_s->wstatus))
+		if ((WIFSIGNALED(mini_s->wstatus) && WTERMSIG(mini_s->wstatus))
 			+ SIGINT && !nl && ++ nl)
 			ft_putstr_fd("\n", 2)
 		if (mini_s->pid != mini_s->last_pid)
