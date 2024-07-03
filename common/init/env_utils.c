@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:14:22 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/25 19:04:46 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/03 02:41:46 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,20 @@ void	status_env(t_env_var **env, int status)
 	str_status = ft_itoa(status);
 	if (!str_status)
 		return ;
-	tmp = ft_strjoin("?=", str_status);
-	free(str_status);
-	if (!tmp)
-		return ;
-	addfront_env(env, first_node(tmp));
-	free(tmp);
+	if (search_in_env(*env, "?"))
+	{
+		free((*env)->content);
+		(*env)->content = str_status;
+	}
+	else
+	{
+		tmp = ft_strjoin("?=", str_status);
+		free(str_status);
+		if (!tmp)
+			return ;
+		addfront_env(env, first_node(tmp));
+		free(tmp);
+	}
 }
 
 void	replace_env(t_env_var *env, char *value)

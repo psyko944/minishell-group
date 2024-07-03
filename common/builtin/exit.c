@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 03:43:41 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/25 19:17:37 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:55:40 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_exit(t_global *mini_s, char **cmd)
 {
 	long long	exit_status;
 
-	(void)mini_s;
+	//(free_env(mini_s), exit(EXIT_FAILURE));
 	exit_status = 0;
 	printf("exit\n");
 	if (cmd[1])
@@ -58,8 +58,13 @@ void	ft_exit(t_global *mini_s, char **cmd)
 		else if (cmd[2] && is_numeric(cmd[1], &exit_status))
 			(ft_putstr_fd("exit: too many arguments\n", 2));
 		else
-			exit(exit_status % 256);
+			(free_env(mini_s), exit(exit_status % 256));
 	}
 	else
-		exit(ft_atoi(mini_s->env->content));
+	{
+		rl_clear_history();
+		exit_status = ft_atoi(mini_s->env->content);
+		free_env(mini_s);
+		exit(exit_status);
+	}
 }

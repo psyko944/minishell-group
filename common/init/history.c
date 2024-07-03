@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:09:23 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/25 19:00:06 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:31:23 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*check_history_name(t_global *mini_s)
 	while (tmp && ft_strncmp("HOME", tmp->key, 4))
 		tmp = tmp->next;
 	if (tmp && tmp->content)
-		return (tmp->content);
+		return (ft_strdup(tmp->content));
 	return (NULL);
 }
 

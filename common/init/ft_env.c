@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:16:02 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/21 16:15:32 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:59:46 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ t_env_var	*get_env(t_global *mini_s, char **envp)
 	if ((!envp) || (!envp[0][0]))
 		return (NULL);
 	i = 0;
-	(void)mini_s;
 	mini_s->envp = ft_cpy_matrix(envp);
 	if (!mini_s->envp)
 		(err_msg("envp error"), exit(EXIT_FAILURE));

@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/06/24 03:47:18 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/06/28 16:28:24 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = minishell
 
 SRCS = init/ft_env.c \
 init/history.c \
+init.c \
 utils.c \
 parser/ast/ast.c \
 parser/tokenize/cut_command.c \

@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 16:51:21 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/25 21:37:57 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:07:00 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ char	*ft_strjoin3(char const *s1, char const *s2, char const *s3)
 	ft_strlcpy(join + ft_strlen(s1), s2, ft_strlen(s2) + 1);
 	ft_strlcpy(join + ft_strlen(s1)
 		+ ft_strlen(s2), s3, ft_strlen(s3) + 1);
+	free((char *)s1);
 	return (join);
 }

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <armand.larzilliere@gmail.com>    +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/28 18:56:38 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/02 22:29:14 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ast.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 // Ajouter messages erreur de parsing
 int	check_format(t_token *tokens)

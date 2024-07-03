@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/26 20:55:31 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/03 02:45:26 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <libft.h>
+# include <ast.h>
 
 # define COMMAND_SUCCESS 0
 # define COMMAND_TOO_MANY_ARGUMENTS 1
@@ -52,7 +53,11 @@ typedef struct s_global
 	int			shlvl;
 	t_env_var	*env;
 	char		**envp;
-	int			last_pid;
+	int			pid;
+	int			wstatus;
+	int			history_fd;
+	bool		pipe;
+	bool		check;
 }	t_global;
 
 typedef struct s_command
@@ -63,7 +68,7 @@ typedef struct s_command
 }			t_command;
 
 void		init_signals(void);
-void		init(void);
+void		init(t_global *mini_s, char **envp);
 int			get_history(t_global *mini_s);
 void		ft_append_history(char *cmd, int fd);
 
@@ -79,7 +84,7 @@ void		replace_env(t_env_var *env, char *value);
 char		*get_key(char *line);
 void		err_msg(char *msg);
 int			get_sub_tok_count(const char *);
-
+int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env);
 // builtins
 
 bool		parse_builtins(t_global *mini_s, t_command *cmd);

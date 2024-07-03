@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:55:09 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/25 19:20:14 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:50:59 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ bool	parse_builtins(t_global *mini_s, t_command *cmd)
 	else if (!ft_strncmp(cmd->tab[0], "exit", 4))
 		return (ft_exit(mini_s, cmd->tab), true);
 	else if (!ft_strncmp(cmd->tab[0], "pwd", 3))
-		print_pwd(mini_s, cmd->tab);
+		return (print_pwd(mini_s, cmd->tab), true);
 	return (false);
 }
