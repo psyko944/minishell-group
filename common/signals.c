@@ -6,7 +6,7 @@
 /*   By: arlarzil <armand.larzilliere@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:35 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/08 16:20:52 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:23:39 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	handle_sigquit(int sig)
 	rl_cleanup_after_signal();
 	rl_free_line_state();
 	rl_on_new_line();
-	rl_replace_line("  ", 0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 	return ;
 }
