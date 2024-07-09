@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/21 20:24:02 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:32:18 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	exec_cmd(t_command *cmd, t_global *env)
 		if (cmd->tab[0])
 			ft_putstr_fd(cmd->tab[0], STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		exit(COMMAND_NOT_FOUND);
 	}
 	else
 	{
@@ -41,8 +42,6 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 
 	if (parse_builtins(env, cmd))
 		return ;
-	if (cmd->in)
-		dup2(cmd->in, STDIN_FILENO);
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
@@ -56,16 +55,24 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 	}
 	else if (pid == 0)
 	{
-		// if (cmd->in)
-		//     dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
+		if (cmd->in)
+			dup2(cmd->in, STDIN_FILENO);
+		close(fd[0]);
 		if (cmd->out)
 			dup2(cmd->out, STDOUT_FILENO);
+		if (env->pipe)
+			dup2(fd[1], STDOUT_FILENO);
+		close(fd[1]);
 		exec_cmd(cmd, env);
 	}
 	else
 	{
-		//dup2(fd[0], STDIN_FILENO);
+		if (env->pipe)
+		{
+			fprintf(stderr, "pipe\n");
+			dup2(fd[0], STDIN_FILENO);
+		}
+		env->pipe = false;
 		close(fd[0]);
 		close(fd[1]);
 		wait(NULL);

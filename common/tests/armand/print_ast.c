@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <armand.larzilliere@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:59:53 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 18:36:03 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/27 20:23:56 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	print_ast(t_ast *ast, int ind)
 	{
 		print_ind(ind);
 		printf("Token: %p\n", ast);
-		print_double_tab(ast->content, ind + 1);
+		printf("%s\n", (char*)ast->content);
+		// print_double_tab(ast->content, ind + 1);
 	}
 	else
 	{

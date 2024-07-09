@@ -6,14 +6,13 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/21 20:19:41 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/03 20:47:49 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "ast/ast.h"
 
 #include <ast.h>
-// #include <builtins.h>
 #include <minishell.h>
 #include <libft.h>
 #include <stdio.h>
@@ -74,6 +73,7 @@ static int    ph_exec_node(t_ast *node, t_global *env)
     node->content = (char **)replace_vars(node->content, env->env);
     command.tab = cut_command(node->content, get_sub_tok_count(node->content));
     node->content = command.tab;
+	node->type = COMMAND;
     command.in = 0;
     command.out = 0;
     command.tab = node->content;
@@ -82,6 +82,7 @@ static int    ph_exec_node(t_ast *node, t_global *env)
     if (get_files(command.tab, &command) == 0)
         return (printf("caca\n"), 0);
     i = 0;
+    node->content = command.tab;
     while (command.tab[i])
     {
         printf("[%s] ", command.tab[i]);
@@ -92,13 +93,21 @@ static int    ph_exec_node(t_ast *node, t_global *env)
     return (0);
 }
 
-static int	culnode(void)
+ static void exec_pipe(t_ast *tree, int *exit_cmd, t_global *mini_s)
 {
-	printf("coucou\n");
-	return (1);
+		ft_putstr_fd("loop nb\n", 2);
+		if (mini_s->count_pipe == 0)
+			mini_s->count_pipe = true;
+		mini_s->count_pipe++;
+		if (mini_s->count_pipe == 1)
+			ph_exec_tree(tree->l, exit_cmd, mini_s);
+		else
+			return ;
+		//	ph_exec_tree(tree->r, exit_cmd, mini_s);
+		//else
 }
 
-static int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
+int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 {
 	int	status;
 	if (!tree)
@@ -107,12 +116,25 @@ static int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 	{
 		if (tree->type == TEXT)
 		{
+			fprintf(stderr, "dada\n");
 			return (ph_exec_node(tree, env));
 		}
 		else if (tree->type == PARENTHESIS)
 			status = ph_exec_tree(tree->content, exit_cmd, env);
-		else
-			culnode();
+		else if (tree->type == N_AND)
+		{
+			ph_exec_tree(tree->l, exit_cmd, env);
+			return (ph_exec_tree(tree->r, exit_cmd, env));
+		}
+		else if (tree->type == N_PIPE)
+			exec_pipe(tree, exit_cmd, env);
+		else if (tree->type == N_OR)
+		{
+			ph_exec_tree(tree->l, exit_cmd, env);
+			if (ft_atoi(env->env->content) != 0)
+				ph_exec_tree(tree->r, exit_cmd, env);
+			return (0);
+		}	
 	}
 }
 
@@ -128,8 +150,10 @@ static int	handle_command(char *command, int *exit_cmd, t_global *env)
 		ast_tree = build_ast(tokenize(command));
 		if (!ast_tree)
 			__builtin_printf("PAAARSE\n");
+		//printf("l = %s r = %s\n", (char *)ast_tree->l->content, (char *)ast_tree->r->content);
 		ph_exec_tree(ast_tree, exit_cmd, env);
-		free_ast(ast_tree);
+		//fprintf(stderr, "cmd = %s\t%s\n", command, (char *)ast_tree->r->content);
+		//free_ast(ast_tree);
 		free(command);
 	}
 	return (1);
@@ -140,30 +164,25 @@ int	main(int ac, char **av, char **envp)
 	char		*command;
 	int			exit_cmd;
 	t_global	env;
-	int			status;
 
 	(void)ac;
 	(void)av;
-	env.env = get_env(&env, envp);
 	exit_cmd = 1;
-	status = 0;
-	env.shlvl = 1;
-	status_env(&env.env, status);
+	init(&env, envp);
 	while (exit_cmd)
 	{
 		command = readline("$> ");
-		printf("%s\n", command);
 		if (command)
-		{
 			handle_command(ft_strdup(command), &exit_cmd, &env);
-		}
 		else
-			break ;
+			ft_exit(&env, (char *[2]){"exit", NULL});
 		add_history(command);
+		ft_append_history(command, env.history_fd);
 		get_shlvl(&env);
 	}
 	rl_clear_history();
 	exit_cmd = ft_atoi(env.env->content);
-	// free_env(env);
+	free_env(&env);
+	close(env.history_fd);
 	return (exit_cmd);
 }

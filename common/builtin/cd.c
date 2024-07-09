@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:13:54 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/21 20:01:30 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/25 21:07:33 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static int	check_dir(char *path)
 		perror("chdir");
 		return (-1);
 	}
-	printf("reussi\n");
 	return (0);
 }
 
@@ -58,7 +57,6 @@ void	ft_cd(t_global *mini_s, char **tab)
 	if (!tab[1])
 	{
 		path = get_home(mini_s->env);
-		printf("path = %s\n", path);
 		if (!path)
 			return ;
 	}

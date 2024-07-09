@@ -6,14 +6,15 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/06/21 19:45:50 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/06/28 16:28:24 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = ft_env.c \
-history.c \
+SRCS = init/ft_env.c \
+init/history.c \
+init.c \
 utils.c \
 parser/ast/ast.c \
 parser/tokenize/cut_command.c \
@@ -36,12 +37,13 @@ builtin/pwd_env.c \
 builtin/cd.c \
 exec/get_cmd.c \
 exec/exec_cmd.c \
-env_utils.c \
+init/env_utils.c \
 init/shlvl.c \
 builtin/unset.c \
 builtin/export.c \
 builtin/parse_builtins.c\
-builtin/echo.c \
+builtin/echo.c\
+builtin/exit.c \
 main.c
 # tests/unit_test_main.c \
 # tests/unit_test_mehdi.c \
@@ -63,7 +65,7 @@ WHITE = \033[0;97m
 PURPLE= \033[38;2;255;105;180m
 RESET= \033[0m
 
-cc = gcc
+cc = cc
 
 RM = rm -f
 

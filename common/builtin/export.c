@@ -6,16 +6,16 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:47:04 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/21 21:42:44 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:19:15 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static bool parse_key(char *value)
+static bool	parse_key(char *value, int *join)
 {
-	int i;
-	char *line;
+	int		i;
+	char	*line;
 
 	i = 0;
 	line = get_key(value);
@@ -28,15 +28,18 @@ static bool parse_key(char *value)
 		if (!ft_isalnum(line[i]) && line[i] != '_')
 			return (free(line), false);
 		if (line[i] == '+' && !line[i + 1])
-			break;
+		{
+			*join = 1;
+			break ;
+		}
 	}
 	return (free(line), true);
 }
 
-static bool parse_value(char *value)
+static bool	parse_value(char *value)
 {
-	int i;
-	char *line;
+	int		i;
+	char	*line;
 
 	i = -1;
 	line = get_value(value);
@@ -51,41 +54,53 @@ static bool parse_value(char *value)
 	return (true);
 }
 
-static void parse_export(t_env_var *env, char *value)
+static void	parse_export(t_env_var *env, char *value)
 {
-	if (!parse_key(value) || !parse_value(value))
-		return ;
-	addback_env(&env, first_node(value));
-}
-// static void check_back()
+	int		join;
+	char	*key;
 
-void print_export_env(t_env_var *env)
+	join = 0;
+	key = NULL;
+	if (!parse_key(value, &join) || !parse_value(value))
+		return ;
+	if (join)
+		concat_env(&env, value);
+	else
+	{
+		key = get_key(value);
+		if (search_in_env(env, key))
+			replace_env(env, value);
+		else
+			addback_env(&env, first_node(value));
+		free(key);
+	}
+}
+
+void	print_export_env(t_env_var *env)
 {
-	size_t i;
-	t_env_var *tmp;
+	t_env_var	*tmp;
 
 	tmp = env;
-	i = 0;
 	while (tmp)
 	{
 		if (tmp->content != NULL && ft_strncmp(tmp->key, "?", 1))
-			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->content);
+			printf("declare -x %s=\%s\n", tmp->key, tmp->content);
 		else
 			printf("declare -x %s=''\n", tmp->key);
 		tmp = tmp->next;
 	}
 }
 
-void ft_export(t_global *mini_s, char **tab)
+void	ft_export(t_global *mini_s, char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!tab[1])
 	{
 		print_export_env(mini_s->env);
-		return;
+		return ;
 	}
-	 while (tab[++i])
+	while (tab[++i])
 		parse_export(mini_s->env, tab[i]);
 }

@@ -6,21 +6,26 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:43:08 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/21 19:22:43 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:30:57 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	print_pwd(void)
+void	print_pwd(t_global *mini_s, char **tab)
 {
 	char	*pwd;
 
+	(void)mini_s;
 	pwd = get_pwd();
 	if (pwd)
 	{
-		printf("%s\n", pwd);
+		if (!tab[1])
+			printf("%s\n", pwd);
+		else
+			printf("pwd: too many arguments");
 		free(pwd);
+		return ;
 	}
 }
 

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/21 17:55:59 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/02 22:29:14 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ast.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 // Ajouter messages erreur de parsing
 int	check_format(t_token *tokens)
@@ -38,13 +39,14 @@ int	check_format(t_token *tokens)
 
 t_ast	*free_ast(t_ast *ast)
 {
+	printf("Freeind %p\n", ast);
 	if (!ast)
 		return (NULL);
 	if (ast->type == PARENTHESIS)
 		free_ast(ast->content);
-	else if (ast->type == TEXT)
+	else if (ast->type == COMMAND)
 		free_tab(ast->content);
-	else
+	else if (ast->type & (N_AND | N_OR | N_PIPE))
 	{
 		free_ast(ast->l);
 		free_ast(ast->r);

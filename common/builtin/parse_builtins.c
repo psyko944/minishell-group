@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:55:09 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/21 20:02:43 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:50:59 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ bool	parse_builtins(t_global *mini_s, t_command *cmd)
 		return (ft_unset(mini_s, cmd->tab), true);
 	else if (!ft_strncmp(cmd->tab[0], "echo", 4))
 		return (mini_echo(mini_s, cmd->tab), true);
+	else if (!ft_strncmp(cmd->tab[0], "env", 3))
+		return (print_env(mini_s->env), true);
+	else if (!ft_strncmp(cmd->tab[0], "exit", 4))
+		return (ft_exit(mini_s, cmd->tab), true);
+	else if (!ft_strncmp(cmd->tab[0], "pwd", 3))
+		return (print_pwd(mini_s, cmd->tab), true);
 	return (false);
-	// else if (!ft_strncmp(cmd->tab[0], "pwd", 3))
-	// else if (!ft_strncmp(cmd->tab[0], "env", 3))
-	// 	print_env(mini_s->env);
-	// 	print_pwd(mini_s, cmd->tab);
-	// else if (!ft_strncmp(cmd->tab[0], "exit", 4))
-	// 	ft_exit(mini_s, cmd->tab);
 }
