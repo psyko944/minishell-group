@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:18:22 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 20:04:35 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:42:55 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <minishell.h>
 #include <vars.h>
 #include <stdlib.h>
+
+extern int	g_exit_status;
 
 static char	*isolate_var(char *s)
 {
@@ -39,6 +41,8 @@ static char	*get_var(char *s, t_env_var *env)
 	if (*s != '$')
 		return (s);
 	name = isolate_var(s);
+	if (*name == '?')
+		return (ft_itoa(g_exit_status));
 	while (env)
 	{
 		if (ft_strcmp(name, env->key) == 0)
