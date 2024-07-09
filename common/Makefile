@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/06/28 16:28:24 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/07/09 21:37:26 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS = init/ft_env.c \
 init/history.c \
 init.c \
 utils.c \
+signals.c \
 parser/ast/ast.c \
 parser/tokenize/cut_command.c \
 parser/tokenize/free_tokens.c \

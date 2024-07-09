@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/03 20:47:49 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:49:19 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 char	*replace_vars(char *s, t_env_var *env);
 int	get_files(char **command, t_command *storage);
-
 // static void	ph_execve_and_co(char **tab)
 // {
 // 	while (*tab)
@@ -93,18 +92,15 @@ static int    ph_exec_node(t_ast *node, t_global *env)
     return (0);
 }
 
- static void exec_pipe(t_ast *tree, int *exit_cmd, t_global *mini_s)
+ static int exec_pipe(t_ast *tree, int *exit_cmd, t_global *mini_s)
 {
-		ft_putstr_fd("loop nb\n", 2);
 		if (mini_s->count_pipe == 0)
-			mini_s->count_pipe = true;
+			mini_s->pipe = true;
 		mini_s->count_pipe++;
-		if (mini_s->count_pipe == 1)
-			ph_exec_tree(tree->l, exit_cmd, mini_s);
-		else
-			return ;
-		//	ph_exec_tree(tree->r, exit_cmd, mini_s);
-		//else
+		ph_exec_tree(tree->l, exit_cmd, mini_s);
+		fprintf(stderr,"pipe   %d\n\n\n\n\n\n\n", mini_s->pipe);
+		ph_exec_tree(tree->r, exit_cmd, mini_s);
+		return (0);
 }
 
 int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
@@ -127,7 +123,7 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 			return (ph_exec_tree(tree->r, exit_cmd, env));
 		}
 		else if (tree->type == N_PIPE)
-			exec_pipe(tree, exit_cmd, env);
+			return (exec_pipe(tree, exit_cmd, env));
 		else if (tree->type == N_OR)
 		{
 			ph_exec_tree(tree->l, exit_cmd, env);

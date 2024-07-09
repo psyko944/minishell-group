@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <armand.larzilliere@gmail.com>    +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:35 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/08 16:23:39 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:38:38 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+int g_exit_status;
+
 static void	handle_sigquit(int sig)
 {
 	(void)sig;
 
+    printf("g_exit_status: %d\n", g_exit_status);
 	rl_cleanup_after_signal();
 	rl_free_line_state();
 	rl_on_new_line();
@@ -40,7 +43,7 @@ void	handle_sigint(int sig)
 {
 	(void)sig;
 
-	// Set la var globale à 130	
+	g_exit_status = 130;	
     rl_replace_line("", 0);
     rl_crlf();
     rl_on_new_line();
