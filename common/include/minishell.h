@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/09 21:39:09 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/13 00:32:38 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_global
 	bool		pipe;
 	bool		check;
 	int			count_pipe;
+	int			old_stdin;
 	int			fd[2];
 }	t_global;
 

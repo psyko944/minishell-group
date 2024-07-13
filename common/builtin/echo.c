@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:37:32 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/21 19:46:22 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/12 23:54:50 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	mini_echo(t_global *mini_s, char **tab)
 	while (tab[i])
 	{
 		printf("%s", tab[i++]);
-		if (tab[i + 1])
+		if (tab[i])
 			printf(" ");
 	}
 	if (n_line)

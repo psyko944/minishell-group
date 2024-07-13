@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/09 21:52:52 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/13 00:35:09 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 	//int		fd[2];
 
 	if (parse_builtins(env, cmd))
+	{
+		//env->old_stdout = dup(STDOUT_FILENO)
 		return ;
+	}
 	if (pipe(env->fd) == -1)
 	{
 		perror("pipe");
@@ -62,7 +65,6 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 			dup2(cmd->out, STDOUT_FILENO);
 		if (env->pipe)
 		{
-			fprintf(stderr, "===error pipe===\n\n\n\n\n");
 			dup2(env->fd[1], STDOUT_FILENO);
 		}
 		close(env->fd[1]);
@@ -72,7 +74,6 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 	{
 		if (env->pipe)
 		{
-			fprintf(stderr, "\n\n\n\npipe is true\n\n\n\n");
 			dup2(env->fd[0], STDIN_FILENO);
 		}
 		env->pipe = false;
