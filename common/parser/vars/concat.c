@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:19:39 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 18:05:56 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:56:06 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ char	*concat_tab(char **tab)
 	while (tab[i])
 	{
 		ft_strcpy(respt, tab[i]);
+		free(tab[i]);
 		while (*respt)
 			++respt;
 		i += 1;
 	}
+	free(tab);
 	return (res);
 }
 /*
