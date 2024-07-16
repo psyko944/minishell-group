@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/13 02:14:06 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:20:40 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int    ph_exec_node(t_ast *node, t_global *env)
 
  static int exec_pipe(t_ast *tree, int *exit_cmd, t_global *mini_s)
 {
-		mini_s->old_stdin = dup(STDIN_FILENO);
+		//mini_s->old_stdin = dup(STDIN_FILENO);
 		if (mini_s->count_pipe == 0)
 			mini_s->pipe = true;
 		mini_s->count_pipe++;
@@ -169,11 +169,6 @@ int	main(int ac, char **av, char **envp)
 	while (exit_cmd)
 	{
 		command = readline("$> ");
-		if (env.old_stdin != 2)
-		{
-			printf("caca sur la std\n");
-			dup2(env.old_stdin, STDIN_FILENO);
-		}
 		if (command)
 			handle_command(ft_strdup(command), &exit_cmd, &env);
 		else
