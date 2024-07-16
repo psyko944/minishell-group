@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/02 22:29:14 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:51:58 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	check_format(t_token *tokens)
 
 t_ast	*free_ast(t_ast *ast)
 {
-	printf("Freeind %p\n", ast);
 	if (!ast)
 		return (NULL);
 	if (ast->type == PARENTHESIS)
