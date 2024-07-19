@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/16 21:36:50 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/19 05:18:11 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 {
 	pid_t	pid;
 	//int		fd[2];
-
 	if (parse_builtins(env, cmd))
 	{	
 		return ;
@@ -71,17 +70,16 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 	}
 	else
 	{
-		pid = fork();
-		if (pid == 0)
+		if (env->pipe)
 		{
-			if (env->pipe)
-			{
-				dup2(env->fd[0], STDIN_FILENO);
-			}
-			env->pipe = false;
-			close(env->fd[1]);
-			close(env->fd[0]);
+			dup2(env->fd[0], STDIN_FILENO);
 		}
+		else
+			dup2(env->old_stdin, STDIN_FILENO);
+		//env->pipe = false;
+		//printf("After dup2: STDIN_FILENO=%d\n", STDIN_FILENO);
+		close(env->fd[1]);
+		close(env->fd[0]);
 		wait(NULL);
 	}
 }
