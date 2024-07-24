@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opener.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:38:17 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/21 17:35:10 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/24 05:00:37 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,18 @@ int	open_app(const char *f, t_command *store)
 
 int	open_here(const char *f, t_command *store)
 {
-	(void)f;
-	printf("Heredoc still to do\n");
+	int fd;
+
 	if (store->in)
-		close(store->out);
-	return (0);
+		close(store->in);	
+	fd = open("/tmp/hdoc_file", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	runtime_heredoc(f, &fd);
+	close(fd);
+	fd = open("/tmp/hdoc_file", O_RDONLY);
+	store->in = fd;
+	if (store->in == -1)
+		exit(EXIT_FAILURE);
+	return (1);
 }
 
 int	open_out(const char *f, t_command *store)

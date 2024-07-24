@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/19 05:18:11 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/24 04:54:45 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@ static void	exec_cmd(t_command *cmd, t_global *env)
 void	cmd_runtime(t_command *cmd, t_global *env)
 {
 	pid_t	pid;
-	//int		fd[2];
-	if (parse_builtins(env, cmd))
-	{	
-		return ;
-	}
 	if (pipe(env->fd) == -1)
 	{
 		perror("pipe");
@@ -66,6 +61,8 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 		if (cmd->out)
 			dup2(cmd->out, STDOUT_FILENO);
 		close(env->fd[1]);
+		 if (parse_builtins(env, cmd))
+		 	exit(0);
 		exec_cmd(cmd, env);
 	}
 	else

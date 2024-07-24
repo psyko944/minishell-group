@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/13 00:32:38 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/24 04:21:26 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct s_command
 	char	**tab;
 	int		in;
 	int		out;
+	int		heredoc_fd[2];
+	bool	is_hdoc;
 }			t_command;
 
 extern int	g_exit_status;
@@ -106,6 +108,7 @@ int			open_here(const char *f, t_command *store);
 int			open_app(const char *f, t_command *store);
 int			open_in(const char *f, t_command *store);
 int			open_out(const char *f, t_command *store);
+void		runtime_heredoc(const char *f,int *fd);
 
 char		**fill_wild_tab(char **base, const char *path);
 char		*get_cmd(char *cmd, char **envp);

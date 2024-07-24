@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/07/09 21:37:26 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/07/19 23:17:30 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ wildcards/run_wildcards.c \
 wildcards/wildcards.c \
 in_n_out.c \
 opener.c \
+here_doc.c \
 parser/print_parse_err.c \
 builtin/pwd_env.c \
 builtin/cd.c \
