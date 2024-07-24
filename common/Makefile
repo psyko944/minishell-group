@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/07/19 23:17:30 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/07/24 09:29:43 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = minishell
 
 SRCS = init/ft_env.c \
 init/history.c \
+init/prompt.c \
 init.c \
 utils.c \
 signals.c \

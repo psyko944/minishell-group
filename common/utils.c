@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:12:48 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/28 18:40:27 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:04:14 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@ int	search_in_env(t_env_var *env, char *key)
 		tmp = tmp->next;
 	}
 	return (0);
+}
+
+char	*get_value_search(t_env_var *env, char *key)
+{
+	t_env_var *tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->key, key, ft_strlen(tmp->key)))
+		{
+			if (tmp->content)
+				return (ft_strdup(tmp->content));
+		}
+		tmp = tmp->next;
+	}
+	return (NULL);
 }
 
 static void	free_env2(t_env_var **env)

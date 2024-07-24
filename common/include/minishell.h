@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/24 04:21:26 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/24 10:53:59 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ typedef struct s_global
 	int			shlvl;
 	t_env_var	*env;
 	char		**envp;
-	int			pid;
+	pid_t		pid;
 	int			wstatus;
 	int			history_fd;
+	char		*prompt;
 	bool		pipe;
 	bool		check;
 	int			count_pipe;
@@ -68,8 +69,6 @@ typedef struct s_command
 	char	**tab;
 	int		in;
 	int		out;
-	int		heredoc_fd[2];
-	bool	is_hdoc;
 }			t_command;
 
 extern int	g_exit_status;
@@ -85,6 +84,8 @@ t_env_var	*first_node(char *env_line);
 char		*get_value(char *line);
 void		free_env(t_global *mini_s);
 int			search_in_env(t_env_var *env, char *key);
+char		*get_value_search(t_env_var *env, char *key);
+char		*get_prompt(t_env_var *env);
 void		concat_env(t_env_var **env, char *value);
 void		replace_env(t_env_var *env, char *value);
 char		*get_key(char *line);

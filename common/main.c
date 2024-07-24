@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/19 22:43:28 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:32:21 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 	{
 		if (tree->type == TEXT)
 		{
-			fprintf(stderr, "dada\n");
+			//fprintf(stderr, "dada\n");
 			return (ph_exec_node(tree, env));
 		}
 		else if (tree->type == PARENTHESIS)
@@ -164,22 +164,26 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
+	(void)command;
 	exit_cmd = 1;
 	init(&env, envp);
 	while (exit_cmd)
 	{
-		command = readline("$> ");
+		command = readline(env.prompt);
+		free(env.prompt);
 		if (command)
 			handle_command(ft_strdup(command), &exit_cmd, &env);
 		else
 			ft_exit(&env, (char *[2]){"exit", NULL});
 		add_history(command);
 		ft_append_history(command, env.history_fd);
+		env.prompt = get_prompt(env.env);
 		get_shlvl(&env);
 	}
 	rl_clear_history();
 	exit_cmd = ft_atoi(env.env->content);
 	free_env(&env);
+	free(env.prompt);
 	close(env.history_fd);
 	return (exit_cmd);
 }
