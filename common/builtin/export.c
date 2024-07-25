@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:47:04 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/25 19:19:15 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:27:57 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	parse_export(t_env_var *env, char *value)
 
 	join = 0;
 	key = NULL;
+	printf("passed\n");
 	if (!parse_key(value, &join) || !parse_value(value))
 		return ;
 	if (join)
@@ -71,7 +72,10 @@ static void	parse_export(t_env_var *env, char *value)
 		if (search_in_env(env, key))
 			replace_env(env, value);
 		else
+		{
+			printf("test\n");
 			addback_env(&env, first_node(value));
+		}
 		free(key);
 	}
 }
@@ -83,10 +87,10 @@ void	print_export_env(t_env_var *env)
 	tmp = env;
 	while (tmp)
 	{
-		if (tmp->content != NULL && ft_strncmp(tmp->key, "?", 1))
+		if (tmp->content != NULL || ft_strncmp(tmp->key, "?", 1))
 			printf("declare -x %s=\%s\n", tmp->key, tmp->content);
 		else
-			printf("declare -x %s=''\n", tmp->key);
+			printf("declare -x %s\n", tmp->key);
 		tmp = tmp->next;
 	}
 }

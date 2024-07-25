@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:12:48 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/24 11:04:14 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:01:59 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 int	search_in_env(t_env_var *env, char *key)
 {
-	t_env_var *tmp;
+	t_env_var	*tmp;
 
 	tmp = env;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->key, key, ft_strlen(tmp->key)))
+		if (!ft_strncmp(tmp->key, key, ft_strlen(key) + 1))
 			return (1);
 		tmp = tmp->next;
 	}

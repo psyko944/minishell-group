@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:16:02 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/28 17:59:46 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:17:31 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ char	*get_value(char *line)
 		i++;
 	if (line[i] == '=')
 		i++;
+	if (!line[++i])
+		return (NULL);
 	j = 0;
 	k = i;
 	while (line[i++])
