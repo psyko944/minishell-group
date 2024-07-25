@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:24 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/25 16:13:06 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:25:33 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@ t_token	*get_word(const char **s)
 		*s += step;
 		return (new_token(SEPARATOR, ft_strndup_e(s2, step)));
 	}
-	*s += get_sub_tok_count(s2);
+	step = get_sub_tok_count(s2);
+	if (step == -1)
+		return (NULL);
+	*s += step;
 	return (new_token(TEXT, (void *)s2));//cut_command(s2, len)));
 }

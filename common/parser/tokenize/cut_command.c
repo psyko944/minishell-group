@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/21 18:03:33 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:59:09 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	count_args(const char *s)
 {
 	int	res;
 	int	step;
+	int	sub;
 
 	res = 0;
 	while (*s)
@@ -49,8 +50,13 @@ static int	count_args(const char *s)
 		{
 			while (s[step] && !ft_isspace(s[step]) && !command_sep(s + step))
 			{
-				if (*s == '\'' || *s == '"')
-					step += skip_quote(s);
+				if (s[step] == '\'' || s[step] == '"')
+				{
+					sub = skip_quote(s + step);
+					if (sub == -1)
+						return (-1);
+					step += sub;
+				}
 				else
 					step += 1;
 			}
@@ -119,6 +125,8 @@ char	**cut_command(const char *s, int tot_len)
 		return (NULL);
 	ft_strncpy(s2, s, tot_len);
 	len = count_args(s2);
+	if (len == -1)
+		return (NULL);
 	s2 = ft_realloc(s2, tot_len + len * 2 + 2);
 	res = malloc(sizeof(char *) * (len + 1));
 	if (!s2 || !res)

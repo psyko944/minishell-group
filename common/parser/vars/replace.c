@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:18:22 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/09 21:42:55 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:13:06 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ char	*replace_vars(char *s, t_env_var *env)
 		temp[i] = get_var(temp[i], env);
 		i += 1;
 	}
-	return (remove_quotes(concat_tab(temp)));
+	return (concat_tab(temp));
 }
