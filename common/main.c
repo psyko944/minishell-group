@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/24 14:32:21 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:13:05 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,14 @@ static int    ph_exec_node(t_ast *node, t_global *env)
 
     node->content = (char **)replace_vars(node->content, env->env);
     command.tab = cut_command(node->content, get_sub_tok_count(node->content));
+	free(node->content);
     node->content = command.tab;
 	node->type = COMMAND;
     command.in = 0;
     command.out = 0;
     command.tab = node->content;
     command.tab = fill_wild_tab(command.tab, ".");
+	free(node->content);
     printf("We're running: ");
     if (get_files(command.tab, &command) == 0)
         return (printf("caca\n"), 0);
