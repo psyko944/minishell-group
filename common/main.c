@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/25 17:13:05 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:27:51 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	get_files(char **command, t_command *storage);
 // 	//cmd_runtime(&command, env);
 // 	return (0);
 // }
+char	*remove_quotes(char *s);
 
 static int    ph_exec_node(t_ast *node, t_global *env)
 {
@@ -70,6 +71,8 @@ static int    ph_exec_node(t_ast *node, t_global *env)
     int            i;
 
     node->content = (char **)replace_vars(node->content, env->env);
+	if (!node->content)
+		return (-1 /* Error code ?*/);
     command.tab = cut_command(node->content, get_sub_tok_count(node->content));
 	free(node->content);
     node->content = command.tab;
@@ -86,6 +89,7 @@ static int    ph_exec_node(t_ast *node, t_global *env)
     node->content = command.tab;
     while (command.tab[i])
     {
+		command.tab[i] = remove_quotes(command.tab[i]);
         printf("[%s] ", command.tab[i]);
         i += 1;
     }
@@ -148,7 +152,7 @@ static int	handle_command(char *command, int *exit_cmd, t_global *env)
 	{
 		ast_tree = build_ast(tokenize(command));
 		if (!ast_tree)
-			__builtin_printf("PAAARSE\n");
+			__builtin_printf("Parse error\n");
 		//printf("l = %s r = %s\n", (char *)ast_tree->l->content, (char *)ast_tree->r->content);
 		ph_exec_tree(ast_tree, exit_cmd, env);
 		//fprintf(stderr, "cmd = %s\t%s\n", command, (char *)ast_tree->r->content);
