@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:24 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/21 19:34:05 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:13:06 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,9 @@ int	get_sub_tok_count(const char *s)
 t_token	*get_word(const char **s)
 {
 	const char	*s2;
-	int			len;
 	int			step;
 
 	s2 = *s;
-	len = 0;
 	step = is_sep(s2);
 	if (step)
 	{
