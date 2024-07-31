@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:27:25 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/20 19:07:41 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/26 04:23:58 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ char	*get_cmd(char *cmd, char **envp)
 {
 	char	**paths;
 	char	*cmd_path;
-	int		i;
 
-	i = 0;
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));
 	paths = get_paths(envp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/25 21:27:51 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/07/28 03:55:47 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int    ph_exec_node(t_ast *node, t_global *env)
  static int exec_pipe(t_ast *tree, int *exit_cmd, t_global *mini_s)
 {
 		mini_s->old_stdin = dup(STDIN_FILENO);
-		//fprintf(stderr,"cmd = %s\tcmd2 = %s\n\n\n\n\n\n\n", (char *)tree->l->content ,(char *)tree->r->content);
+		fprintf(stderr,"cmd = %s\tcmd2 = %s\n\n\n\n\n\n\n", (char *)tree->l->content ,(char *)tree->r->content);
 		mini_s->pipe = true;
 		ph_exec_tree(tree->l, exit_cmd, mini_s);
 		//exit(1);
@@ -112,7 +112,7 @@ static int    ph_exec_node(t_ast *node, t_global *env)
 
 int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 {
-	int	status;
+	// int	status;
 	if (!tree)
 		return (0);
 	while (1)
@@ -123,7 +123,7 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 			return (ph_exec_node(tree, env));
 		}
 		else if (tree->type == PARENTHESIS)
-			status = ph_exec_tree(tree->content, exit_cmd, env);
+			ph_exec_tree(tree->content, exit_cmd, env);
 		else if (tree->type == N_AND)
 		{
 			ph_exec_tree(tree->l, exit_cmd, env);

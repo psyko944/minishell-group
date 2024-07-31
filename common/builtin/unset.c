@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:57:15 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/24 08:11:18 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/26 04:26:06 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_unset(t_global *mini_s, char **tab)
 		return ;
 	}
 	else if (!ft_strncmp(tab[i], "?", 1))
-		;
+		return ;
 	if (!parse_unset(tab))
 		exit(EXIT_FAILURE);
 	remove_env(&mini_s->env, tab[i]);

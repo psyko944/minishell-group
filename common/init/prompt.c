@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 08:21:39 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/24 15:35:18 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:45:51 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,17 @@ char	*get_prompt(t_env_var *env)
 	session = get_session(env);
 	pwd = get_tilde();
 	if (!user || !pwd || !session)
-		return (NULL);
+		return (ft_strdup("minishell$ "));
 	tmp = ft_strjoin3(user, "@", session);
 	free(session);
 	if (!tmp)
-		return (free(pwd), NULL);
+		return (free(pwd), ft_strdup("minishell$ "));
 	final_prompt = ft_strjoin3(tmp, ":", pwd);
 	free(pwd);
 	if (!final_prompt)
 		return (NULL);
 	final_prompt = add_dollars(final_prompt);
 	if (!final_prompt)
-		return (NULL);
+		return (ft_strdup("minishell$ "));
 	return (final_prompt);
 }

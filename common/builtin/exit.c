@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 03:43:41 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/16 18:41:34 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:13:08 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	ft_exit(t_global *mini_s, char **cmd)
 	else
 	{
 		rl_clear_history();
-		exit_status = ft_atoi(mini_s->env->content);
+		if (mini_s->env->content)
+			exit_status = ft_atoi(mini_s->env->content);
 		free_env(mini_s);
 		close(mini_s->history_fd);
 		exit(exit_status);

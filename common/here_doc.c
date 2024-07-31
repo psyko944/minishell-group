@@ -6,27 +6,38 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 22:55:46 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/24 04:51:43 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:11:30 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	runtime_heredoc(const char *f,int *fd)
+static void	error_line(const char *f)
 {
-	int		fd_in = dup(STDIN_FILENO);
-	char	*line;
-	size_t	delimiter_len;
+	ft_putstr_fd("\nbash: warning: here-document", 2);
+	ft_putstr_fd(" delimited by end-of-file (wanted `", 2);
+	ft_putstr_fd(f, 2);
+	ft_putstr_fd("')\n", 2);
+}
 
-	delimiter_len = ft_strlen(f);
+void	runtime_heredoc(const char *f, int *fd)
+{
+	int		fd_in;
+	char	*line;
+	size_t	eof_len;
+
+	eof_len = ft_strlen(f);
+	fd_in = dup(STDIN_FILENO);
 	while (1)
 	{
 		ft_putstr_fd("> ", 1);
 		line = get_next_line(0);
 		if (!line)
+		{
+			error_line(f);
 			break ;
-		if (ft_strncmp(line, f, delimiter_len) == 0
-			&& line[delimiter_len] == '\n')
+		}
+		if (!ft_strncmp(line, f, eof_len) && line[eof_len] == '\n')
 		{
 			free(line);
 			break ;
