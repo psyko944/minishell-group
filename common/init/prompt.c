@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 08:21:39 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/26 12:45:51 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/07/31 20:04:30 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static char	*get_session(t_env_var *env)
 	if (!session)
 		return (NULL);
 	tmp = get_value_search(env, "SESSION_MANAGER");
+	if (!tmp)
+		return (free(session), NULL);
 	while (tmp[i] && tmp[i] != '/')
 		i++;
 	i++;
@@ -36,6 +38,7 @@ static char	*get_session(t_env_var *env)
 		free(tmp);
 		return (session);
 	}
+	(free(tmp), free(session));
 	return (NULL);
 }
 
@@ -76,9 +79,17 @@ char	*get_prompt(t_env_var *env)
 
 	user = get_value_search(env, "USER");
 	session = get_session(env);
+	if (!session && user != NULL)
+		free(user);
 	pwd = get_tilde();
+	if (!pwd && session != NULL)
+		free(session);
 	if (!user || !pwd || !session)
+	{
+		if (pwd)
+			free(pwd);
 		return (ft_strdup("minishell$ "));
+	}
 	tmp = ft_strjoin3(user, "@", session);
 	free(session);
 	if (!tmp)
