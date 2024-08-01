@@ -6,12 +6,13 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:16:02 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/25 21:17:31 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:02:53 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <stdlib.h>
+#include <string.h>
 
 char	*get_key(char *line)
 {
@@ -46,10 +47,10 @@ char	*get_value(char *line)
 		i++;
 	if (line[i] == '=')
 		i++;
-	if (!line[++i])
+	if (!line[i])
 		return (NULL);
-	j = 0;
 	k = i;
+	j = 0;
 	while (line[i++])
 		j++;
 	content = malloc(sizeof(char) * j + 1);

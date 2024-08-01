@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:14:22 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/25 21:32:53 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:34:58 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,12 @@ void	replace_env(t_env_var *env, char *value)
 	content = get_value(value);
 	while (tmp)
 	{
-		printf("key = %s\n", key);
 		if (!ft_strncmp(tmp->key, key, ft_strlen(tmp->key)))
 		{
-			printf("keyy = %s\n", key);
 			if (tmp->content)
 				free(tmp->content);
 			tmp->content = content;
-			printf("content = %s\n", content);
+			//printf("content = %s\n", content);
 		}
 		tmp = tmp->next;
 	}

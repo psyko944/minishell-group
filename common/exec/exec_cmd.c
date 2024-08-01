@@ -6,11 +6,17 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/24 11:01:06 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:54:37 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+
+// static void check_permission_exec(char *cmd)
+// {
+// 	if 
+// }
 
 static void	exec_cmd(t_command *cmd, t_global *env)
 {
@@ -71,6 +77,7 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 			if (parse_builtins(env, cmd))
 				exit(0);
 		}
+		close(env->history_fd);
 		exec_cmd(cmd, env);
 	}
 	else

@@ -6,52 +6,54 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:47:04 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/25 21:27:57 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:27:37 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+static bool	err_export(char *arg, int flag)
+{
+	if (flag == 1)
+	{
+		ft_putstr_fd("bash: export: `", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd("`: not a valid identifier\n", 2);
+	}
+	else
+	{
+		ft_putstr_fd("bash: export: `", 2);
+		write(2, arg, 2);
+		ft_putstr_fd("`: invalid option\n", 2);
+	}
+	free(arg);
+	return (false);
+}
+
 static bool	parse_key(char *value, int *join)
 {
 	int		i;
+	int		j;
 	char	*line;
 
 	i = 0;
+	j = -1;
 	line = get_key(value);
 	if (!line)
 		return (false);
-	if (line[0] != '_' && !ft_isalpha(line[0]))
-		return (free(line), false);
+	if (line[0] == '-' && line[1])
+		return (err_export(line, 0));
+	while (line[++j])
+		if (line[j] != '_' && !ft_isalpha(line[j]))
+			return (err_export(line, 1));
 	while (line[++i])
 	{
 		if (!ft_isalnum(line[i]) && line[i] != '_')
 			return (free(line), false);
 		if (line[i] == '+' && !line[i + 1])
-		{
-			*join = 1;
-			break ;
-		}
+			return (free(line), *join = 1, true);
 	}
 	return (free(line), true);
-}
-
-static bool	parse_value(char *value)
-{
-	int		i;
-	char	*line;
-
-	i = -1;
-	line = get_value(value);
-	if (!line)
-		return (true);
-	while (line[++i])
-	{
-		if (!ft_isalpha(line[i]) && line[i] != ' ' && line[i] != '-')
-			return (free(line), false);
-	}
-	free(line);
-	return (true);
 }
 
 static void	parse_export(t_env_var *env, char *value)
@@ -61,8 +63,7 @@ static void	parse_export(t_env_var *env, char *value)
 
 	join = 0;
 	key = NULL;
-	printf("passed\n");
-	if (!parse_key(value, &join) || !parse_value(value))
+	if (!parse_key(value, &join))
 		return ;
 	if (join)
 		concat_env(&env, value);
@@ -72,10 +73,7 @@ static void	parse_export(t_env_var *env, char *value)
 		if (search_in_env(env, key))
 			replace_env(env, value);
 		else
-		{
-			printf("test\n");
 			addback_env(&env, first_node(value));
-		}
 		free(key);
 	}
 }
