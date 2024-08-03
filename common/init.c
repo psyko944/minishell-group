@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:59 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/26 12:35:38 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/03 02:59:48 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	init(t_global *mini_s, char **envp)
 	mini_s->count_pipe = 0;
 	mini_s->old_stdin = -2;
 	mini_s->prompt = get_prompt(mini_s->env);
+	mini_s->old_stdin = dup(STDIN_FILENO);
+	mini_s->old_stdout = dup(STDOUT_FILENO);
 	g_exit_status = 5;
 	init_signals();
 	//printf("%d", g_exit_status);

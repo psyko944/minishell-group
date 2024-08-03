@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/28 03:55:47 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/03 02:53:56 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ static int    ph_exec_node(t_ast *node, t_global *env)
  static int exec_pipe(t_ast *tree, int *exit_cmd, t_global *mini_s)
 {
 		mini_s->old_stdin = dup(STDIN_FILENO);
+		mini_s->old_stdout = dup(STDOUT_FILENO);
 		fprintf(stderr,"cmd = %s\tcmd2 = %s\n\n\n\n\n\n\n", (char *)tree->l->content ,(char *)tree->r->content);
 		mini_s->pipe = true;
 		ph_exec_tree(tree->l, exit_cmd, mini_s);

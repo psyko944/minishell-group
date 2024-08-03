@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 03:43:41 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/26 11:13:08 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/03 03:09:04 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	ft_exit(t_global *mini_s, char **cmd)
 {
 	long long	exit_status;
 
-	//(free_env(mini_s), exit(EXIT_FAILURE));
 	exit_status = 0;
 	printf("exit\n");
 	if (cmd[1])
@@ -66,6 +65,8 @@ void	ft_exit(t_global *mini_s, char **cmd)
 		if (mini_s->env->content)
 			exit_status = ft_atoi(mini_s->env->content);
 		free_env(mini_s);
+		close(mini_s->old_stdin);
+		close(mini_s->old_stdout);
 		close(mini_s->history_fd);
 		exit(exit_status);
 	}
