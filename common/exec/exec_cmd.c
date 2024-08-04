@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/03 05:09:57 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/04 06:26:31 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static void	exec_cmd(t_command *cmd, t_global *env)
 		exit(COMMAND_NOT_FOUND);
 	}
 	else
-	{
-		fprintf(stderr, "caca\n");
+	{	
 		if (execve(path, cmd->tab, env->envp) == -1)
 		{
 			perror(path);

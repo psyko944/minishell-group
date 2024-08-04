@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/03 02:53:56 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/04 08:56:17 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,47 +22,6 @@
 
 char	*replace_vars(char *s, t_env_var *env);
 int	get_files(char **command, t_command *storage);
-// static void	ph_execve_and_co(char **tab)
-// {
-// 	while (*tab)
-// 	{
-// 		printf("%s\n", *tab);
-// 		free(tab);
-// 		++tab;
-// 	}
-// }
-
-// static int	ph_exec_node(t_ast *node, t_global *env)
-// {
-// 	t_command	command;
-// 	int			i;
-// 	int			s;
-
-// 	i = 0;
-// 	command.in = 0;
-// 	command.out = 0;
-// 	command.tab = node->content;
-// 	printf("We're running: ");
-// 	while (command.tab[i])
-// 	{
-// 		command.tab[i] = replace_vars(command.tab[i], env->env);
-// 		i += 1;
-// 	}
-// 	command.tab = fill_wild_tab(command.tab, ".");
-// 	node->content = command.tab;
-// 	i = 0;
-// 	s = get_files(command.tab, &command);
-// 	if (s == 0)
-// 		return (printf("caca\n"), 0);
-// 	while (command.tab[i])
-// 	{
-// 		printf("[%s] ", command.tab[i]);
-// 		i += 1;
-// 	}
-// 	printf("with fds %d %d\n", command.in, command.out);
-// 	//cmd_runtime(&command, env);
-// 	return (0);
-// }
 char	*remove_quotes(char *s);
 
 static int    ph_exec_node(t_ast *node, t_global *env)
@@ -100,12 +59,9 @@ static int    ph_exec_node(t_ast *node, t_global *env)
 
  static int exec_pipe(t_ast *tree, int *exit_cmd, t_global *mini_s)
 {
-		mini_s->old_stdin = dup(STDIN_FILENO);
-		mini_s->old_stdout = dup(STDOUT_FILENO);
 		fprintf(stderr,"cmd = %s\tcmd2 = %s\n\n\n\n\n\n\n", (char *)tree->l->content ,(char *)tree->r->content);
 		mini_s->pipe = true;
 		ph_exec_tree(tree->l, exit_cmd, mini_s);
-		//exit(1);
 		mini_s->pipe = false;
 		ph_exec_tree(tree->r, exit_cmd, mini_s);
 		return (0);

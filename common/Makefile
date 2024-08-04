@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/07/28 21:10:56 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/08/04 08:47:53 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ WHITE = \033[0;97m
 PURPLE= \033[38;2;255;105;180m
 RESET= \033[0m
 
-cc = cc
+CC = cc
 
 RM = rm -f
 
@@ -79,7 +79,10 @@ CFLAGS = -Wall -Wextra -Werror -g3
 
 OBJS = $(SRCS:.c=.o)
 
-$(NAME): $(OBJS) $(LIBFT)
+all:	$(NAME)
+		@echo "$(GREEN)🍻 Valhalla is ready to be used!$(DEF_COLOR)"
+		
+$(NAME): $(LIBFT) $(OBJS)
 		$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
 
 $(LIBFT):
@@ -87,8 +90,6 @@ $(LIBFT):
 
 #$(OBJS) : $(HEADER)
 
-all:	$(NAME)
-		@echo "$(GREEN)minishell compiled!$(DEF_COLOR)"
 
 .c.o:
 	${CC} ${CFLAGS} -I include -c $< -o ${<:.c=.o}

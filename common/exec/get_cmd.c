@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:27:25 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/03 05:33:34 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/04 06:28:17 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ char	*get_cmd(char *cmd, char **envp)
 		if (!ft_strncmp(cmd, "./", 2))
 		{ 
 			(ft_putstr_fd("bash: ", 2), ft_putstr_fd(cmd, 2));
-			ft_putstr_fd(": Permission denied\n", 2);
-			exit(COMMAND_NOT_EXECUTABLE);
+			ft_putstr_fd(": Is a directory\n", 2);
+			exit(COMMAND_ISDIRECTORY);
 		}
 		return (NULL);
 	}
