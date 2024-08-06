@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:12:48 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/01 12:47:16 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:15:23 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,43 +44,24 @@ char	*get_value_search(t_env_var *env, char *key)
 	return (NULL);
 }
 
-static void	free_env2(t_env_var **env)
-{
-	t_env_var *tmp;
-
-	tmp = *env;
-	while (tmp)
-	{
-		//fprintf(stderr, "key=%s\tcontent=%s\n", tmp->key, tmp->content);
-		if (tmp->key)
-			free(tmp->key);
-		if (tmp->content)
-			free(tmp->content);
-		tmp = (*env)->next;
-		free(*env);
-		*env = tmp;
-	}
-	*env = NULL;
-}
-
 void	free_env(t_global *mini_s)
 {
+	t_env_var *tmp;
+	
 	if (mini_s->envp)
 		free_matrix(mini_s->envp);
 	if (!mini_s->env)
 		return ;
-	free_env2(&mini_s->env);
-	// tmp = mini_s->env;
-	// while (tmp)
-	// {
-	// 	fprintf(stderr ,"test env\n");
-	// 	free(tmp->key);
-	// 	free(tmp->content);
-	// 	tmp = (mini_s->env)->next;
-	// 	free(mini_s->env);
-	// 	mini_s->env = tmp;
-	// }
-	//mini_s->env = NULL;
+	tmp = mini_s->env;
+	while (tmp)
+	{
+		free(tmp->key);
+		free(tmp->content);
+		tmp = (mini_s->env)->next;
+		free(mini_s->env);
+		mini_s->env = tmp;
+	}
+	mini_s->env = NULL;
 }
 
 void	err_msg(char *msg)

@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/06 17:12:03 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:15:43 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static int    ph_exec_node(t_ast *node, t_global *env)
         i += 1;
     }
     printf("with fds %d %d\n", command.in, command.out);
-    cmd_runtime(&command, env);
+	if (command.tab[0])
+    	cmd_runtime(&command, env);
     return (0);
 }
 
@@ -142,7 +143,6 @@ int	main(int ac, char **av, char **envp)
 		get_shlvl(&env);
 		g_exit_status = wait_status(&env);
 		status_env(&env.env, g_exit_status);
-		// fprintf(stderr, "\n\ntotostatus = %s\n\n", env.env->content);
 	}
 	rl_clear_history();
 	exit_cmd = ft_atoi(env.env->content);
