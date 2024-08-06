@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/04 06:26:31 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:23:48 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void child_process(t_command *cmd, t_global *env)
 
 void	cmd_runtime(t_command *cmd, t_global *env)
 {
-	pid_t	pid;
 	if (!env->pipe)
 	{
 		if (cmd->in)
@@ -75,7 +74,8 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 			dup2(cmd->out, STDOUT_FILENO);
 		if (parse_builtins(env, cmd))
 		{
-			dup2(env->old_stdout, STDOUT_FILENO);
+			dup2(env->old_stdin, STDIN_FILENO);
+			// dup2(env->old_stdout, STDOUT_FILENO);
 			return ;
 		}
 	}
@@ -84,35 +84,14 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 		perror("pipe");
 		return ;
 	}
-	pid = fork();
-	if (pid == -1)
+	env->pid = fork();
+	if (env->pid == -1)
 	{
 		perror("fork");
 		return ;
 	}
-	else if (pid == 0)
-	{
+	else if (env->pid == 0)
 		child_process(cmd, env);
-		// if (cmd->in)
-		// 	dup2(cmd->in, STDIN_FILENO);
-		// if (env->pipe)
-		// {
-		// 	dup2(env->fd[1], STDOUT_FILENO);
-		// 	close(env->fd[0]);
-		// 	close(env->fd[1]);
-		// }
-		// if (cmd->out)
-		// 	dup2(cmd->out, STDOUT_FILENO);
-		// if (env->pipe)
-		// {
-		// 	if (parse_builtins(env, cmd))
-		// 		exit(0);
-		// }
-		// close(env->old_stdin);
-		// close(env->old_stdout);
-		// close(env->history_fd);
-		// exec_cmd(cmd, env);
-	}
 	else
 	{
 		if (env->pipe)
@@ -123,6 +102,6 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 		}
 		else
 			dup2(env->old_stdin, STDIN_FILENO);
-		wait(NULL);
+		//g_exit_status = wait_status(env);
 	}
 }

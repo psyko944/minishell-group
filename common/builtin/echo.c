@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:37:32 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/12 23:54:50 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:30:03 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ void	mini_echo(t_global *mini_s, char **tab)
 	}
 	if (n_line)
 		printf("\n");
+	g_exit_status = 0;
 }

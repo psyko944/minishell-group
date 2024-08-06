@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/03 02:53:20 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/06 11:34:39 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_global
 	pid_t		pid;
 	int			wstatus;
 	int			history_fd;
+	int			code;
 	char		*prompt;
 	bool		pipe;
 	bool		check;
@@ -77,6 +78,7 @@ void		init_signals(void);
 void		init(t_global *mini_s, char **envp);
 int			get_history(t_global *mini_s);
 void		ft_append_history(char *cmd, int fd);
+int			wait_status(t_global *mini_s);
 
 // env functions
 t_env_var	*get_env(t_global *mini_s, char **envp);

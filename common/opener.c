@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:38:17 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/26 11:53:54 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:55:48 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	open_app(const char *f, t_command *store)
 	if (fd < 0)
 	{
 		perror(f);
+		g_exit_status = 1;
 		return (-1);
 	}
 	store->out = fd;
@@ -58,6 +59,7 @@ int	open_out(const char *f, t_command *store)
 	if (fd < 0)
 	{
 		perror(f);
+		g_exit_status = 1;
 		return (-1);
 	}
 	store->out = fd;
@@ -74,6 +76,7 @@ int	open_in(const char *f, t_command *store)
 	if (fd < 0)
 	{
 		perror(f);
+		g_exit_status = 1;
 		return (-1);
 	}
 	store->in = fd;

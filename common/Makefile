@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/08/04 08:47:53 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/08/06 11:36:34 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ builtin/pwd_env.c \
 builtin/cd.c \
 exec/get_cmd.c \
 exec/exec_cmd.c \
+exec/exec_utils.c \
 init/env_utils.c \
 init/shlvl.c \
 builtin/unset.c \
@@ -109,6 +110,6 @@ fclean: clean
 
 re: fclean all
 	@$(MAKE) -C $(LIBFT_DIR) re
-	@echo "$(GREEN)Cleaned and rebuilt everything for minishell!$(DEF_COLOR)"
+	@echo "$(GREEN)Cleaned and rebuilt everything for minishell! ✔️$(DEF_COLOR)"
 
 .PHONY: all clean fclean re libft

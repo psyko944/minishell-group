@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/04 08:56:17 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:12:03 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int    ph_exec_node(t_ast *node, t_global *env)
 
  static int exec_pipe(t_ast *tree, int *exit_cmd, t_global *mini_s)
 {
-		fprintf(stderr,"cmd = %s\tcmd2 = %s\n\n\n\n\n\n\n", (char *)tree->l->content ,(char *)tree->r->content);
+		//fprintf(stderr,"cmd = %s\tcmd2 = %s\n\n\n\n\n\n\n", (char *)tree->l->content ,(char *)tree->r->content);
 		mini_s->pipe = true;
 		ph_exec_tree(tree->l, exit_cmd, mini_s);
 		mini_s->pipe = false;
@@ -69,29 +69,27 @@ static int    ph_exec_node(t_ast *node, t_global *env)
 
 int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 {
-	// int	status;
 	if (!tree)
 		return (0);
 	while (1)
 	{
 		if (tree->type == TEXT)
-		{
-			//fprintf(stderr, "dada\n");
 			return (ph_exec_node(tree, env));
-		}
 		else if (tree->type == PARENTHESIS)
 			ph_exec_tree(tree->content, exit_cmd, env);
 		else if (tree->type == N_AND)
 		{
 			ph_exec_tree(tree->l, exit_cmd, env);
-			return (ph_exec_tree(tree->r, exit_cmd, env));
+			if (g_exit_status == 0)
+				return (ph_exec_tree(tree->r, exit_cmd, env));
+			return (1);
 		}
 		else if (tree->type == N_PIPE)
 			return (exec_pipe(tree, exit_cmd, env));
 		else if (tree->type == N_OR)
 		{
 			ph_exec_tree(tree->l, exit_cmd, env);
-			if (ft_atoi(env->env->content) != 0)
+			if (g_exit_status != 0)
 				ph_exec_tree(tree->r, exit_cmd, env);
 			return (0);
 		}	
@@ -142,6 +140,9 @@ int	main(int ac, char **av, char **envp)
 		ft_append_history(command, env.history_fd);
 		env.prompt = get_prompt(env.env);
 		get_shlvl(&env);
+		g_exit_status = wait_status(&env);
+		status_env(&env.env, g_exit_status);
+		// fprintf(stderr, "\n\ntotostatus = %s\n\n", env.env->content);
 	}
 	rl_clear_history();
 	exit_cmd = ft_atoi(env.env->content);
