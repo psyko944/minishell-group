@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:38:17 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/06 16:55:48 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:54:27 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 #include <unistd.h>
 #include "minishell.h"
 
-int	open_app(const char *f, t_command *store)
+int	open_app(const char *f, t_command *store, t_global *mini_s)
 {
 	int	fd;
 
 	if (store->out)
 		close(store->out);
+	(void)mini_s;
 	fd = open(f, O_APPEND | O_CREAT, 0644);
 	if (fd < 0)
 	{
@@ -33,14 +34,14 @@ int	open_app(const char *f, t_command *store)
 	return (1);
 }
 
-int	open_here(const char *f, t_command *store)
+int	open_here(const char *f, t_command *store, t_global *mini_s)
 {
 	int fd;
 
 	if (store->in)
 		close(store->in);	
 	fd = open("/tmp/hdoc_file", O_CREAT | O_RDWR | O_TRUNC, 0644);
-	runtime_heredoc(f, &fd);
+	runtime_heredoc(f, &fd, mini_s);
 	close(fd);
 	fd = open("/tmp/hdoc_file", O_RDONLY);
 	store->in = fd;
@@ -49,12 +50,13 @@ int	open_here(const char *f, t_command *store)
 	return (1);
 }
 
-int	open_out(const char *f, t_command *store)
+int	open_out(const char *f, t_command *store, t_global *mini_s)
 {
 	int	fd;
 
 	if (store->out)
 		close(store->out);
+	(void)mini_s;
 	fd = open(f, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
@@ -66,12 +68,13 @@ int	open_out(const char *f, t_command *store)
 	return (1);
 }
 
-int	open_in(const char *f, t_command *store)
+int	open_in(const char *f, t_command *store, t_global *mini_s)
 {
 	int	fd;
 
 	if (store->in)
 		close(store->in);
+	(void)mini_s;
 	fd = open(f, O_RDONLY);
 	if (fd < 0)
 	{

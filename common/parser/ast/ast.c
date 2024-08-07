@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/25 21:16:42 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:25:54 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_ast	*build_ast(t_token *tokens)
 	t_token	*last_op;
 
 	if (!check_format(tokens))
-		return ((t_ast *)free_tokens(tokens));
+		return (free_tokens(tokens), NULL);
 	last_op = NULL;
 	if (!tokens->next)
 		return ((t_ast *)tokens);
