@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:17:19 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/24 01:48:54 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:47:47 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 void	print_parse_err(const char *s);
 
-static int	handle_fd(const char *op, const char *file, t_command *storage)
+static int	handle_fd(const char *op, const char *file, t_command *storage, t_global *mini_s)
 {
 	const char	*ops[] = {">>", "<<", ">", "<", 0};
 	const void	*funcs[] = {open_app, open_here, open_out, open_in};
-	int			(*fun)(const char *, t_command *);
+	int			(*fun)(const char *, t_command *, t_global *);
 	int			i;
 
 	i = 0;
@@ -34,10 +34,11 @@ static int	handle_fd(const char *op, const char *file, t_command *storage)
 		}
 		i += 1;
 	}
+	// fprintf(stderr, "%d", mini_s->shlvl);
 	if (fun && !file)
 		return (print_parse_err("newline"), -1);
 	if (fun)
-		return ((*fun)(file, storage));
+		return ((*fun)(file, storage, mini_s));
 	return (0);
 }
 
@@ -53,7 +54,7 @@ static void	replace_elements(char **tab)
 	ft_memmove(tab, tab + 2, (i - 1) * sizeof(char *));
 }
 
-int	get_files(char **command, t_command *storage)
+int	get_files(char **command, t_command *storage, t_global *mini_s)
 {
 	int	i;
 	int	success;
@@ -61,7 +62,7 @@ int	get_files(char **command, t_command *storage)
 	i = 0;
 	while (command[i])
 	{
-		success = handle_fd(command[i], command[i + 1], storage);
+		success = handle_fd(command[i], command[i + 1], storage, mini_s);
 		if (success == 1)
 			replace_elements(command + i);
 		else if (success == -1)

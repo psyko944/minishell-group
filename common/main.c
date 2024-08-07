@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/06 18:15:43 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:48:54 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <readline/history.h>
 
 char	*replace_vars(char *s, t_env_var *env);
-int	get_files(char **command, t_command *storage);
+int		get_files(char **command, t_command *storage, t_global *mini_s);
 char	*remove_quotes(char *s);
 
 static int    ph_exec_node(t_ast *node, t_global *env)
@@ -42,9 +42,10 @@ static int    ph_exec_node(t_ast *node, t_global *env)
     command.tab = fill_wild_tab(command.tab, ".");
 	free(node->content);
     printf("We're running: ");
-    if (get_files(command.tab, &command) == 0)
+    if (get_files(command.tab, &command, env) == 0)
         return (printf("caca\n"), 0);
     i = 0;
+	// fprintf(stderr, "entry node\n");
     node->content = command.tab;
     while (command.tab[i])
     {
@@ -81,6 +82,7 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 		else if (tree->type == N_AND)
 		{
 			ph_exec_tree(tree->l, exit_cmd, env);
+			g_exit_status = wait_status(env);
 			if (g_exit_status == 0)
 				return (ph_exec_tree(tree->r, exit_cmd, env));
 			return (1);
@@ -90,6 +92,7 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 		else if (tree->type == N_OR)
 		{
 			ph_exec_tree(tree->l, exit_cmd, env);
+			g_exit_status = wait_status(env);
 			if (g_exit_status != 0)
 				ph_exec_tree(tree->r, exit_cmd, env);
 			return (0);
@@ -107,12 +110,10 @@ static int	handle_command(char *command, int *exit_cmd, t_global *env)
 	else
 	{
 		ast_tree = build_ast(tokenize(command));
-		if (!ast_tree)
-			__builtin_printf("Parse error\n");
 		//printf("l = %s r = %s\n", (char *)ast_tree->l->content, (char *)ast_tree->r->content);
 		ph_exec_tree(ast_tree, exit_cmd, env);
 		//fprintf(stderr, "cmd = %s\t%s\n", command, (char *)ast_tree->r->content);
-		//free_ast(ast_tree);
+		free_ast(ast_tree);
 		free(command);
 	}
 	return (1);

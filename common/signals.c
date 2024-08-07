@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:35 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/06 20:45:05 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:09:54 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	handle_sigquit(int sig)
 {
 	(void)sig;
 
-    printf("g_exit_status: %d\n", g_exit_status);
+    //printf("g_exit_status: %d\n", g_exit_status);
 	rl_cleanup_after_signal();
 	rl_free_line_state();
 	rl_on_new_line();

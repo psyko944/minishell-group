@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/06 11:34:39 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:53:04 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_global
 	t_env_var	*env;
 	char		**envp;
 	pid_t		pid;
-	int			wstatus;
+	int			wait_status;
 	int			history_fd;
 	int			code;
 	char		*prompt;
@@ -108,11 +108,11 @@ void		pwd_env(t_global *mini_s);
 void		ft_exit(t_global *mini_s, char **tab);
 void		print_pwd(t_global *mini_s, char **tab);
 
-int			open_here(const char *f, t_command *store);
-int			open_app(const char *f, t_command *store);
-int			open_in(const char *f, t_command *store);
-int			open_out(const char *f, t_command *store);
-void		runtime_heredoc(const char *f,int *fd);
+int			open_here(const char *f, t_command *store, t_global *mini_s);
+int			open_app(const char *f, t_command *store, t_global *mini_s);
+int			open_in(const char *f, t_command *store, t_global *mini_s);
+int			open_out(const char *f, t_command *store, t_global *mini_s);
+void		runtime_heredoc(const char *f,int *fd, t_global *mini_s);
 
 char		**fill_wild_tab(char **base, const char *path);
 char		*get_cmd(char *cmd, char **envp);
@@ -121,5 +121,6 @@ void		err_msg(char *msg);
 void		status_env(t_env_var **env, int exit_status);
 void		print_env(t_env_var *lst);
 void		get_shlvl(t_global *mini_s);
+char		*replace_vars(char *s, t_env_var *env);
 // exec functions
 #endif

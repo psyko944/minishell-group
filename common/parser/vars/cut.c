@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cut.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:12:12 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/25 21:12:24 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:12:09 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	get_word_len(char *s)
 			return (2);
 		if (s[1] == '{')
 			return (ft_strchr(s, '}') - s + 1);
-		while (s[i] && s[i] != ' ' && s[i] != '$')
+		while (s[i] && !ft_isspace(s[i])  && s[i] != '$')
 			i += 1;
 	}
 	else

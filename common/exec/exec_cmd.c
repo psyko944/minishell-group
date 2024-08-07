@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/06 17:23:48 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:52:38 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,5 @@ void	cmd_runtime(t_command *cmd, t_global *env)
 		}
 		else
 			dup2(env->old_stdin, STDIN_FILENO);
-		//g_exit_status = wait_status(env);
 	}
 }

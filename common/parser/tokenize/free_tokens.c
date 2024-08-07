@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:13 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/23 13:53:28 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:31:13 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,8 @@ t_token	*free_tokens(t_token *ls)
 	{
 		cur = ls;
 		ls = ls->next;
-		if (cur->type == TEXT)
-			free(*((char **)cur->content));
 		if (cur->type == PARENTHESIS)
 			free_tokens(cur->content);
-		else
-			free(cur->content);
 		free(cur);
 	}
 	return (NULL);
