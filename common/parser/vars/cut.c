@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:12:12 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/25 21:12:24 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:37:16 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,27 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+static int	skip_dol(const char **s)
+{
+	*s += 1;
+	if (**s == '?')
+		*s += 1;
+	else if (**s == '{')
+		*s = ft_strchr(*s, '}');
+	else
+	{
+		while (ft_isalnum(**s))
+			++*s;
+	}
+	if (!*s)
+		return (-1);
+	return (1);
+}
+
 static int	skip_var(const char **s)
 {
 	if (**s == '$')
-	{
-		*s += 1;
-		if (**s == '?')
-			*s += 1;
-		else if (**s == '{')
-			*s = ft_strchr(*s, '}');
-		else
-		{
-			while (**s && **s != ' ' && **s != '$')
-				++*s;
-		}
-		if (!*s)
-			return (-1);
-	}
+		return (skip_dol(s));
 	else
 	{
 		while (**s && **s != '$')
@@ -71,7 +75,7 @@ static int	get_word_len(char *s)
 			return (2);
 		if (s[1] == '{')
 			return (ft_strchr(s, '}') - s + 1);
-		while (s[i] && s[i] != ' ' && s[i] != '$')
+		while (ft_isalnum(s[i]))
 			i += 1;
 	}
 	else
