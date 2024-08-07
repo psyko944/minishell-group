@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:24 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/25 21:25:33 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:51:21 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #include <libft.h>
 #include <stdlib.h>
 
+extern int	g_exit_status;
+
 // Inc string todo
+#include <stdio.h>
 int	get_par_len(const char *s)
 {
 	int	step;
@@ -54,7 +57,11 @@ t_token	*get_parenthesis(const char **s_ptr)
 	temp = *s_ptr;
 	len = get_par_len(temp);
 	if (len == -1)
+	{
+		ft_putstr_fd("Parse error: Unclosed Parethesis\n", 2);
+		g_exit_status = 2;
 		return (NULL);
+	}
 	*s_ptr += len;
 	return (new_token(PARENTHESIS,
 			ft_strndup_e(temp + 1, len - 2)));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/05/21 13:30:53 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:52:14 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_token	*new_token(t_token_type type, void *content)
 		if (type == PARENTHESIS)
 		{
 			res->content = tokenize(content);
-			free(content);
 			if (!res->content)
 			{
 				free(res);
