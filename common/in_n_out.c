@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:17:19 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/07 14:47:47 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:59:07 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 void	print_parse_err(const char *s);
 
-static int	handle_fd(const char *op, const char *file, t_command *storage, t_global *mini_s)
+static int	handle_fd(const char *op, const char *file,
+	t_command *storage, t_global *mini_s)
 {
 	const char	*ops[] = {">>", "<<", ">", "<", 0};
 	const void	*funcs[] = {open_app, open_here, open_out, open_in};
@@ -34,7 +35,6 @@ static int	handle_fd(const char *op, const char *file, t_command *storage, t_glo
 		}
 		i += 1;
 	}
-	// fprintf(stderr, "%d", mini_s->shlvl);
 	if (fun && !file)
 		return (print_parse_err("newline"), -1);
 	if (fun)
@@ -72,41 +72,3 @@ int	get_files(char **command, t_command *storage, t_global *mini_s)
 	}
 	return (1);
 }
-/*
-char	**copy_tab(char **tab)
-{
-	int		i = 0;
-	char	**res;
-
-	while (tab[i])
-		i += 1;
-	res = calloc(i + 1, sizeof(char *));
-	i = 0;
-	while (tab[i])
-	{
-		res[i] = strdup(tab[i]);
-		i += 1;
-	}
-	return (res);
-}
-
-int	main(int ac, char **av)
-{
-	char		*tab[] = {"<", "in",  "ls", NULL};
-	t_command	storage;
-	char		**cp = copy_tab(tab);
-
-	storage.tab = cp;
-	storage.in = 0;
-	storage.out = 0;
-	get_files(cp, &storage);
-	int i = 0;
-	while (cp[i])
-	{
-		__builtin_printf("%s\n", cp[i]);
-		free(cp[i]);
-		i += 1;
-	}
-	free(cp);
-}
-*/

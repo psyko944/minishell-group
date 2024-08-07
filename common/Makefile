@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/08/06 11:36:34 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/08/07 19:36:56 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ CFLAGS = -Wall -Wextra -Werror -g3
 OBJS = $(SRCS:.c=.o)
 
 all:	$(NAME)
-		@echo "$(GREEN)🍻 Valhalla is ready to be used!$(DEF_COLOR)"
+		@echo "$(GREEN)🍻 Valhallashell is ready to be used!$(DEF_COLOR)"
 		
 $(NAME): $(LIBFT) $(OBJS)
 		$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline

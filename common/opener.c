@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:38:17 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/07 14:54:27 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:56:35 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	open_app(const char *f, t_command *store, t_global *mini_s)
 
 int	open_here(const char *f, t_command *store, t_global *mini_s)
 {
-	int fd;
+	int	fd;
 
 	if (store->in)
-		close(store->in);	
+		close(store->in);
 	fd = open("/tmp/hdoc_file", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	runtime_heredoc(f, &fd, mini_s);
 	close(fd);

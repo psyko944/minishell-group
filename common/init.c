@@ -6,13 +6,11 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:59 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/06 11:26:58 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/07 21:03:58 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-extern int	g_exit_status;
 
 void	init(t_global *mini_s, char **envp)
 {
@@ -30,5 +28,4 @@ void	init(t_global *mini_s, char **envp)
 	mini_s->old_stdout = dup(STDOUT_FILENO);
 	g_exit_status = 5;
 	init_signals();
-	//printf("%d", g_exit_status);
 }
