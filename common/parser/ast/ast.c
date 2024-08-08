@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:52 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/07 15:25:54 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/07 21:14:04 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,11 @@ t_ast	*build_ast(t_token *tokens)
 		return (free_tokens(tokens), NULL);
 	last_op = NULL;
 	if (!tokens->next)
+	{
+        if (tokens->type == PARENTHESIS)
+            tokens->content = build_ast(tokens->content);
 		return ((t_ast *)tokens);
+	}
 	while (tokens->next)
 		tokens = tokens->next;
 	while (tokens)

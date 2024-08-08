@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/07 16:48:54 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/08 23:44:52 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 		if (tree->type == TEXT)
 			return (ph_exec_node(tree, env));
 		else if (tree->type == PARENTHESIS)
-			ph_exec_tree(tree->content, exit_cmd, env);
+			return (ph_exec_tree(tree->content, exit_cmd, env), 1);
 		else if (tree->type == N_AND)
 		{
 			ph_exec_tree(tree->l, exit_cmd, env);
@@ -100,6 +100,8 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 	}
 }
 
+void	print_ast(t_ast *ast, int ind);
+
 static int	handle_command(char *command, int *exit_cmd, t_global *env)
 {
 	t_ast	*ast_tree;
@@ -110,6 +112,7 @@ static int	handle_command(char *command, int *exit_cmd, t_global *env)
 	else
 	{
 		ast_tree = build_ast(tokenize(command));
+		print_ast(ast_tree, 0);
 		//printf("l = %s r = %s\n", (char *)ast_tree->l->content, (char *)ast_tree->r->content);
 		ph_exec_tree(ast_tree, exit_cmd, env);
 		//fprintf(stderr, "cmd = %s\t%s\n", command, (char *)ast_tree->r->content);
