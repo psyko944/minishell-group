@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:47:04 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/01 17:27:37 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/09 00:31:46 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ static bool	err_export(char *arg, int flag)
 		ft_putstr_fd("bash: export: `", 2);
 		ft_putstr_fd(arg, 2);
 		ft_putstr_fd("`: not a valid identifier\n", 2);
+		g_exit_status = 1;
 	}
 	else
 	{
 		ft_putstr_fd("bash: export: `", 2);
 		write(2, arg, 2);
 		ft_putstr_fd("`: invalid option\n", 2);
+		g_exit_status = 2;
 	}
 	free(arg);
 	return (false);

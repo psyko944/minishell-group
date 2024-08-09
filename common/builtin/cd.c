@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:13:54 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/06 20:40:13 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/09 00:29:04 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ft_cd(t_global *mini_s, char **tab)
 	}
 	if (check_dir(path))
 	{
+		g_exit_status = 1;
 		printf("error changement de path\n");
 		return ;
 	}
