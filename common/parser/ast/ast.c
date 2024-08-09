@@ -63,7 +63,8 @@ static int	check_format(t_token *tokens)
 				printf("sa feil\n");
 				return (print_parse_err(tokens->content), 0);
 			}
-			i -= 1;
+			if (tokens->next->type == TEXT)
+				i -= 1;
 		}
 		tokens = tokens->next;
 		i += 1;
@@ -139,12 +140,11 @@ static bool	has_seps(t_token *tokens)
 
 static t_ast	*no_sep_handle(t_token *tokens)
 {
-	if (!tokens->next)
-		return ((t_ast*)tokens);
+	if (tokens->type == TEXT && tokens->next)
+		print_parse_err("(");
 	else if (tokens->type == PARENTHESIS)
-		return ((t_ast*)tokens);
-	else
-		return ((t_ast*)tokens->next);
+		tokens->content = build_ast(tokens->content);
+	return ((t_ast*)tokens);
 }
 
 static t_ast	*fix_par_redirect(t_ast *ast)
