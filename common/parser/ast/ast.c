@@ -14,23 +14,59 @@
 #include <ast.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
-// Ajouter messages erreur de parsing
-int	check_format(t_token *tokens)
+static bool	is_redirec_token(const char *tok)
+{
+	bool	prev_redirec;
+
+	prev_redirec = false;
+	printf("Coucou '%s'\n", tok);
+	while (*tok)
+	{
+		printf("%c", *tok);
+		if (*tok == '&' || *tok == '|')
+			break ;
+		else if (*tok == '>' || *tok == '<')
+			prev_redirec = true;
+		else if (prev_redirec == false && ft_isalpha(*tok))
+			return (false);
+		else if (ft_isalpha(*tok))
+		{
+			while (*tok && !ft_isspace(*tok))
+				++tok;
+			prev_redirec = false;
+			--tok;
+		}
+		++tok;
+	}
+	printf("Check ok\n");
+	return (true);
+}
+
+static int	check_format(t_token *tokens)
 {
 	int	i;
 
-	if (!tokens)
-		return (0);
 	i = 0;
 	while (tokens->next)
 	{
-		if (i % 2 && tokens->type != SEPARATOR)
+		printf("Checking %s at index %d\n", (char*)tokens->content, i);
+		if (tokens->type == SEPARATOR && i % 2 == 0)
 			return (print_parse_err(tokens->content), 0);
-		else if (i % 2 == 0 && tokens->type == SEPARATOR)
+		else if (tokens->type == TEXT && i % 2 == 1)
 			return (print_parse_err(tokens->content), 0);
+		else if (tokens->type == PARENTHESIS)
+		{
+			if (tokens->next->type == PARENTHESIS || (tokens->next->type == TEXT && !is_redirec_token(tokens->next->content)))
+			{
+				printf("sa feil\n");
+				return (print_parse_err(tokens->content), 0);
+			}
+			i -= 1;
+		}
 		tokens = tokens->next;
-		++i;
+		i += 1;
 	}
 	if (tokens->type == SEPARATOR)
 		return (print_parse_err("newline"), 0);
@@ -81,9 +117,49 @@ void	ast_step(t_token *tokens, t_token **last_op)
 		if (*last_op)
 			tokens->next = *last_op;
 		*last_op = tokens;
+		if (tokens->next->type == TEXT && tokens->next->next && tokens->next->next->type == PARENTHESIS)
+		{
+			tokens->next = tokens->next->next;
+		}
 	}
 	else if (tokens->type == PARENTHESIS)
 		tokens->content = build_ast(tokens->content);
+}
+
+static bool	has_seps(t_token *tokens)
+{
+	while (tokens)
+	{
+		if (tokens->type == SEPARATOR)
+			return (true);
+		tokens = tokens->next;
+	}
+	return (false);
+}
+
+static t_ast	*no_sep_handle(t_token *tokens)
+{
+	if (!tokens->next)
+		return ((t_ast*)tokens);
+	else if (tokens->type == PARENTHESIS)
+		return ((t_ast*)tokens);
+	else
+		return ((t_ast*)tokens->next);
+}
+
+static t_ast	*fix_par_redirect(t_ast *ast)
+{
+	t_ast	*res;
+
+	res = ast;
+	while (ast)
+	{
+		if (ast->l && ast->l->type == TEXT)
+			if (ast->l->l && ast->l->l->type == PARENTHESIS)
+				ast->l = ast->l->l;
+		ast = ast->r;
+	}
+	return (res);
 }
 
 t_ast	*build_ast(t_token *tokens)
@@ -94,12 +170,8 @@ t_ast	*build_ast(t_token *tokens)
 	if (!check_format(tokens))
 		return (free_tokens(tokens), NULL);
 	last_op = NULL;
-	if (!tokens->next)
-	{
-        if (tokens->type == PARENTHESIS)
-            tokens->content = build_ast(tokens->content);
-		return ((t_ast *)tokens);
-	}
+	if (!has_seps(tokens))
+		return (no_sep_handle(tokens));
 	while (tokens->next)
 		tokens = tokens->next;
 	while (tokens)
@@ -108,5 +180,5 @@ t_ast	*build_ast(t_token *tokens)
 		ast_step(tokens, &last_op);
 		tokens = next_tok;
 	}
-	return ((t_ast *)last_op);
+	return (fix_par_redirect((t_ast *)last_op));
 }

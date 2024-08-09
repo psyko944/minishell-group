@@ -113,6 +113,8 @@ static int	handle_command(char *command, int *exit_cmd, t_global *env)
 	{
 		ast_tree = build_ast(tokenize(command));
 		print_ast(ast_tree, 0);
+		if (!ast_tree)
+			printf("Parse error\n");
 		//printf("l = %s r = %s\n", (char *)ast_tree->l->content, (char *)ast_tree->r->content);
 		ph_exec_tree(ast_tree, exit_cmd, env);
 		//fprintf(stderr, "cmd = %s\t%s\n", command, (char *)ast_tree->r->content);

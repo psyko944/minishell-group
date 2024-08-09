@@ -24,7 +24,18 @@ void	print_ast(t_ast *ast, int ind)
 	{
 		print_ind(ind);
 		printf("Parenthesis: %p\n", ast);
+		if (ast->r && ast->r->type == TEXT)
+		{
+			print_ind(ind);
+			printf("R redirect: %s\n", (char*)ast->r->content);
+		}
+		if (ast->l && ast->l->type == TEXT)
+		{
+			print_ind(ind);
+			printf("L redirect: %s\n", (char*)ast->l->content);
+		}
 		print_ast(ast->content, ind + 1);
+	
 	}
 	else if (ast->type == TEXT)
 	{
