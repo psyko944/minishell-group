@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 08:21:39 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/10 13:46:04 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 13:52:14 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static char	*get_final_prompt(char *pwd, char *tmp)
 	final_prompt = add_dollars(final_prompt);
 	if (!final_prompt)
 		return (ft_strdup("minishell$ "));
+	return (final_prompt);
 }
 
 char	*get_prompt(t_env_var *env)
