@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/10 13:22:10 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 18:37:04 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ bool	cmd_runtime(t_command *cmd, t_global *env)
 			(dup2(cmd->out, STDOUT_FILENO), close(cmd->out));
 		if (parse_builtins(env, cmd))
 		{
+			g_exit_status = 0;
 			dup2(env->old_stdin, STDIN_FILENO);
 			return (dup2(env->old_stdout, STDOUT_FILENO), true);
 		}

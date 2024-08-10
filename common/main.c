@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/10 13:52:49 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:28:32 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,26 +77,37 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 		if (tree->type == TEXT)
 			return (ph_exec_node(tree, env));
 		else if (tree->type == PARENTHESIS)
-			return (ph_exec_tree(tree->content, exit_cmd, env), 1);
+		{
+			ph_exec_tree(tree->content, exit_cmd, env);
+			g_exit_status = wait_status(env);
+			if (tree->r && tree->r->content)
+				return(ph_exec_tree(tree->r, exit_cmd, env));
+			return (1);
+		}
 		else if (tree->type == N_AND)
 		{
 			ph_exec_tree(tree->l, exit_cmd, env);
+			fprintf(stderr,"\n\ncmd_and = %s\tcmd2 = %s\n\n", (char *)tree->l->content ,(char *)tree->r->content);
 			g_exit_status = wait_status(env);
-			fprintf(stderr,"cmd_and = %s\tcmd2 = %s\n\n\n\n\n\n\n", (char *)tree->l->content ,(char *)tree->r->content);
+			// fprintf(stderr, "exit_status = %d\n", g_exit_status);
 			if (g_exit_status == 0)
 				return (ph_exec_tree(tree->r, exit_cmd, env));
+			else if (g_exit_status != 0 && (tree->r->type == N_OR))
+				return (ph_exec_tree(tree->r->r, exit_cmd, env));
 			return (1);
 		}
 		else if (tree->type == N_PIPE)
 			return (exec_pipe(tree, exit_cmd, env));
 		else if (tree->type == N_OR)
 		{
+			// fprintf(stderr,"type_in_and = %d\tcmd_or = %s\tcmd2 = %s\ttype_next_node = %d\n\n",(int)tree->type ,(char *)tree->l->content ,(char *)tree->l->r->content, (int)tree->r->type);
 			ph_exec_tree(tree->l, exit_cmd, env);
 			g_exit_status = wait_status(env);
-			fprintf(stderr,"cmd_or = %s\tcmd2 = %s\n\n\n\n\n\n\n", (char *)tree->l->content ,(char *)tree->r->content);
-			if (g_exit_status != 0)
-				ph_exec_tree(tree->r, exit_cmd, env);
-			return (0);
+			 if (g_exit_status != 0)
+				return (ph_exec_tree(tree->r->r, exit_cmd, env));
+			 else if (g_exit_status == 0 && (tree->r->type == N_AND))
+				return (ph_exec_tree(tree->r->r, exit_cmd, env));
+			return (1);
 		}	
 	}
 }
@@ -115,7 +126,7 @@ static int	handle_command(char *command, int *exit_cmd, t_global *env)
 		ast_tree = build_ast(tokenize(command));
 		print_ast(ast_tree, 0);
 		if (!ast_tree)
-			printf("Parse error\n");
+			ft_putstr_fd("bash: syntax error\n", 2);
 		//printf("l = %s r = %s\n", (char *)ast_tree->l->content, (char *)ast_tree->r->content);
 		ph_exec_tree(ast_tree, exit_cmd, env);
 		//fprintf(stderr, "cmd = %s\t%s\n", command, (char *)ast_tree->r->content);
