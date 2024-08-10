@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 08:21:39 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/10 09:55:03 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 13:46:04 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,25 @@ static char	*get_tilde(void)
 	return (tilde);
 }
 
+static char	*get_final_prompt(char *pwd, char *tmp)
+{
+	char	*final_prompt;
+
+	final_prompt = ft_strjoin3(tmp, ":", pwd);
+	free(pwd);
+	if (!final_prompt)
+		return (NULL);
+	final_prompt = add_dollars(final_prompt);
+	if (!final_prompt)
+		return (ft_strdup("minishell$ "));
+}
+
 char	*get_prompt(t_env_var *env)
 {
 	char	*user;
 	char	*tmp;
 	char	*session;
 	char	*pwd;
-	char	*final_prompt;
 
 	user = get_value_search(env, "USER");
 	session = get_session(env);
@@ -93,12 +105,5 @@ char	*get_prompt(t_env_var *env)
 	free(session);
 	if (!tmp)
 		return (free(pwd), ft_strdup("minishell$ "));
-	final_prompt = ft_strjoin3(tmp, ":", pwd);
-	free(pwd);
-	if (!final_prompt)
-		return (NULL);
-	final_prompt = add_dollars(final_prompt);
-	if (!final_prompt)
-		return (ft_strdup("minishell$ "));
-	return (final_prompt);
+	return (get_final_prompt(pwd, tmp));
 }

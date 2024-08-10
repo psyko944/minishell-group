@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/08/07 21:33:17 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/08/10 13:44:32 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 SRCS = init/ft_env.c \
 init/history.c \
 init/prompt.c \
-init.c \
+init/init.c \
 utils.c \
 signals.c \
 parser/ast/ast.c \
@@ -32,9 +32,9 @@ parser/vars/remove_quotes.c \
 wildcards/merge_wildcards.c \
 wildcards/run_wildcards.c \
 wildcards/wildcards.c \
-in_n_out.c \
-opener.c \
-here_doc.c \
+exec/in_n_out.c \
+exec/opener.c \
+exec/here_doc.c \
 parser/print_parse_err.c \
 builtin/pwd_env.c \
 builtin/cd.c \

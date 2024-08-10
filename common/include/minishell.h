@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/10 13:21:30 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 13:35:10 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void		concat_env(t_env_var **env, char *value);
 void		replace_env(t_env_var *env, char *value);
 char		*get_key(char *line);
 void		err_msg(char *msg);
-int			get_sub_tok_count(const char *);
-int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env);
+int			get_sub_tok_count(const char *s);
+int			ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env);
 // builtins
 
 bool		parse_builtins(t_global *mini_s, t_command *cmd);
@@ -112,7 +112,7 @@ int			open_here(const char *f, t_command *store, t_global *mini_s);
 int			open_app(const char *f, t_command *store, t_global *mini_s);
 int			open_in(const char *f, t_command *store, t_global *mini_s);
 int			open_out(const char *f, t_command *store, t_global *mini_s);
-void		runtime_heredoc(const char *f,int *fd, t_global *mini_s);
+void		runtime_heredoc(const char *f, int *fd, t_global *mini_s);
 
 char		**fill_wild_tab(char **base, const char *path);
 char		*get_cmd(char *cmd, char **envp);
