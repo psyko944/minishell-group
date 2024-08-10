@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/07 19:35:23 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 13:22:10 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	exec_cmd(t_command *cmd, t_global *env)
 		exit(COMMAND_NOT_FOUND);
 	}
 	else
-	{	
+	{
 		if (execve(path, cmd->tab, env->envp) == -1)
 		{
 			perror(path);
@@ -40,70 +40,70 @@ static void	exec_cmd(t_command *cmd, t_global *env)
 	}
 }
 
-static void child_process(t_command *cmd, t_global *env)
+static void	child_process(t_command *cmd, t_global *env)
 {
 	if (cmd->in)
-			dup2(cmd->in, STDIN_FILENO);
-		if (env->pipe)
-		{
-			dup2(env->fd[1], STDOUT_FILENO);
-			close(env->fd[0]);
-			close(env->fd[1]);
-		}
-		if (cmd->out)
-			dup2(cmd->out, STDOUT_FILENO);
-		if (env->pipe)
-		{
-			if (parse_builtins(env, cmd))
-				exit(0);
-		}
-		close(env->old_stdin);
-		close(env->old_stdout);
-		close(env->history_fd);
-		exec_cmd(cmd, env);
+		(dup2(cmd->in, STDIN_FILENO), close(cmd->in));
+	if (env->pipe)
+	{
+		dup2(env->fd[1], STDOUT_FILENO);
+		close(env->fd[0]);
+		close(env->fd[1]);
+	}
+	if (cmd->out)
+		(dup2(cmd->out, STDOUT_FILENO), close(cmd->out));
+	close(env->old_stdin);
+	close(env->old_stdout);
+	close(env->history_fd);
+	if (env->pipe)
+	{
+		if (parse_builtins(env, cmd))
+			exit(0);
+	}
+	exec_cmd(cmd, env);
 }
 
+static void	parent_process(t_command *cmd, t_global *env)
+{
+	if (env->pipe)
+	{
+		dup2(env->fd[0], STDIN_FILENO);
+		close(env->fd[1]);
+		close(env->fd[0]);
+	}
+	else
+	{
+		dup2(env->old_stdin, STDIN_FILENO);
+		dup2(env->old_stdout, STDOUT_FILENO);
+	}
+	if (cmd->in)
+		close(cmd->in);
+	if (cmd->out)
+		close(cmd->out);
+}
 
-void	cmd_runtime(t_command *cmd, t_global *env)
+bool	cmd_runtime(t_command *cmd, t_global *env)
 {
 	if (!env->pipe)
 	{
 		if (cmd->in)
-			dup2(cmd->in, STDIN_FILENO);
+			(dup2(cmd->in, STDIN_FILENO), close(cmd->in));
 		if (cmd->out)
-			dup2(cmd->out, STDOUT_FILENO);
+			(dup2(cmd->out, STDOUT_FILENO), close(cmd->out));
 		if (parse_builtins(env, cmd))
 		{
 			dup2(env->old_stdin, STDIN_FILENO);
-			dup2(env->old_stdout, STDOUT_FILENO);
-			return ;
+			return (dup2(env->old_stdout, STDOUT_FILENO), true);
 		}
 	}
 	if (env->pipe && pipe(env->fd) == -1)
-	{
-		perror("pipe");
-		return ;
-	}
+		return (perror("pipe"), false);
 	env->pid = fork();
 	if (env->pid == -1)
-	{
-		perror("fork");
-		return ;
-	}
+		return (perror("fork"), false);
 	else if (env->pid == 0)
 		child_process(cmd, env);
 	else
-	{
-		if (env->pipe)
-		{
-			dup2(env->fd[0], STDIN_FILENO);
-			close(env->fd[1]);
-			close(env->fd[0]);
-		}
-		else
-		{
-			dup2(env->old_stdin, STDIN_FILENO);
-			dup2(env->old_stdout, STDOUT_FILENO);
-		}
-	}
+		parent_process(cmd, env);
+	return (true);
 }

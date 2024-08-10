@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:27:25 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/04 06:28:17 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 10:02:39 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*get_cmd(char *cmd, char **envp)
 	if (opendir(cmd))
 	{
 		if (!ft_strncmp(cmd, "./", 2))
-		{ 
+		{
 			(ft_putstr_fd("bash: ", 2), ft_putstr_fd(cmd, 2));
 			ft_putstr_fd(": Is a directory\n", 2);
 			exit(COMMAND_ISDIRECTORY);
@@ -78,12 +78,13 @@ char	*get_cmd(char *cmd, char **envp)
 	}
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));
+	if (!envp || !envp[0])
+		return (NULL);
 	paths = get_paths(envp);
 	cmd_path = get_cmd_path(paths, cmd);
 	if (!cmd_path)
 	{
-		free_matrix(paths);
-		return (NULL);
+		return (free_matrix(paths), NULL);
 	}
 	free_matrix(paths);
 	return (cmd_path);

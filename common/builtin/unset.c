@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:57:15 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/26 04:26:06 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 10:28:24 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static bool	parse_unset(char **tab)
 		ft_putstr_fd(&tab[1][0], 2);
 		ft_putstr_fd(": invalid option\n", 2);
 		ft_putstr_fd("unset: usage: unset [-f] [-v] [-n] [name ...]\n", 2);
+		g_exit_status = 2;
 		return (false);
 	}
 	return (true);
@@ -35,6 +36,8 @@ void	remove_env(t_env_var **envp, char *key)
 	if (!ft_strncmp(tmp->key, key, ft_strlen(tmp->key)))
 	{
 		*envp = tmp->next;
+		free(tmp->key);
+		free(tmp->content);
 		free(tmp);
 		remove_env(envp, key);
 	}
@@ -43,6 +46,28 @@ void	remove_env(t_env_var **envp, char *key)
 		tmp = *envp;
 		remove_env(&tmp->next, key);
 	}
+}
+
+static char	**new_matrix(t_env_var *env)
+{
+	char		**new_matrix;
+	char		*tmp;
+	t_env_var	*env_tmp;
+
+	new_matrix = calloc(sizeof(char *), 2);
+	if (!new_matrix)
+		return (NULL);
+	env_tmp = env;
+	while (env_tmp)
+	{
+		if (!ft_strncmp(env_tmp->key, "PATH", 4))
+		{
+			tmp = ft_strjoin(env_tmp->key, "=");
+			new_matrix[0] = ft_strjoin2(tmp, env_tmp->content);
+		}
+		env_tmp = env_tmp->next;
+	}
+	return (new_matrix);
 }
 
 void	ft_unset(t_global *mini_s, char **tab)
@@ -58,6 +83,8 @@ void	ft_unset(t_global *mini_s, char **tab)
 	else if (!ft_strncmp(tab[i], "?", 1))
 		return ;
 	if (!parse_unset(tab))
-		exit(EXIT_FAILURE);
+		return ;
 	remove_env(&mini_s->env, tab[i]);
+	free_matrix(mini_s->envp);
+	mini_s->envp = new_matrix(mini_s->env);
 }

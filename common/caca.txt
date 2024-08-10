@@ -1,1 +1,1 @@
-salut
+/home/sniperking/mini_s/common

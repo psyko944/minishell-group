@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:13:54 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/09 00:29:04 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/09 09:16:13 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	check_dir(char *path)
 		return (-1);
 	if (chdir(path) != 0)
 	{
-		perror("chdir");
+		perror("bash: cd");
 		return (-1);
 	}
 	return (0);

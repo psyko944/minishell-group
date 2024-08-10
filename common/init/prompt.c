@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 08:21:39 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/01 14:23:53 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 09:55:03 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ static char	*get_session(t_env_var *env)
 		free(tmp);
 		return (session);
 	}
-	(free(tmp), free(session));
-	return (NULL);
+	return (free(tmp), free(session), NULL);
 }
 
 static char	*add_dollars(char *prompt)

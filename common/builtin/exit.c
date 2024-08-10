@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 03:43:41 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/09 02:10:18 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 09:52:34 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ static bool	is_numeric(char *str, long long *code)
 	return (true);
 }
 
-static void	free_before_exit(t_global *mini_s, long long *exit_status)
+static void	free_before_exit(t_global *mini_s, long long exit_status, int flag)
 {
+	if (!flag && mini_s->env->content)
+		exit_status = ft_atoi(mini_s->env->content);
 	rl_clear_history();
-	if (mini_s->env->content && *exit_status == 0)
-		*exit_status = ft_atoi(mini_s->env->content);
 	free_env(mini_s);
 	close(mini_s->old_stdin);
 	close(mini_s->old_stdout);
 	close(mini_s->history_fd);
-	exit(*exit_status % 256);
+	exit(exit_status % 256);
 }
 
 void	ft_exit(t_global *mini_s, char **cmd)
@@ -70,9 +70,9 @@ void	ft_exit(t_global *mini_s, char **cmd)
 		else
 		{
 			exit_status = (long long)ft_atoi(cmd[1]);
-			free_before_exit(mini_s, &exit_status);
+			free_before_exit(mini_s, exit_status, 1);
 		}
 	}
 	else
-		free_before_exit(mini_s, &exit_status);
+		free_before_exit(mini_s, exit_status, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/09 00:14:58 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 12:32:52 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int    ph_exec_node(t_ast *node, t_global *env)
 
  static int exec_pipe(t_ast *tree, int *exit_cmd, t_global *mini_s)
 {
-		//fprintf(stderr,"cmd = %s\tcmd2 = %s\n\n\n\n\n\n\n", (char *)tree->l->content ,(char *)tree->r->content);
 		mini_s->pipe = true;
 		ph_exec_tree(tree->l, exit_cmd, mini_s);
 		mini_s->pipe = false;
@@ -83,6 +82,7 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 		{
 			ph_exec_tree(tree->l, exit_cmd, env);
 			g_exit_status = wait_status(env);
+			fprintf(stderr,"cmd_and = %s\tcmd2 = %s\n\n\n\n\n\n\n", (char *)tree->l->content ,(char *)tree->r->content);
 			if (g_exit_status == 0)
 				return (ph_exec_tree(tree->r, exit_cmd, env));
 			return (1);
@@ -93,6 +93,7 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 		{
 			ph_exec_tree(tree->l, exit_cmd, env);
 			g_exit_status = wait_status(env);
+			fprintf(stderr,"cmd_or = %s\tcmd2 = %s\n\n\n\n\n\n\n", (char *)tree->l->content ,(char *)tree->r->content);
 			if (g_exit_status != 0)
 				ph_exec_tree(tree->r, exit_cmd, env);
 			return (0);

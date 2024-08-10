@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/07 14:53:04 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 13:21:30 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void		runtime_heredoc(const char *f,int *fd, t_global *mini_s);
 
 char		**fill_wild_tab(char **base, const char *path);
 char		*get_cmd(char *cmd, char **envp);
-void		cmd_runtime(t_command *cmd, t_global *env);
+bool		cmd_runtime(t_command *cmd, t_global *env);
 void		err_msg(char *msg);
 void		status_env(t_env_var **env, int exit_status);
 void		print_env(t_env_var *lst);
