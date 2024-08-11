@@ -167,7 +167,7 @@ t_ast	*build_ast(t_token *tokens)
 	t_token	*next_tok;
 	t_token	*last_op;
 
-	if (!check_format(tokens))
+	if (!tokens || !check_format(tokens))
 		return (free_tokens(tokens), NULL);
 	last_op = NULL;
 	if (!has_seps(tokens))
