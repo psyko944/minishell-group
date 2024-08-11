@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/10 20:28:32 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:57:27 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,12 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 			return (ph_exec_node(tree, env));
 		else if (tree->type == PARENTHESIS)
 		{
+			fprintf(stderr,"\n\ncmd_and = %s\tcmd2 = %s\n\n", (char *)tree->l->content ,(char *)tree->r->content);
 			ph_exec_tree(tree->content, exit_cmd, env);
-			g_exit_status = wait_status(env);
-			if (tree->r && tree->r->content)
-				return(ph_exec_tree(tree->r, exit_cmd, env));
+			// fprintf(stderr,"\n\ncmd2 = %s\n\n", (char *)tree->r->l->content);
+			// g_exit_status = wait_status(env);
+			// if (tree->r && tree->r->content)
+			// 	return(ph_exec_tree(tree->r, exit_cmd, env));
 			return (1);
 		}
 		else if (tree->type == N_AND)
