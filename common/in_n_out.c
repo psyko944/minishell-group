@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_n_out.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:17:19 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/07 20:59:07 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:30:28 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,17 @@ static int	handle_fd(const char *op, const char *file,
 	if (fun && !file)
 		return (print_parse_err("newline"), -1);
 	if (fun)
+	{
+		printf("cc\n");
+		i = 0;
+		while (ops[i])
+		{
+			if (ft_strncmp(ops[i], file, ft_strlen(ops[i])) == 0)
+				return (0);
+			i += 1;
+		}
 		return ((*fun)(file, storage, mini_s));
+	}
 	return (0);
 }
 
