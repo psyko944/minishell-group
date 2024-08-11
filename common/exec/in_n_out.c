@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:17:19 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/11 17:37:35 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:28:33 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ static int	handle_fd(const char *op, const char *file,
 	if (fun)
 	{
 		i = 0;
-		while (ops[i])
+		while (ops[i++])
 			if (*file == '>' || *file == '<')
 				return (print_parse_err(file), -1);
+		if (ft_strchr(file, '*'))
+			return (write(2, "Ambiguous redirect\n", 20), -1);
 		return ((*fun)(file, storage, mini_s));
 	}
 	return (0);
