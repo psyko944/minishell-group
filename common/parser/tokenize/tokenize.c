@@ -46,6 +46,8 @@ t_token	*tokenize(const char *s)
 			break ;
 		if (*s == '(')
 			new = get_parenthesis(&s);
+		else if (*s == ')')
+			return (print_parse_err(")"), free_tokens(res));
 		else
 			new = get_word(&s);
 		if (new)
