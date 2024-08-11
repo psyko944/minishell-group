@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 05:26:25 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/07 21:20:41 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:19:13 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	wait_status(t_global *mini_s)
 			mini_s->code = WEXITSTATUS(mini_s->wait_status);
 		else
 		{
-			mini_s->code = 128 + WTERMSIG(mini_s->wait_status);
-			if (mini_s->code == 131)
-				ft_putstr_fd("Quit (core dumped)\n", 2);
-		}
+		 	mini_s->code = 128 + WTERMSIG(mini_s->wait_status);
+		 	if (mini_s->code == 131)
+		 		printf("\n^\\Quit (core dumped)\n");
+	 	}
 		g_exit_status = mini_s->code;
 	}
 	return (g_exit_status);

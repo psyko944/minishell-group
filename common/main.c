@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/11 17:36:23 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/11 21:18:59 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,32 @@
 char	*replace_vars(char *s, t_env_var *env);
 int		get_files(char **command, t_command *storage, t_global *mini_s);
 char	*remove_quotes(char *s);
+
+
+// static int	ph_exec_par(t_ast *node, t_global *env)
+// {
+// 	t_command	command;
+
+// 	node->content = (char **)replace_vars(node->content, env->env);
+// 	if (!node->content)
+// 		return (-1 /* Error code ?*/);
+// 	command.tab = cut_command(node->content, get_sub_tok_count(node->content));
+// 	free(node->content);
+// 	node->content = command.tab;
+// 	node->type = COMMAND;
+// 	command.in = 0;
+// 	command.out = 0;
+// 	command.tab = node->content;
+// 	command.tab = fill_wild_tab(command.tab, ".");
+// 	free(node->content);
+// 	printf("We're running: ");
+// 	node->content = command.tab;
+// 	if (!get_files(command.tab, &command, env))
+// 		return (printf("caca\n"), 0);
+// 	env->parenthese_in = command.in;
+// 	env->parenthese_out = command.out;
+// 	return (0);
+// }
 
 static int	ph_exec_node(t_ast *node, t_global *env)
 {
@@ -46,7 +72,6 @@ static int	ph_exec_node(t_ast *node, t_global *env)
 	if (!get_files(command.tab, &command, env))
 		return (printf("caca\n"), 0);
 	i = 0;
-	// fprintf(stderr, "entry node\n");
 	while (command.tab[i])
 	{
 		command.tab[i] = remove_quotes(command.tab[i]);
@@ -54,8 +79,17 @@ static int	ph_exec_node(t_ast *node, t_global *env)
 		i += 1;
 	}
 	printf("with fds %d %d\n", command.in, command.out);
-	if (command.tab[0])
-		cmd_runtime(&command, env);
+	if (command.tab[0] && g_exit_status != 135)
+			cmd_runtime(&command, env);
+	else
+	{
+		if (g_exit_status == 135)
+			g_exit_status = 130;
+		if (command.in)
+			close(command.in);
+		if (command.out)
+			close(command.out);
+	}
 	return (0);
 }
 
@@ -78,7 +112,11 @@ int ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 			return (ph_exec_node(tree, env));
 		else if (tree->type == PARENTHESIS)
 		{
-			fprintf(stderr, "\n\ncmd_and = %s\tcmd2 = %s\n\n", (char *)tree->l->content, (char *)tree->r->content);
+			// fprintf(stderr, "\n\ncmd_and = %s\tcmd2 = %s\n\n", (char *)tree->l->content, (char *)tree->r->content);
+			// if (tree->r && tree->r->content)
+			// {
+			// 	ph_exec_tree(tree->r, exit_cmd, env);
+			// }
 			ph_exec_tree(tree->content, exit_cmd, env);
 			// fprintf(stderr,"\n\ncmd2 = %s\n\n", (char *)tree->r->l->content);
 			// g_exit_status = wait_status(env);
@@ -125,6 +163,8 @@ static int handle_command(char *command, int *exit_cmd, t_global *env)
 		*exit_cmd = 0;
 	else
 	{
+		signal(SIGQUIT, sigquit_2);
+		signal(SIGQUIT, sigint_2);
 		ast_tree = build_ast(tokenize(command));
 		print_ast(ast_tree, 0);
 		if (!ast_tree)
@@ -134,6 +174,8 @@ static int handle_command(char *command, int *exit_cmd, t_global *env)
 		// fprintf(stderr, "cmd = %s\t%s\n", command, (char *)ast_tree->r->content);
 		free_ast(ast_tree);
 		free(command);
+		signal(SIGQUIT, handle_sigquit);
+		signal(SIGINT, handle_sigint);
 	}
 	return (1);
 }

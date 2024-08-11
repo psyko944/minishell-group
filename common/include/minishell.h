@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/10 13:35:10 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/11 20:56:11 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct s_global
 	char		*prompt;
 	bool		pipe;
 	bool		check;
+	int			parenthese_in;
+	int			parenthese_out;
 	int			count_pipe;
 	int			old_stdin;
 	int			old_stdout;
@@ -75,6 +77,10 @@ typedef struct s_command
 
 extern int	g_exit_status;
 void		init_signals(void);
+void		sigquit_2(int sig);
+void		sigint_2(int sig);
+void		handle_sigquit(int sig);
+void		handle_sigint(int sig);
 void		init(t_global *mini_s, char **envp);
 int			get_history(t_global *mini_s);
 void		ft_append_history(char *cmd, int fd);
