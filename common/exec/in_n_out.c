@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_n_out.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:17:19 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/11 18:28:33 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/13 00:52:44 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	handle_fd(const char *op, const char *file,
 				return (print_parse_err(file), -1);
 		if (ft_strchr(file, '*'))
 			return (write(2, "Ambiguous redirect\n", 20), -1);
+		fprintf(stderr, "test file %s\n", file);
 		return ((*fun)(file, storage, mini_s));
 	}
 	return (0);
@@ -68,6 +69,16 @@ int	get_files(char **command, t_command *storage, t_global *mini_s)
 	int	success;
 
 	i = 0;
+	if (mini_s->parenthese_in)
+	{
+		storage->in = mini_s->parenthese_in;
+		mini_s->parenthese_in = -1;
+	}
+	if (mini_s->parenthese_out)
+	{
+		storage->out = mini_s->parenthese_out;
+		mini_s->parenthese_out = -1;;
+	}
 	while (command[i])
 	{
 		success = handle_fd(command[i], command[i + 1], storage, mini_s);

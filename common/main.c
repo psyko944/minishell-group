@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/11 21:18:59 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/13 01:40:51 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,31 @@ int		get_files(char **command, t_command *storage, t_global *mini_s);
 char	*remove_quotes(char *s);
 
 
-// static int	ph_exec_par(t_ast *node, t_global *env)
-// {
-// 	t_command	command;
+static int	ph_exec_par(t_ast *node, t_global *env)
+{
+	t_command	command;
 
-// 	node->content = (char **)replace_vars(node->content, env->env);
-// 	if (!node->content)
-// 		return (-1 /* Error code ?*/);
-// 	command.tab = cut_command(node->content, get_sub_tok_count(node->content));
-// 	free(node->content);
-// 	node->content = command.tab;
-// 	node->type = COMMAND;
-// 	command.in = 0;
-// 	command.out = 0;
-// 	command.tab = node->content;
-// 	command.tab = fill_wild_tab(command.tab, ".");
-// 	free(node->content);
-// 	printf("We're running: ");
-// 	node->content = command.tab;
-// 	if (!get_files(command.tab, &command, env))
-// 		return (printf("caca\n"), 0);
-// 	env->parenthese_in = command.in;
-// 	env->parenthese_out = command.out;
-// 	return (0);
-// }
+	node->content = (char **)replace_vars(node->content, env->env);
+	if (!node->content)
+		return (-1 /* Error code ?*/);
+	command.tab = cut_command(node->content, get_sub_tok_count(node->content));
+if (!command.tab)
+		return((node->content = NULL), 1);
+	free(node->content);
+	node->content = command.tab;
+	node->type = COMMAND;
+	command.in = 0;
+	command.out = 0;
+	command.tab = node->content;
+	command.tab = fill_wild_tab(command.tab, ".");
+	free(node->content);
+	node->content = command.tab;
+	if (!get_files(command.tab, &command, env))
+		return (0);
+	env->parenthese_in = command.in;
+	env->parenthese_out = command.out;
+	return (0);
+}
 
 static int	ph_exec_node(t_ast *node, t_global *env)
 {
@@ -66,6 +67,8 @@ static int	ph_exec_node(t_ast *node, t_global *env)
 	command.out = 0;
 	command.tab = node->content;
 	command.tab = fill_wild_tab(command.tab, ".");
+	if (!command.tab)
+		return((node->content = NULL), 1);
 	free(node->content);
 	printf("We're running: ");
 	node->content = command.tab;
@@ -113,10 +116,10 @@ int ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 		else if (tree->type == PARENTHESIS)
 		{
 			// fprintf(stderr, "\n\ncmd_and = %s\tcmd2 = %s\n\n", (char *)tree->l->content, (char *)tree->r->content);
-			// if (tree->r && tree->r->content)
-			// {
-			// 	ph_exec_tree(tree->r, exit_cmd, env);
-			// }
+			if (tree->r && tree->r->type == TEXT)
+			{
+				ph_exec_par(tree->r, env);
+			}
 			ph_exec_tree(tree->content, exit_cmd, env);
 			// fprintf(stderr,"\n\ncmd2 = %s\n\n", (char *)tree->r->l->content);
 			// g_exit_status = wait_status(env);
@@ -163,8 +166,8 @@ static int handle_command(char *command, int *exit_cmd, t_global *env)
 		*exit_cmd = 0;
 	else
 	{
-		signal(SIGQUIT, sigquit_2);
-		signal(SIGQUIT, sigint_2);
+		setup_handler(SIGQUIT, command_handler);
+		setup_handler(SIGINT, command_handler);
 		ast_tree = build_ast(tokenize(command));
 		print_ast(ast_tree, 0);
 		if (!ast_tree)
@@ -174,8 +177,6 @@ static int handle_command(char *command, int *exit_cmd, t_global *env)
 		// fprintf(stderr, "cmd = %s\t%s\n", command, (char *)ast_tree->r->content);
 		free_ast(ast_tree);
 		free(command);
-		signal(SIGQUIT, handle_sigquit);
-		signal(SIGINT, handle_sigint);
 	}
 	return (1);
 }
@@ -204,6 +205,8 @@ int main(int ac, char **av, char **envp)
 		env.prompt = get_prompt(env.env);
 		get_shlvl(&env);
 		g_exit_status = wait_status(&env);
+		setup_handler(SIGQUIT, shell_handler);
+		setup_handler(SIGINT, shell_handler);
 		status_env(&env.env, g_exit_status);
 	}
 	rl_clear_history();
