@@ -77,10 +77,9 @@ typedef struct s_command
 
 extern int	g_exit_status;
 void		init_signals(void);
-void		sigquit_2(int sig);
-void		sigint_2(int sig);
-void		handle_sigquit(int sig);
-void		handle_sigint(int sig);
+void		shell_handler(int);
+void		command_handler(int);
+void		setup_handler(int sig, void (*handler)(int));
 void		init(t_global *mini_s, char **envp);
 int			get_history(t_global *mini_s);
 void		ft_append_history(char *cmd, int fd);

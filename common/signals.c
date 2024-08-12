@@ -20,56 +20,55 @@
 
 int g_exit_status;
 
-void	handle_sigquit(int sig)
+void	shell_handler(int sig)
 {
-	(void)sig;
-
-    //printf("g_exit_status: %d\n", g_exit_status);
-	rl_cleanup_after_signal();
-	rl_free_line_state();
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	return ;
+	if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (sig == SIGINT)
+	{
+		g_exit_status = 130;	
+		rl_replace_line("", 0);
+		write(1, "\r\n", 2);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
-void	sigint_2(int sig)
+void	command_handler(int sig)
 {
-	(void)sig;
-	// Interrompt le programme en cours
+	if (sig == SIGQUIT)
+	{
+		// printf("It's a me, SIGQUIT!\n");
+	}
+	else if (sig == SIGINT)
+	{
+		printf("\n");
+	}
 }
 
-void    sigquit_2(int sig)
+void	setup_handler(int sig, void (*handler)(int))
 {
-    (void)sig;
-}
+	struct sigaction	sa;
 
-void	handle_sigint(int sig)
-{
-	(void)sig;
-
-	g_exit_status = 130;	
-    rl_replace_line("", 0);
-    rl_crlf();
-    rl_on_new_line();
-    rl_redisplay();
+	// printf("Setting handler for %d to %p\n", sig, handler);
+	sa.sa_handler = handler;
+	sa.sa_flags = 0;
+	// handler(0);
+	sigemptyset(&sa.sa_mask);
+	if (sigaction(sig, &sa, NULL))
+		perror("sigaction");
 }
 
 void	init_signals(void)
 {
-    struct sigaction sa;
-    struct termios oldt;
+	struct termios	oldt;
 
-    tcgetattr(STDIN_FILENO, &oldt);
-    oldt.c_lflag &= ~(ECHOCTL);
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    sa.sa_handler = handle_sigint;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_RESTART;
-    if (sigaction(SIGINT, &sa, NULL) == -1) {
-        perror("sigaction");
-        exit(1);
-    }
-	signal(SIGQUIT, handle_sigquit);
-	// signal(SIGINT, handle_sigint);
+	tcgetattr(STDIN_FILENO, &oldt);
+	oldt.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+	setup_handler(SIGINT, shell_handler);
+	setup_handler(SIGQUIT, shell_handler);
 }
