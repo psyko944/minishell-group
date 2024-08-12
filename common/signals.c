@@ -41,10 +41,12 @@ void	command_handler(int sig)
 {
 	if (sig == SIGQUIT)
 	{
-		// printf("It's a me, SIGQUIT!\n");
+		g_exit_status = 131;
+		printf("Quit (core dumped)\n");
 	}
 	else if (sig == SIGINT)
 	{
+		g_exit_status = 130;
 		printf("\n");
 	}
 }
