@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:35 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/07 14:09:54 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:33:36 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 int g_exit_status;
 
-static void	handle_sigquit(int sig)
+void	handle_sigquit(int sig)
 {
 	(void)sig;
 
@@ -39,6 +39,11 @@ void	sigint_2(int sig)
 	// Interrompt le programme en cours
 }
 
+void    sigquit_2(int sig)
+{
+    (void)sig;
+}
+
 void	handle_sigint(int sig)
 {
 	(void)sig;
@@ -47,7 +52,7 @@ void	handle_sigint(int sig)
     rl_replace_line("", 0);
     rl_crlf();
     rl_on_new_line();
-    rl_redisplay(); 
+    rl_redisplay();
 }
 
 void	init_signals(void)

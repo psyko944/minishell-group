@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:38:17 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/07 20:56:35 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/11 21:55:13 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ int	open_here(const char *f, t_command *store, t_global *mini_s)
 	fd = open("/tmp/hdoc_file", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	runtime_heredoc(f, &fd, mini_s);
 	close(fd);
+	if (g_exit_status == 135)
+	{
+		g_exit_status = 130;
+		return (-1);
+	}
 	fd = open("/tmp/hdoc_file", O_RDONLY);
 	store->in = fd;
 	if (store->in == -1)
