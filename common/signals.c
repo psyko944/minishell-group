@@ -6,10 +6,11 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:35 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/12 19:53:33 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:51:42 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <minishell.h>
 #include <stdio.h>
 #include <readline/readline.h>
 #include <signal.h>
@@ -18,7 +19,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int g_exit_status;
+int	g_exit_status;
 
 void	shell_handler(int sig)
 {
@@ -29,7 +30,7 @@ void	shell_handler(int sig)
 	}
 	else if (sig == SIGINT)
 	{
-		g_exit_status = 130;	
+		g_exit_status = 130;
 		rl_replace_line("", 0);
 		write(1, "\r\n", 2);
 		rl_on_new_line();
@@ -55,10 +56,8 @@ void	setup_handler(int sig, void (*handler)(int))
 {
 	struct sigaction	sa;
 
-	// printf("Setting handler for %d to %p\n", sig, handler);
 	sa.sa_handler = handler;
 	sa.sa_flags = 0;
-	// handler(0);
 	sigemptyset(&sa.sa_mask);
 	if (sigaction(sig, &sa, NULL))
 		perror("sigaction");
