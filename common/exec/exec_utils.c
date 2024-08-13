@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 05:26:25 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/12 19:55:38 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/13 02:25:57 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,7 @@ int	wait_status(t_global *mini_s)
 		if (WIFEXITED(mini_s->wait_status))
 			mini_s->code = WEXITSTATUS(mini_s->wait_status);
 		else
-		{
-		 	mini_s->code = 128 + WTERMSIG(mini_s->wait_status);
-		 	if (mini_s->code == 131)
-		 		printf("\n^\\Quit (core dumped)\n");
-	 	}
+			mini_s->code = 128 + WTERMSIG(mini_s->wait_status);
 		g_exit_status = mini_s->code;
 	}
 	return (g_exit_status);

@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:17:19 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/13 00:52:44 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:06:31 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@
 
 void	print_parse_err(const char *s);
 
+static int	handle_error_file(const char *ops[], const char *file)
+{
+	int	i;
+
+	i = 0;
+	while (ops[i++])
+		if (*file == '>' || *file == '<')
+			return (print_parse_err(file), -1);
+	if (ft_strchr(file, '*'))
+		return (write(2, "Ambiguous redirect\n", 20), -1);
+	return (1);
+}
+
 static int	handle_fd(const char *op, const char *file,
 	t_command *storage, t_global *mini_s)
 {
@@ -24,28 +37,22 @@ static int	handle_fd(const char *op, const char *file,
 	int			(*fun)(const char *, t_command *, t_global *);
 	int			i;
 
-	i = 0;
+	i = -1;
 	fun = 0;
-	while (ops[i])
+	while (ops[++i])
 	{
 		if (ft_strncmp(ops[i], op, ft_strlen(ops[i])) == 0)
 		{
 			fun = funcs[i];
 			break ;
 		}
-		i += 1;
 	}
 	if (fun && !file)
 		return (print_parse_err("newline"), -1);
 	if (fun)
 	{
-		i = 0;
-		while (ops[i++])
-			if (*file == '>' || *file == '<')
-				return (print_parse_err(file), -1);
-		if (ft_strchr(file, '*'))
-			return (write(2, "Ambiguous redirect\n", 20), -1);
-		fprintf(stderr, "test file %s\n", file);
+		if (handle_error_file(ops, file) == -1)
+			return (-1);
 		return ((*fun)(file, storage, mini_s));
 	}
 	return (0);
@@ -69,15 +76,15 @@ int	get_files(char **command, t_command *storage, t_global *mini_s)
 	int	success;
 
 	i = 0;
-	if (mini_s->parenthese_in)
+	if (mini_s->parenthese_in != -1)
 	{
 		storage->in = mini_s->parenthese_in;
 		mini_s->parenthese_in = -1;
 	}
-	if (mini_s->parenthese_out)
+	if (mini_s->parenthese_out != -1)
 	{
 		storage->out = mini_s->parenthese_out;
-		mini_s->parenthese_out = -1;;
+		mini_s->parenthese_out = -1;
 	}
 	while (command[i])
 	{

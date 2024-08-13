@@ -6,7 +6,7 @@
 #    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/08/12 14:15:21 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/08/13 15:05:16 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ builtin/pwd_env.c \
 builtin/cd.c \
 exec/get_cmd.c \
 exec/exec_cmd.c \
+exec/exec_ast.c \
 exec/exec_utils.c \
 init/env_utils.c \
 init/shlvl.c \

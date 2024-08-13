@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/11 20:56:11 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:22:00 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,30 +76,29 @@ typedef struct s_command
 }			t_command;
 
 extern int	g_exit_status;
+int			get_history(t_global *mini_s);
 void		init_signals(void);
-void		shell_handler(int);
-void		command_handler(int);
+void		shell_handler(int sig);
+void		command_handler(int sig);
 void		setup_handler(int sig, void (*handler)(int));
 void		init(t_global *mini_s, char **envp);
-int			get_history(t_global *mini_s);
 void		ft_append_history(char *cmd, int fd);
-int			wait_status(t_global *mini_s);
 
 // env functions
-t_env_var	*get_env(t_global *mini_s, char **envp);
-void		addback_env(t_env_var **alst, t_env_var *new);
-t_env_var	*first_node(char *env_line);
 char		*get_value(char *line);
-void		free_env(t_global *mini_s);
-int			search_in_env(t_env_var *env, char *key);
 char		*get_value_search(t_env_var *env, char *key);
 char		*get_prompt(t_env_var *env);
+int			get_sub_tok_count(const char *s);
+int			search_in_env(t_env_var *env, char *key);
+t_env_var	*first_node(char *env_line);
+t_env_var	*get_env(t_global *mini_s, char **envp);
+void		addback_env(t_env_var **alst, t_env_var *new);
+void		free_env(t_global *mini_s);
 void		concat_env(t_env_var **env, char *value);
 void		replace_env(t_env_var *env, char *value);
 char		*get_key(char *line);
 void		err_msg(char *msg);
-int			get_sub_tok_count(const char *s);
-int			ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env);
+
 // builtins
 
 bool		parse_builtins(t_global *mini_s, t_command *cmd);
@@ -113,6 +112,8 @@ void		pwd_env(t_global *mini_s);
 void		ft_exit(t_global *mini_s, char **tab);
 void		print_pwd(t_global *mini_s, char **tab);
 
+//          files
+int			get_files(char **command, t_command *storage, t_global *mini_s);
 int			open_here(const char *f, t_command *store, t_global *mini_s);
 int			open_app(const char *f, t_command *store, t_global *mini_s);
 int			open_in(const char *f, t_command *store, t_global *mini_s);
@@ -120,12 +121,19 @@ int			open_out(const char *f, t_command *store, t_global *mini_s);
 void		runtime_heredoc(const char *f, int *fd, t_global *mini_s);
 
 char		**fill_wild_tab(char **base, const char *path);
-char		*get_cmd(char *cmd, char **envp);
-bool		cmd_runtime(t_command *cmd, t_global *env);
 void		err_msg(char *msg);
 void		status_env(t_env_var **env, int exit_status);
 void		print_env(t_env_var *lst);
 void		get_shlvl(t_global *mini_s);
 char		*replace_vars(char *s, t_env_var *env);
+
 // exec functions
+bool		cmd_runtime(t_command *cmd, t_global *env);
+char		*get_cmd(char *cmd, char **envp);
+int			wait_status(t_global *mini_s);
+int			ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env);
+int			exec_and_cmd(t_ast *tree, int *exit_cmd, t_global *mini_s);
+int			exec_or_cmd(t_ast *tree, int *exit_cmd, t_global *mini_s);
+int			ph_exec_par(t_ast *node, t_global *env);
+
 #endif
