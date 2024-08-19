@@ -91,13 +91,17 @@ char	**get_matches(const char *exp, const char *path)
 	count = count_matches(exp, path);
 	if (count == 0)
 	{
-		ft_putstr_fd(exp, 2);
-		ft_putstr_fd(": no matches found\n", 2);
-		return (NULL);
+		res = ft_calloc(2, sizeof(char *));
+		if (!res)
+			return (perror("malloc"), NULL);
+		res[0] = ft_strdup(exp);
+		if (!res[0])
+			return (free(res), perror("malloc"), NULL);
+		return (res);
 	}
 	else if (count == -1)
 		return (NULL);
-	res = calloc(count + 1, sizeof(char *));
+	res = ft_calloc(count + 1, sizeof(char *));
 	if (!res)
 		return (perror("malloc"), NULL);
 	res = fill_tab(exp, path, res);

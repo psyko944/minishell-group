@@ -25,8 +25,18 @@ static char	*isolate_var(char *s)
 	i = 0;
 	if (*s == '{')
 	{
+		if (s[1] == '}')
+			return (ft_putstr_fd("${}: bad substitution\n", 2), NULL);
 		while (s[i] != '}')
+		{
+			if (ft_isspace(s[i]))
+			{
+				ft_putstr_fd(s - 1, 2);
+				ft_putstr_fd(": bad substitution\n", 2);
+				return (NULL);
+			}
 			i += 1;
+		}
 		s[i] = 0;
 		++s;
 	}
@@ -41,8 +51,12 @@ static char	*get_var(char *s, t_env_var *env)
 	if (*s != '$')
 		return (s);
 	name = isolate_var(s);
+	if (!name)
+		return (NULL);
 	if (*name == '?')
 		return (ft_itoa(g_exit_status));
+	else if (!*name)
+		return (s);
 	while (env)
 	{
 		if (ft_strcmp(name, env->key) == 0)
@@ -68,6 +82,8 @@ char	*replace_vars(char *s, t_env_var *env)
 	while (temp[i])
 	{
 		temp[i] = get_var(temp[i], env);
+		if (!temp[i])
+			return (free_tab(temp), NULL);
 		i += 1;
 	}
 	return (concat_tab(temp));

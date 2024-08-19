@@ -51,6 +51,7 @@ t_token	*get_parenthesis(const char **s_ptr)
 {
 	int			len;
 	const char	*temp;
+	t_token		*res;
 
 	while (ft_isspace(**s_ptr))
 		++*s_ptr;
@@ -63,8 +64,10 @@ t_token	*get_parenthesis(const char **s_ptr)
 		return (NULL);
 	}
 	*s_ptr += len;
-	return (new_token(PARENTHESIS,
-			ft_strndup_e(temp + 1, len - 2)));
+	res = new_token(PARENTHESIS, ft_strndup_e(temp + 1, len - 2));
+	if (!res)
+		print_parse_err(")");
+	return (res);
 }
 
 size_t	is_sep(const char	*s)

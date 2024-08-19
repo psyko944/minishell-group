@@ -24,7 +24,6 @@ static bool	is_redirec_token(const char *tok)
 	printf("Coucou '%s'\n", tok);
 	while (*tok)
 	{
-		printf("%c", *tok);
 		if (*tok == '&' || *tok == '|')
 			break ;
 		else if (*tok == '>' || *tok == '<')

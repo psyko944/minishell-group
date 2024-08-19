@@ -18,7 +18,7 @@
 static int	skip_dol(const char **s)
 {
 	*s += 1;
-	if (**s == '?')
+	if (**s == '?' || ft_isdigit(**s))
 		*s += 1;
 	else if (**s == '{')
 		*s = ft_strchr(*s, '}');
@@ -41,7 +41,7 @@ static int	skip_var(const char **s)
 		while (**s && **s != '$')
 		{
 			if (**s == '\'')
-				*s = ft_strchr(*s + 1, '\'') + 1;
+				*s = ft_strchr(*s + 1, '\'');
 			if (*s == (char*)1)
 				return (-1);
 			++*s;
@@ -71,7 +71,8 @@ static int	get_word_len(char *s)
 	i = 0;
 	if (*s == '$')
 	{
-		if (s[++i] == '?')
+		i += 1;
+		if (s[i] == '?' || ft_isdigit(s[i]))
 			return (2);
 		if (s[1] == '{')
 			return (ft_strchr(s, '}') - s + 1);
