@@ -31,6 +31,7 @@ t_token	*new_token(t_token_type type, void *content)
 			if (!res->content)
 			{
 				free(res);
+				free(content);
 				res = NULL;
 			}
 		}
