@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:36:30 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/13 15:21:14 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/14 22:30:59 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int exec_or_cmd(t_ast *tree, int *exit_cmd, t_global *mini_s)
     ph_exec_tree(tree->l, exit_cmd, mini_s);
     g_exit_status = wait_status(mini_s);
     if (g_exit_status != 0)
-        return (ph_exec_tree(tree->r->r, exit_cmd, mini_s));
+        return (ph_exec_tree(tree->r, exit_cmd, mini_s));
     else if (g_exit_status == 0 && (tree->r->type == N_AND))
         return (ph_exec_tree(tree->r->r, exit_cmd, mini_s));
     return (1);
