@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:09:23 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/07/28 21:11:16 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 21:46:27 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_append_history(char *cmd, int fd)
 {
-	ft_putendl_fd(cmd, fd);
+	if (fd != -1)
+		ft_putendl_fd(cmd, fd);
 }
 
 static char	*check_history_name(t_global *mini_s)

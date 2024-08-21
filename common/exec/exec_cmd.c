@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:04:49 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/10 18:37:04 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 21:24:42 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	exec_cmd(t_command *cmd, t_global *env)
 			ft_putstr_fd(": Permission denied\n", 2);
 			exit(COMMAND_NOT_EXECUTABLE);
 		}
+		ft_putstr_fd("bash: ", STDERR_FILENO);
 		if (cmd->tab[0])
 			ft_putstr_fd(cmd->tab[0], STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
@@ -54,12 +55,10 @@ static void	child_process(t_command *cmd, t_global *env)
 		(dup2(cmd->out, STDOUT_FILENO), close(cmd->out));
 	close(env->old_stdin);
 	close(env->old_stdout);
-	close(env->history_fd);
-	if (env->pipe)
-	{
-		if (parse_builtins(env, cmd))
-			exit(0);
-	}
+	if (env->history_fd != -1)
+		close(env->history_fd);
+	if (parse_builtins(env, cmd))
+		exit(g_exit_status);
 	exec_cmd(cmd, env);
 }
 
@@ -76,15 +75,15 @@ static void	parent_process(t_command *cmd, t_global *env)
 		dup2(env->old_stdin, STDIN_FILENO);
 		dup2(env->old_stdout, STDOUT_FILENO);
 	}
-	if (cmd->in)
+	if (cmd->in > 0)
 		close(cmd->in);
-	if (cmd->out)
+	if (cmd->out > 0)
 		close(cmd->out);
 }
 
 bool	cmd_runtime(t_command *cmd, t_global *env)
 {
-	if (!env->pipe)
+	if (!env->pipe && !env->exit_pipe)
 	{
 		if (cmd->in)
 			(dup2(cmd->in, STDIN_FILENO), close(cmd->in));
@@ -92,7 +91,6 @@ bool	cmd_runtime(t_command *cmd, t_global *env)
 			(dup2(cmd->out, STDOUT_FILENO), close(cmd->out));
 		if (parse_builtins(env, cmd))
 		{
-			g_exit_status = 0;
 			dup2(env->old_stdin, STDIN_FILENO);
 			return (dup2(env->old_stdout, STDOUT_FILENO), true);
 		}

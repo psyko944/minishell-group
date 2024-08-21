@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:16:02 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/09 15:06:41 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:13:42 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_env_var	*get_env(t_global *mini_s, char **envp)
 	int			i;
 
 	if ((!envp) || (!envp[0]))
-		return (ft_putstr_fd("Error : env disable\n", 2), NULL);
+		return (NULL);
 	i = 0;
 	mini_s->envp = ft_cpy_matrix(envp);
 	if (!mini_s->envp)

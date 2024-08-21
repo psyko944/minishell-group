@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:43:08 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/19 01:20:34 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:52:30 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	print_pwd(t_global *mini_s, char **tab)
 {
 	char	*pwd;
 
+	g_exit_status = 0;
 	(void)mini_s;
 	pwd = get_pwd();
 	if (pwd)

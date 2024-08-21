@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:59 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/12 13:46:09 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 21:46:54 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	init(t_global *mini_s, char **envp)
 	ft_bzero(mini_s, sizeof(t_global));
 	mini_s->env = get_env(mini_s, envp);
 	mini_s->shlvl = 1;
+	pwd_env(mini_s, 1);
+	get_shlvl(mini_s);
 	status_env(&mini_s->env, 0);
 	mini_s->history_fd = get_history(mini_s);
 	mini_s->pipe = false;
@@ -29,5 +31,5 @@ void	init(t_global *mini_s, char **envp)
 	mini_s->old_stdin = dup(STDIN_FILENO);
 	mini_s->old_stdout = dup(STDOUT_FILENO);
 	g_exit_status = 0;
-	init_signals();
+	prompt_sig();
 }

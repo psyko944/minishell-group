@@ -6,14 +6,14 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 03:43:41 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/10 09:52:34 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 21:47:27 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <limits.h>
 
-static bool	is_numeric(char *str, long long *code)
+static bool	is_numeric(char *str, long long *exit_status)
 {
 	long long	res;
 	int			sign;
@@ -31,11 +31,13 @@ static bool	is_numeric(char *str, long long *code)
 	{
 		if (!ft_isdigit(*str))
 			return (false);
+		if (sign == 1 && res > ((LLONG_MAX) - (*str - '0')) / 10)
+			return (false);
+		if (sign == -1 && res < ((LLONG_MIN) + (*str - '0')) / 10)
+			return (false);
 		res = res * 10 + *str++ - '0';
 	}
-	*code = res * sign;
-	if (*code > LLONG_MAX || *code < LLONG_MIN)
-		return (false);
+	*exit_status = res * sign;
 	return (true);
 }
 
@@ -47,7 +49,8 @@ static void	free_before_exit(t_global *mini_s, long long exit_status, int flag)
 	free_env(mini_s);
 	close(mini_s->old_stdin);
 	close(mini_s->old_stdout);
-	close(mini_s->history_fd);
+	if (mini_s->history_fd > 0)
+		close(mini_s->history_fd);
 	exit(exit_status % 256);
 }
 
@@ -68,10 +71,7 @@ void	ft_exit(t_global *mini_s, char **cmd)
 		else if (cmd[2] && is_numeric(cmd[1], &exit_status))
 			(ft_putstr_fd("exit: too many arguments\n", 2));
 		else
-		{
-			exit_status = (long long)ft_atoi(cmd[1]);
 			free_before_exit(mini_s, exit_status, 1);
-		}
 	}
 	else
 		free_before_exit(mini_s, exit_status, 0);

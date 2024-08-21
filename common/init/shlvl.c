@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:11:55 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/20 19:08:14 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:21:56 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	replace_shlvl(t_env_var *env, int shlvl)
 	t_env_var	*tmp;
 	int			n;
 	char		*tmp_s;
+	char		*join;
 
 	n = 0;
 	tmp = env;
@@ -33,8 +34,10 @@ static void	replace_shlvl(t_env_var *env, int shlvl)
 	if (!n)
 	{
 		tmp_s = ft_itoa(shlvl);
-		addback_env(&env, first_node(ft_strjoin("SHLVL=", tmp_s)));
-		free(tmp);
+		join = ft_strjoin("SHLVL=", tmp_s);
+		addback_env(&env, first_node(join));
+		free(tmp_s);
+		free(join);
 	}
 }
 

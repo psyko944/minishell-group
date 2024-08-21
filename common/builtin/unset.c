@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:57:15 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/10 10:28:24 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 21:56:53 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	remove_env(t_env_var **envp, char *key)
 	}
 }
 
-static char	**new_matrix(t_env_var *env)
+char	**new_matrix(t_env_var *env)
 {
 	char		**new_matrix;
 	char		*tmp;
@@ -75,11 +75,9 @@ void	ft_unset(t_global *mini_s, char **tab)
 	int	i;
 
 	i = 1;
+	g_exit_status = 0;
 	if (!tab[i])
-	{
-		ft_putstr_fd("pas d'arguments\n", 2);
 		return ;
-	}
 	else if (!ft_strncmp(tab[i], "?", 1))
 		return ;
 	if (!parse_unset(tab))

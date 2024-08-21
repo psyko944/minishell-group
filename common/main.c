@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/21 19:29:18 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/21 21:47:19 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static int	ph_exec_node(t_ast *node, t_global *env)
 
 static int	exec_pipe(t_ast *tree, int *exit_cmd, t_global *mini_s)
 {
+	mini_s->exit_pipe = true;
 	mini_s->pipe = true;
 	ph_exec_tree(tree->l, exit_cmd, mini_s);
 	mini_s->pipe = false;
@@ -106,8 +107,8 @@ void	print_ast(t_ast *ast, int ind);
 
 static int	handle_command(char *command, int *exit_cmd, t_global *env, struct termios *term)
 {
-	t_ast	*ast_tree;
-
+	t_ast			*ast_tree;
+	
 	ast_tree = NULL;
 	if (!command)
 		*exit_cmd = 0;
@@ -122,6 +123,7 @@ static int	handle_command(char *command, int *exit_cmd, t_global *env, struct te
 		ph_exec_tree(ast_tree, exit_cmd, env);
 		free_ast(ast_tree);
 		free(command);
+		env->exit_pipe = false;
 	}
 	return (1);
 }
@@ -143,7 +145,7 @@ int	main(int ac, char **av, char **envp)
 			handle_command(ft_strdup(command), &exit_cmd, &env, &term);
 		else
 			ft_exit(&env, (char *[2]){"exit", NULL});
-		(add_history(command), ft_append_history(command, env.history_fd));
+		(add_history(command) ,ft_append_history(command, env.history_fd));
 		env.prompt = get_prompt(env.env);
 		get_shlvl(&env);
 		g_exit_status = wait_status(&env);

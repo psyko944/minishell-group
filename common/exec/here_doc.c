@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 22:55:46 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/11 21:14:54 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:49:16 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	runtime_heredoc(const char *f, int *fd, t_global *mini_s)
 		line = get_next_line(0);
 		if ((!line && !error_line(f)))
 			break ;
-		if (!ft_strncmp(line, f, eof_len) && line[eof_len] == '\n')
+		if (!ft_strncmp(line, f, eof_len) && line[eof_len] == '\0')
 		{
 			free(line);
 			break ;

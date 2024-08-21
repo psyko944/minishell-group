@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:13:54 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/19 01:25:30 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:53:47 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	check_dir(char *path, t_global *mini_s)
 {
 	char	*pwd;
-	
+
 	pwd = NULL;
 	if (path == NULL || ft_strlen(path) == 0)
 		return (-1);
@@ -75,6 +75,7 @@ void	ft_cd(t_global *mini_s, char **tab)
 {
 	char	*path;
 
+	g_exit_status = 0;
 	if (!tab[1])
 	{
 		path = get_home(mini_s->env);

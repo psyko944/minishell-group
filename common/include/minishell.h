@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/21 19:28:43 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/21 21:57:18 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_global
 	char		*prompt;
 	bool		pipe;
 	bool		check;
+	bool		exit_pipe;
 	int			parenthese_in;
 	int			parenthese_out;
 	int			count_pipe;
@@ -136,5 +137,6 @@ int			ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env);
 int			exec_and_cmd(t_ast *tree, int *exit_cmd, t_global *mini_s);
 int			exec_or_cmd(t_ast *tree, int *exit_cmd, t_global *mini_s);
 int			ph_exec_par(t_ast *node, t_global *env);
+char		**new_matrix(t_env_var *env);
 
 #endif

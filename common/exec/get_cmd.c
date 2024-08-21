@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:27:25 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/18 20:52:52 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 21:28:13 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static char	**get_paths(char **envp)
 		}
 	}
 	paths = ft_split(path, ':');
+	if (!paths)
+		return (NULL);
 	i = -1;
 	while (paths[++i])
 	{
@@ -61,11 +63,8 @@ static char	*get_cmd_path(char **paths, char *cmd)
 	return (NULL);
 }
 
-char	*get_cmd(char *cmd, char **envp)
+static bool	check_dir(char *cmd)
 {
-	char	**paths;
-	char	*cmd_path;
-
 	if (opendir(cmd))
 	{
 		if (!ft_strncmp(cmd, "./", 2) || !ft_strncmp(cmd, "/", 1))
@@ -74,13 +73,28 @@ char	*get_cmd(char *cmd, char **envp)
 			ft_putstr_fd(": Is a directory\n", 2);
 			exit(COMMAND_ISDIRECTORY);
 		}
-		return (NULL);
+		return (false);
 	}
+	return (true);
+}
+
+char	*get_cmd(char *cmd, char **envp)
+{
+	char	**paths;
+	char	*cmd_path;
+
+	if (cmd[0] == '\0')
+		return (NULL);
+	if (!check_dir(cmd))
+		return (NULL);
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));
+	// fprintf(stderr, "\nenvp = %s\n", envp[0]);
 	if (!envp || !envp[0])
 		return (NULL);
 	paths = get_paths(envp);
+	if (!paths)
+		return (NULL);
 	cmd_path = get_cmd_path(paths, cmd);
 	if (!cmd_path)
 	{

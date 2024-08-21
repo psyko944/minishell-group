@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:37:32 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/06 16:30:03 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:01:04 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	mini_echo(t_global *mini_s, char **tab)
 	bool	n_line;
 
 	(void)mini_s;
+	g_exit_status = 0;
 	n_line = true;
 	i = 1;
 	while (tab[i] && check_option(tab[i]))
