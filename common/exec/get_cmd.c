@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:27:25 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/21 21:28:13 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:25:08 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ static char	**get_paths(char **envp)
 		}
 	}
 	paths = ft_split(path, ':');
-	if (!paths)
-		return (NULL);
 	i = -1;
-	while (paths[++i])
+	while (paths && paths[++i])
 	{
 		tmp = paths[i];
 		paths[i] = ft_strjoin(paths[i], "/");
@@ -89,7 +87,6 @@ char	*get_cmd(char *cmd, char **envp)
 		return (NULL);
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));
-	// fprintf(stderr, "\nenvp = %s\n", envp[0]);
 	if (!envp || !envp[0])
 		return (NULL);
 	paths = get_paths(envp);

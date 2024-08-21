@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:35 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/21 22:13:45 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:20:56 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,12 @@ void	command_handler(int sig)
 
 void	def_sig(void)
 {
-	if (signal(SIGINT, command_handler))
-		perror("sigation");
-	else if (signal(SIGQUIT, command_handler))
-		perror("sigaction");
+	signal(SIGINT, command_handler);
+	signal(SIGQUIT, command_handler);
 }
 
 void	prompt_sig(void)
 {
-	if (signal(SIGINT, shell_handler))
-		perror("sigaction");
-	else if (signal(SIGQUIT, shell_handler))
-		perror("sigaction");
+	signal(SIGINT, shell_handler);
+	signal(SIGQUIT, shell_handler);
 }

@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/21 21:47:19 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/22 01:40:12 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,15 @@ static int	ph_exec_node(t_ast *node, t_global *env)
 	t_command	command;
 	int			i;
 
-	node->content = (char **)replace_vars(node->content, env->env);
-	if (!node->content)
+	if (set_node(node, env, &command) == -1)
 		return (-1);
-	command.tab = cut_command(node->content, get_sub_tok_count(node->content));
-	free(node->content);
-	node->content = command.tab;
-	node->type = COMMAND;
-	command.in = 0;
-	command.out = 0;
-	command.tab = node->content;
-	command.tab = fill_wild_tab(command.tab, ".");
 	if (!command.tab)
 		return ((node->content = NULL), 1);
 	free(node->content);
 	printf("We're running: ");
 	node->content = command.tab;
 	if (!get_files(command.tab, &command, env))
-		return (printf("caca\n"), 0);
+		return (0);
 	i = 0;
 	while (command.tab[i])
 	{
@@ -55,17 +46,7 @@ static int	ph_exec_node(t_ast *node, t_global *env)
 		i += 1;
 	}
 	printf("with fds %d %d\n", command.in, command.out);
-	if (command.tab[0] && g_exit_status != 135)
-		cmd_runtime(&command, env);
-	else
-	{
-		if (g_exit_status == 135)
-			g_exit_status = 130;
-		if (command.in)
-			close(command.in);
-		if (command.out)
-			close(command.out);
-	}
+	launch_cmd(&command, env);
 	return (0);
 }
 
@@ -105,10 +86,11 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 
 void	print_ast(t_ast *ast, int ind);
 
-static int	handle_command(char *command, int *exit_cmd, t_global *env, struct termios *term)
+static int	handle_command(char *command, int *exit_cmd,
+	t_global *env, struct termios *term)
 {
 	t_ast			*ast_tree;
-	
+
 	ast_tree = NULL;
 	if (!command)
 		*exit_cmd = 0;
@@ -145,7 +127,7 @@ int	main(int ac, char **av, char **envp)
 			handle_command(ft_strdup(command), &exit_cmd, &env, &term);
 		else
 			ft_exit(&env, (char *[2]){"exit", NULL});
-		(add_history(command) ,ft_append_history(command, env.history_fd));
+		(add_history(command), ft_append_history(command, env.history_fd));
 		env.prompt = get_prompt(env.env);
 		get_shlvl(&env);
 		g_exit_status = wait_status(&env);

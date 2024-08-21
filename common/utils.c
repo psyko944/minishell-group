@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:12:48 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/07 20:59:59 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/22 01:41:24 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,13 @@ void	free_env(t_global *mini_s)
 void	err_msg(char *msg)
 {
 	ft_putstr_fd(msg, 2);
+}
+
+void	assign_new_path(t_global *mini_s, char *key)
+{
+	if (!ft_strncmp("PATH", key, 5))
+	{
+		free_matrix(mini_s->envp);
+		mini_s->envp = new_matrix(mini_s->env);
+	}
 }

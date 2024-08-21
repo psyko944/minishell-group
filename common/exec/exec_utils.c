@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 05:26:25 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/21 20:39:38 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/22 01:33:59 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 
 int	wait_status(t_global *mini_s)
 {
-	int	nl;
 	int	ret;
 
-	free((nl = 0, ret = -2, NULL));
+	ret = -2;
 	while (1)
 	{
 		ret = waitpid(-1, &mini_s->wait_status, 0);

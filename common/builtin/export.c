@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:47:04 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/21 22:12:28 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/22 01:09:05 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,22 @@ static bool	err_export(char *arg, int flag)
 static bool	parse_key(char *value, int *join)
 {
 	int		i;
-	int		j;
 	char	*line;
 
 	i = 0;
-	j = -1;
 	line = get_key(value);
 	if (!line)
 		return (false);
 	if (line[0] == '-' && line[1])
 		return (err_export(line, 0));
-	while (line[++j])
-		if (line[j] != '_' && !ft_isalpha(line[j]))
-			return (err_export(line, 1));
+	if (line[0] != '_' && !ft_isalpha(line[0]))
+		return (err_export(line, 1));
 	while (line[++i])
 	{
-		if (!ft_isalnum(line[i]) && line[i] != '_')
-			return (free(line), false);
 		if (line[i] == '+' && !line[i + 1])
 			return (free(line), *join = 1, true);
+		if (!ft_isalnum(line[i]) && line[i] != '_')
+			return (err_export(line, 1));
 	}
 	return (free(line), true);
 }
@@ -81,11 +78,7 @@ static void	parse_export(t_global *mini_s, char *value)
 		}
 		else
 			addback_env(&mini_s->env, first_node(value));
-		if (!ft_strncmp("PATH", key, 5))
-		{
-			free_matrix(mini_s->envp);
-			mini_s->envp = new_matrix(mini_s->env);
-		}
+		assign_new_path(mini_s, key);
 		free(key);
 	}
 }

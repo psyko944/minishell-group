@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/21 21:57:18 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/22 01:37:46 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,8 @@ int			exec_and_cmd(t_ast *tree, int *exit_cmd, t_global *mini_s);
 int			exec_or_cmd(t_ast *tree, int *exit_cmd, t_global *mini_s);
 int			ph_exec_par(t_ast *node, t_global *env);
 char		**new_matrix(t_env_var *env);
+void		assign_new_path(t_global *mini_s, char *key);
+int			set_node(t_ast *node, t_global *env, t_command *command);
+void		launch_cmd(t_command *command, t_global *env);
 
 #endif
