@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:35 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/21 15:53:49 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:28:41 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	shell_handler(int sig)
 	else if (sig == SIGINT)
 	{
 		g_exit_status = 130;
+		write(1, "\n", 2);
 		rl_replace_line("", 0);
-		write(1, "\r\n", 2);
 		rl_on_new_line();
 		rl_redisplay();
 	}
@@ -48,28 +48,48 @@ void	command_handler(int sig)
 	else if (sig == SIGINT)
 	{
 		g_exit_status = 130;
-		printf("\n");
+		// printf("\n");
 	}
 }
 
-void	setup_handler(int sig, void (*handler)(int))
+void	def_sig(void)
+{
+	// struct sigaction	sa;
+
+	puts("Setting up command sig\n");
+	//sigemptyset(&sa.sa_mask);
+	// sa.sa_handler = command_handler;
+	if (signal(SIGINT, command_handler))
+		perror("sigation");
+	else if (signal(SIGQUIT, command_handler))
+		perror("sigaction");
+	// puts("OUMPS OUMPS");
+}
+
+void	prompt_sig(void)
 {
 	struct sigaction	sa;
 
-	sa.sa_handler = handler;
-	sa.sa_flags = 0;
-	sigemptyset(&sa.sa_mask);
-	if (sigaction(sig, &sa, NULL))
+	puts("Setting up prompt sig\n");
+	// sigemptyset(&sa.sa_mask);
+	sa.sa_handler = shell_handler;
+	if (sigaction(SIGINT, &sa, NULL))
 		perror("sigaction");
+	else if (sigaction(SIGQUIT, &sa, NULL))
+		perror("sigaction");
+	// puts("TOUSS TOUSS");
 }
 
-void	init_signals(void)
+void	here_sig(void)
 {
-	struct termios	oldt;
+	// struct sigaction	sa;
 
-	tcgetattr(STDIN_FILENO, &oldt);
-	oldt.c_lflag &= ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-	setup_handler(SIGINT, shell_handler);
-	setup_handler(SIGQUIT, shell_handler);
+	// // puts("Setting up heredoc sig\n");
+	// // sigemptyset(&sa.sa_mask);
+	// sa.sa_handler = SIG_IGN;
+	// if (sigaction(SIGINT, &sa, NULL))
+	// 	perror("sigaction");
+	// else if (sigaction(SIGQUIT, &sa, NULL))
+	// 	perror("sigaction");
+	// // puts("COUS COUS");
 }

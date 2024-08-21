@@ -6,19 +6,19 @@
 #    By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/08/21 15:55:16 by arlarzil         ###   ########.fr        #
+#    Updated: 2024/08/21 17:56:44 by arlarzil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = init/ft_env.c \
-init/history.c \
-init/prompt.c \
-init/init.c \
-utils.c \
-signals.c \
-parser/ast/ast.c \
+SRCS = init/ft_env.c			\
+init/history.c					\
+init/prompt.c					\
+init/init.c						\
+utils.c							\
+signals.c						\
+parser/ast/ast.c				\
 parser/ast/checker.c			\
 parser/ast/free.c				\
 parser/ast/separators.c			\
@@ -26,44 +26,39 @@ parser/tokenize/cut_command.c	\
 parser/tokenize/free_tokens.c	\
 parser/tokenize/add_spaces.c	\
 parser/tokenize/command_sep.c	\
-parser/tokenize/get_token.c \
-parser/tokenize/new_token.c \
-parser/tokenize/quotes.c \
-parser/tokenize/tokenize.c \
-parser/vars/concat.c \
-parser/vars/cut.c \
-parser/vars/replace.c \
-parser/vars/remove_quotes.c \
-wildcards/merge_wildcards.c \
-wildcards/run_wildcards.c \
-wildcards/wildcards.c \
-exec/in_n_out.c \
-exec/opener.c \
-exec/here_doc.c \
-parser/print_parse_err.c \
-builtin/pwd_env.c \
-builtin/cd.c \
-exec/get_cmd.c \
-exec/exec_cmd.c \
-exec/exec_ast.c \
-exec/exec_utils.c \
-init/env_utils.c \
-init/shlvl.c \
-builtin/unset.c \
-builtin/export.c \
-builtin/parse_builtins.c\
-builtin/echo.c\
-builtin/exit.c \
-main.c	\
-tests/armand/print_ast.c \
-tests/armand/test_tokenize.c \
-# tests/unit_test_mehdi.c \
-# tests/unit_test_main.c \
-# tests/unit_tests_armand.c \
+parser/tokenize/get_token.c		\
+parser/tokenize/new_token.c		\
+parser/tokenize/quotes.c		\
+parser/tokenize/tokenize.c		\
+parser/vars/concat.c			\
+parser/vars/cut.c				\
+parser/vars/replace.c			\
+parser/vars/remove_quotes.c		\
+wildcards/merge_wildcards.c		\
+wildcards/run_wildcards.c		\
+wildcards/wildcards.c			\
+exec/in_n_out.c					\
+exec/opener.c					\
+exec/here_doc.c					\
+parser/print_parse_err.c		\
+builtin/pwd_env.c				\
+builtin/cd.c					\
+exec/get_cmd.c					\
+exec/exec_cmd.c					\
+exec/exec_ast.c					\
+exec/exec_utils.c				\
+init/env_utils.c				\
+init/shlvl.c					\
+builtin/unset.c					\
+builtin/export.c				\
+builtin/parse_builtins.c		\
+builtin/echo.c					\
+builtin/exit.c					\
+main.c							\
+tests/armand/print_ast.c		\
+tests/armand/test_tokenize.c	\
 
 # colors
-# in_n_out.c 
-
 DEF_COLOR = \033[0;39m
 GRAY = \033[0;90m
 RED = \033[0;91m

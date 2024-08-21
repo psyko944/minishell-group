@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/19 01:18:08 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:28:43 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <signal.h>
+# include <termios.h>
 # include <string.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -77,10 +78,10 @@ typedef struct s_command
 
 extern int	g_exit_status;
 int			get_history(t_global *mini_s);
-void		init_signals(void);
-void		shell_handler(int sig);
-void		command_handler(int sig);
-void		setup_handler(int sig, void (*handler)(int));
+
+void		prompt_sig(void);
+void		def_sig(void);
+void		here_sig(void);
 void		init(t_global *mini_s, char **envp);
 void		ft_append_history(char *cmd, int fd);
 
