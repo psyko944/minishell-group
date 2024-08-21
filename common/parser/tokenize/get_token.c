@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:24 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/07 20:51:21 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:19:15 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 extern int	g_exit_status;
 
-// Inc string todo
-#include <stdio.h>
 int	get_par_len(const char *s)
 {
 	int	step;
@@ -124,5 +122,5 @@ t_token	*get_word(const char **s)
 	if (step == -1)
 		return (NULL);
 	*s += step;
-	return (new_token(TEXT, (void *)s2));//cut_command(s2, len)));
+	return (new_token(TEXT, (void *)s2));
 }

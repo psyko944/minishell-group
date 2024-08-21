@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
+#    By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/08/13 15:05:16 by mekherbo         ###   ########.fr        #
+#    Updated: 2024/08/21 15:55:16 by arlarzil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,13 @@ init/init.c \
 utils.c \
 signals.c \
 parser/ast/ast.c \
-parser/tokenize/cut_command.c \
-parser/tokenize/free_tokens.c \
+parser/ast/checker.c			\
+parser/ast/free.c				\
+parser/ast/separators.c			\
+parser/tokenize/cut_command.c	\
+parser/tokenize/free_tokens.c	\
+parser/tokenize/add_spaces.c	\
+parser/tokenize/command_sep.c	\
 parser/tokenize/get_token.c \
 parser/tokenize/new_token.c \
 parser/tokenize/quotes.c \

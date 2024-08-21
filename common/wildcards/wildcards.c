@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:06:49 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/07/25 16:23:08 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:16:29 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char	**fill_wild_tab(char **base, const char *path)
 
 	res = NULL;
 	if (!base)
-		return NULL;
+		return (NULL);
 	while (*base)
 	{
 		if (ft_strchr(*base, '*'))

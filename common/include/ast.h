@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:28:15 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/14 18:06:56 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:30:56 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define AST_H
 
 # include <tokenize.h>
+# include <stdbool.h>
 
 typedef struct s_ast {
 	t_token_type	type;
@@ -22,6 +23,11 @@ typedef struct s_ast {
 	struct s_ast	*r;
 }	t_ast;
 
-t_ast	*build_ast(t_token *tokens);
-t_ast	*free_ast(t_ast *ast);
+t_ast			*build_ast(t_token *tokens);
+t_ast			*free_ast(t_ast *ast);
+bool			has_seps(t_token *tokens);
+t_token_type	get_sep_type(char *sep);
+int				check_format(t_token *tokens);
+bool			is_redirec_token(const char *tok);
+
 #endif

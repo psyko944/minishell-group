@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/11 17:18:44 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:56:19 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static int	command_sep(const char *s)
+static int	quotester(int *sub, int *step, const char **s)
 {
-	const char	*seps[] = {">>", "<<", ">", "<", NULL};
-	int			i;
-	int			len;
-
-	i = 0;
-	while (seps[i])
-	{
-		len = ft_strlen(seps[i]);
-		if (ft_strncmp(s, seps[i], len) == 0)
-			return (len);
-		++i;
-	}
+	*sub = skip_quote(*s + *step);
+	if (*sub == -1)
+		return (1);
+	*step += *sub;
 	return (0);
 }
 
@@ -43,20 +35,15 @@ static int	count_args(const char *s)
 	{
 		while (ft_isspace(*s))
 			++s;
-		if (*s)
-			res += 1;
+		res += (*s != 0);
 		step = command_sep(s);
 		if (!step)
 		{
 			while (s[step] && !ft_isspace(s[step]) && !command_sep(s + step))
 			{
-				if (s[step] == '\'' || s[step] == '"')
-				{
-					sub = skip_quote(s + step);
-					if (sub == -1)
-						return (-1);
-					step += sub;
-				}
+				if ((s[step] == '\'' || s[step] == '"')
+					&& quotester(&sub, &step, &s))
+					return (-1);
 				else
 					step += 1;
 			}
@@ -64,27 +51,6 @@ static int	count_args(const char *s)
 		s += step;
 	}
 	return (res);
-}
-
-static void	add_spaces(char *s)
-{
-	int	step;
-
-	while (*s)
-	{
-		step = command_sep(s);
-		if (step)
-		{
-			ft_memmove(s + 1, s, ft_strlen(s));
-			*s = ' ';
-			s += step + 1;
-			ft_memmove(s + 1, s, ft_strlen(s));
-			*s = ' ';
-			s += 1;
-		}
-		else
-			++s;
-	}
 }
 
 static void	fill_tab(char *s, char **res, int len)
@@ -123,8 +89,7 @@ char	**cut_command(const char *s, int tot_len)
 	s2 = ft_calloc(tot_len + 2, 1);
 	if (!s2)
 		return (NULL);
-	ft_strncpy(s2, s, tot_len);
-	len = count_args(s2);
+	len = count_args(ft_strncpy(s2, s, tot_len));
 	if (len == -1)
 		return (NULL);
 	s2 = ft_realloc(s2, tot_len + len * 2 + 2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/13 16:12:04 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:41:44 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int	main(int ac, char **av, char **envp)
 		g_exit_status = wait_status(&env);
 		setup_handler(SIGQUIT, shell_handler);
 		setup_handler(SIGINT, shell_handler);
-		status_env(&env.env, g_exit_status);
+		(status_env(&env.env, g_exit_status), free(command));
 	}
 	rl_clear_history();
 	exit_cmd = ft_atoi(env.env->content);

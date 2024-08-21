@@ -6,7 +6,7 @@
 /*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:12:12 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/07 19:54:55 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:17:08 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	skip_var(const char **s)
 		{
 			if (**s == '\'')
 				*s = ft_strchr(*s + 1, '\'');
-			if (*s == (char*)1)
+			if (*s == (char *)1)
 				return (-1);
 			++*s;
 		}

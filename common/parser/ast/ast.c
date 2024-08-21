@@ -16,12 +16,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-static bool	is_redirec_token(const char *tok)
+bool	is_redirec_token(const char *tok)
 {
 	bool	prev_redirec;
 
 	prev_redirec = false;
-	printf("Coucou '%s'\n", tok);
 	while (*tok)
 	{
 		if (*tok == '&' || *tok == '|')
@@ -43,73 +42,7 @@ static bool	is_redirec_token(const char *tok)
 	return (true);
 }
 
-static int	check_format(t_token *tokens)
-{
-	int	i;
-
-	i = 0;
-	while (tokens->next)
-	{
-		printf("Checking %s at index %d\n", (char*)tokens->content, i);
-		if (tokens->type == SEPARATOR && i % 2 == 0)
-			return (print_parse_err(tokens->content), 0);
-		else if (tokens->type == TEXT && i % 2 == 1)
-			return (print_parse_err(tokens->content), 0);
-		else if (tokens->type == PARENTHESIS)
-		{
-			if (tokens->next->type == PARENTHESIS || (tokens->next->type == TEXT && !is_redirec_token(tokens->next->content)))
-			{
-				printf("sa feil\n");
-				return (print_parse_err(tokens->content), 0);
-			}
-			if (tokens->next->type == TEXT)
-				i -= 1;
-		}
-		tokens = tokens->next;
-		i += 1;
-	}
-	if (tokens->type == SEPARATOR)
-		return (print_parse_err("newline"), 0);
-	return (1);
-}
-
-t_ast	*free_ast(t_ast *ast)
-{
-	if (!ast)
-		return (NULL);
-	if (ast->type == PARENTHESIS)
-		free_ast(ast->content);
-	else if (ast->type == COMMAND)
-		free_tab(ast->content);
-	else if (ast->type & (N_AND | N_OR | N_PIPE))
-	{
-		free_ast(ast->l);
-		free_ast(ast->r);
-	}
-	free(ast);
-	return (NULL);
-}
-
-static t_token_type	get_sep_type(char *sep)
-{
-	const char			*seps[] = {"||", "&&", "|", NULL };
-	const t_token_type	types[] = {N_OR, N_AND, N_PIPE};
-	int					i;
-
-	i = 0;
-	while (seps[i])
-	{
-		if (ft_strncmp(seps[i], sep, ft_strlen(seps[i])) == 0)
-		{
-			free(sep);
-			return (types[i]);
-		}
-		++i;
-	}
-	return (SEPARATOR);
-}
-
-void	ast_step(t_token *tokens, t_token **last_op)
+static void	ast_step(t_token *tokens, t_token **last_op)
 {
 	if (tokens->type == SEPARATOR)
 	{
@@ -117,7 +50,8 @@ void	ast_step(t_token *tokens, t_token **last_op)
 		if (*last_op)
 			tokens->next = *last_op;
 		*last_op = tokens;
-		if (tokens->next->type == TEXT && tokens->next->next && tokens->next->next->type == PARENTHESIS)
+		if (tokens->next->type == TEXT
+			&& tokens->next->next && tokens->next->next->type == PARENTHESIS)
 		{
 			tokens->next = tokens->next->next;
 		}
@@ -126,24 +60,13 @@ void	ast_step(t_token *tokens, t_token **last_op)
 		tokens->content = build_ast(tokens->content);
 }
 
-static bool	has_seps(t_token *tokens)
-{
-	while (tokens)
-	{
-		if (tokens->type == SEPARATOR)
-			return (true);
-		tokens = tokens->next;
-	}
-	return (false);
-}
-
 static t_ast	*no_sep_handle(t_token *tokens)
 {
 	if (tokens->type == TEXT && tokens->next)
 		print_parse_err("(");
 	else if (tokens->type == PARENTHESIS)
 		tokens->content = build_ast(tokens->content);
-	return ((t_ast*)tokens);
+	return ((t_ast *)tokens);
 }
 
 static t_ast	*fix_par_redirect(t_ast *ast)
