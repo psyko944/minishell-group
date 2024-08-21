@@ -6,36 +6,38 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 01:13:54 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/09 09:16:13 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/19 01:25:30 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	check_dir(char *path)
+static int	check_dir(char *path, t_global *mini_s)
 {
+	char	*pwd;
+	
+	pwd = NULL;
 	if (path == NULL || ft_strlen(path) == 0)
 		return (-1);
+	pwd_env(mini_s, 0);
 	if (chdir(path) != 0)
 	{
+		free(path);
 		perror("bash: cd");
 		return (-1);
 	}
+	pwd_env(mini_s, 1);
+	free(path);
 	return (0);
 }
 
 static char	*get_home(t_env_var *env)
 {
 	char		*home;
-	t_env_var	*tmp;
 
-	tmp = env;
-	while (tmp)
-	{
-		if (!ft_strncmp("HOME", tmp->key, 4))
-			home = ft_strdup(tmp->content);
-		tmp = tmp->next;
-	}
+	home = get_value_search(env, "HOME");
+	if (!home)
+		g_exit_status = 1;
 	return (home);
 }
 
@@ -50,6 +52,25 @@ char	*get_pwd(void)
 	return (pwd);
 }
 
+static char	*check_dash(t_env_var *env, char *path)
+{
+	char	*new_path;
+
+	free(path);
+	new_path = get_value_search(env, "OLDPWD");
+	if (new_path)
+	{
+		printf("%s\n", new_path);
+		return (new_path);
+	}
+	else
+	{
+		g_exit_status = 1;
+		ft_putstr_fd("bash: cd: OLDPWD not set\n", 2);
+		return (NULL);
+	}
+}
+
 void	ft_cd(t_global *mini_s, char **tab)
 {
 	char	*path;
@@ -58,21 +79,20 @@ void	ft_cd(t_global *mini_s, char **tab)
 	{
 		path = get_home(mini_s->env);
 		if (!path)
+		{
+			ft_putstr_fd("bash: cd: HOME not set\n", 2);
 			return ;
+		}
 	}
 	else if (tab[1] && !tab[2])
-		path = tab[1];
+		path = ft_strdup(tab[1]);
 	else
 		return ;
 	if (!ft_strncmp(path, "-", 1))
-	{
-		printf("%s", get_pwd());
-		return ;
-	}
-	if (check_dir(path))
+		path = check_dash(mini_s->env, path);
+	if (check_dir(path, mini_s))
 	{
 		g_exit_status = 1;
-		printf("error changement de path\n");
 		return ;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/13 15:22:00 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/19 01:18:08 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void		ft_unset(t_global *mini_s, char **tab);
 void		ft_export(t_global *mini_s, char **tab);
 void		ft_cd(t_global *mini_s, char **tab);
 char		*get_pwd(void);
-void		pwd_env(t_global *mini_s);
+void		pwd_env(t_global *mini_s, int flag);
 void		ft_exit(t_global *mini_s, char **tab);
 void		print_pwd(t_global *mini_s, char **tab);
 

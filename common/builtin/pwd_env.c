@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:43:08 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/25 19:30:57 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/19 01:20:34 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	replace_pwd(t_global *mini_s, char *pwd)
 		addback_env(&mini_s->env, first_node(pwd));
 }
 
-void	pwd_env(t_global *mini_s)
+void	pwd_env(t_global *mini_s, int flag)
 {
 	char	*pwd;
 	char	*tmp;
@@ -61,11 +61,17 @@ void	pwd_env(t_global *mini_s)
 		perror("PWD error");
 	else
 	{
-		tmp = ft_strjoin("PWD=", pwd);
+		if (flag)
+			tmp = ft_strjoin("PWD=", pwd);
+		else
+			tmp = ft_strjoin("OLDPWD=", pwd);
 		free(pwd);
 	}
 	if (!tmp)
 		perror("PWD error");
-	replace_pwd(mini_s, tmp);
+	if (flag)
+		replace_pwd(mini_s, tmp);
+	else
+		replace_env(mini_s->env, tmp);
 	free(tmp);
 }

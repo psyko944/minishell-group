@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:47:04 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/09 00:31:46 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/18 23:26:10 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static bool	parse_key(char *value, int *join)
 	if (line[0] == '-' && line[1])
 		return (err_export(line, 0));
 	while (line[++j])
-		if (line[j] != '_' && !ft_isalpha(line[j]))
+		if (line[j] != '_' || !ft_isalpha(line[j]))
 			return (err_export(line, 1));
 	while (line[++i])
 	{

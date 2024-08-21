@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 05:26:25 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/13 02:25:57 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/18 19:29:47 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	wait_status(t_global *mini_s)
 		ret = wait(&mini_s->wait_status);
 		if (ret == -1)
 			break ;
-		if (WIFSIGNALED(mini_s->wait_status) && WTERMSIG(mini_s->wait_status)
-			+ 128 == 128 + SIGINT && !nl && ++nl)
-			ft_putstr_fd("\n", 2);
+		// if (WIFSIGNALED(mini_s->wait_status) && WTERMSIG(mini_s->wait_status)
+		// 	+ 128 == 128 + SIGINT && !nl && ++nl)
+		// 	ft_putstr_fd("^C", 2);
 		if (ret != mini_s->pid)
 			continue ;
 		if (WIFEXITED(mini_s->wait_status))
