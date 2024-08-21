@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/22 01:40:12 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/22 01:59:17 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ static int	handle_command(char *command, int *exit_cmd,
 	else
 	{
 		ast_tree = build_ast(tokenize(command));
-		print_ast(ast_tree, 0);
 		if (!ast_tree)
 			return (free(command), 0);
 		def_sig();
