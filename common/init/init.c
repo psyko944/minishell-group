@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:59 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/21 21:46:54 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:38:08 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+#include <termios.h>
+#include <unistd.h>
+
+static void	deactivate_signal_echo(void)
+{
+	struct termios	term;
+
+	tcgetattr(0, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, 0, &term);
+}
 
 void	init(t_global *mini_s, char **envp)
 {
@@ -32,4 +43,5 @@ void	init(t_global *mini_s, char **envp)
 	mini_s->old_stdout = dup(STDOUT_FILENO);
 	g_exit_status = 0;
 	prompt_sig();
+	deactivate_signal_echo();
 }

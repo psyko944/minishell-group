@@ -6,7 +6,7 @@
 #    By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/08/21 17:56:44 by arlarzil         ###   ########.fr        #
+#    Updated: 2024/08/22 13:41:28 by arlarzil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,8 +55,6 @@ builtin/parse_builtins.c		\
 builtin/echo.c					\
 builtin/exit.c					\
 main.c							\
-tests/armand/print_ast.c		\
-tests/armand/test_tokenize.c	\
 
 # colors
 DEF_COLOR = \033[0;39m
