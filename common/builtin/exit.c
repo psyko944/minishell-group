@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 03:43:41 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/21 21:47:27 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:04:20 by arlarzil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	ft_exit(t_global *mini_s, char **cmd)
 			(ft_putstr_fd("bash: exit: ", 2), ft_putstr_fd(cmd[1], 2));
 			ft_putstr_fd(": numeric argument required\n", 2);
 			g_exit_status = 2;
+			free_before_exit(mini_s, 2, 1);
 		}
 		else if (cmd[2] && is_numeric(cmd[1], &exit_status))
 			(ft_putstr_fd("exit: too many arguments\n", 2));
