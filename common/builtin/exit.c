@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 03:43:41 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/22 15:04:20 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:14:41 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void	free_before_exit(t_global *mini_s, long long exit_status, int flag)
 		exit_status = ft_atoi(mini_s->env->content);
 	rl_clear_history();
 	free_env(mini_s);
+	free_ast(mini_s->ast);
+	free(mini_s->cmd);
 	close(mini_s->old_stdin);
 	close(mini_s->old_stdout);
 	if (mini_s->history_fd > 0)

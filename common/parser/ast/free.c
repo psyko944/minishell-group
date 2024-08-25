@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:27:00 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/21 15:27:08 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/23 03:30:07 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ t_ast	*free_ast(t_ast *ast)
 	if (!ast)
 		return (NULL);
 	if (ast->type == PARENTHESIS)
+	{
 		free_ast(ast->content);
+		if (ast->r && (ast->r->type == COMMAND || ast->r->type == TEXT))
+			free_ast(ast->r);
+	}
 	else if (ast->type == COMMAND)
 		free_tab(ast->content);
 	else if (ast->type & (N_AND | N_OR | N_PIPE))

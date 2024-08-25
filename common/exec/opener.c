@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:38:17 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/11 21:55:13 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/25 05:09:10 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	open_app(const char *f, t_command *store, t_global *mini_s)
 	if (store->out)
 		close(store->out);
 	(void)mini_s;
-	fd = open(f, O_APPEND | O_CREAT, 0644);
+	fd = open(f, O_APPEND | O_WRONLY | O_CREAT, 0644);
 	if (fd < 0)
 	{
 		perror(f);

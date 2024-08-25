@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cut_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:57 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/21 15:56:19 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/23 01:05:29 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ static int	count_args(const char *s)
 		{
 			while (s[step] && !ft_isspace(s[step]) && !command_sep(s + step))
 			{
-				if ((s[step] == '\'' || s[step] == '"')
-					&& quotester(&sub, &step, &s))
-					return (-1);
-				else
+				if (s[step] != '\'' && s[step] != '"')
 					step += 1;
+				else if (quotester(&sub, &step, &s))
+					return (-1);
 			}
 		}
 		s += step;

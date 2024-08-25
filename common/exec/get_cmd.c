@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 18:27:25 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/21 22:25:08 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/23 01:41:07 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,20 @@ static char	*get_cmd_path(char **paths, char *cmd)
 	return (NULL);
 }
 
-static bool	check_dir(char *cmd)
+static bool	check_dir(char *cmd, t_global *env)
 {
-	if (opendir(cmd))
+	DIR	*dir;
+
+	dir = opendir(cmd);
+	if (dir)
 	{
+		closedir(dir);
 		if (!ft_strncmp(cmd, "./", 2) || !ft_strncmp(cmd, "/", 1))
 		{
 			(ft_putstr_fd("bash: ", 2), ft_putstr_fd(cmd, 2));
 			ft_putstr_fd(": Is a directory\n", 2);
+			(free_env(env), freesbie(env->ast), free(env->cmd),
+				tempfree(env->fribi));
 			exit(COMMAND_ISDIRECTORY);
 		}
 		return (false);
@@ -76,14 +82,14 @@ static bool	check_dir(char *cmd)
 	return (true);
 }
 
-char	*get_cmd(char *cmd, char **envp)
+char	*get_cmd(char *cmd, char **envp, t_global *env)
 {
 	char	**paths;
 	char	*cmd_path;
 
 	if (cmd[0] == '\0')
 		return (NULL);
-	if (!check_dir(cmd))
+	if (!check_dir(cmd, env))
 		return (NULL);
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (ft_strdup(cmd));

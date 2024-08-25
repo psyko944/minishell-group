@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:28:15 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/21 15:30:56 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/23 00:24:07 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include <tokenize.h>
 # include <stdbool.h>
 
-typedef struct s_ast {
-	t_token_type	type;
-	void			*content;
-	struct s_ast	*l;
-	struct s_ast	*r;
-}	t_ast;
+// typedef struct s_ast {
+// 	t_token_type	type;
+// 	void			*content;
+// 	struct s_ast	*l;
+// 	struct s_ast	*r;
+// }	t_ast;
 
 t_ast			*build_ast(t_token *tokens);
 t_ast			*free_ast(t_ast *ast);

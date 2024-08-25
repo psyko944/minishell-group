@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cut.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:12:12 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/21 15:17:08 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/22 20:52:09 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ static int	skip_var(const char **s)
 		while (**s && **s != '$')
 		{
 			if (**s == '\'')
+			{
 				*s = ft_strchr(*s + 1, '\'');
-			if (*s == (char *)1)
-				return (-1);
+				if (*s == (char *)0)
+					return (-1);
+			}
 			++*s;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:43:08 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/21 19:52:30 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/23 01:31:08 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ void	print_pwd(t_global *mini_s, char **tab)
 
 	g_exit_status = 0;
 	(void)mini_s;
+	(void)tab;
 	pwd = get_pwd();
 	if (pwd)
 	{
-		if (!tab[1])
-			printf("%s\n", pwd);
-		else
-			printf("pwd: too many arguments");
+		printf("%s\n", pwd);
 		free(pwd);
 		return ;
 	}

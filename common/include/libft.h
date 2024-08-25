@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:36:34 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/06/19 18:47:35 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/25 06:05:20 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <aio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
@@ -121,5 +122,6 @@ void	free_tab(char **tab);
 char	**merge_tabs(char **a, char **b);
 int		tab_size(char **a);
 char	**tab_add_back(char **tab, char *elem);
+void	print_matrix(char **matrix);
 
 #endif

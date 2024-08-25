@@ -6,12 +6,22 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 21:39:15 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/06/25 21:39:32 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/25 06:05:50 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
+#include <stdio.h>
+
+void	print_matrix(char **matrix)
+{
+	int	i;
+
+	i = -1;
+	while (matrix[++i])
+		printf("%s\n", matrix[i]);
+}
 
 void	free_matrix(char **matrix)
 {

@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:57:15 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/21 21:56:53 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/25 06:13:23 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,20 @@ char	**new_matrix(t_env_var *env)
 	char		**new_matrix;
 	char		*tmp;
 	t_env_var	*env_tmp;
+	int			i;
 
-	new_matrix = calloc(sizeof(char *), 2);
+	i = 0;
+	new_matrix = calloc(sizeof(char *), 3);
 	if (!new_matrix)
 		return (NULL);
 	env_tmp = env;
 	while (env_tmp)
 	{
-		if (!ft_strncmp(env_tmp->key, "PATH", 4))
+		if (!ft_strncmp(env_tmp->key, "PATH", 5)
+			|| !ft_strncmp(env_tmp->key, "TERM", 5))
 		{
 			tmp = ft_strjoin(env_tmp->key, "=");
-			new_matrix[0] = ft_strjoin2(tmp, env_tmp->content);
+			new_matrix[i++] = ft_strjoin2(tmp, env_tmp->content);
 		}
 		env_tmp = env_tmp->next;
 	}

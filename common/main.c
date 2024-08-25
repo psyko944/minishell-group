@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:00:21 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/22 01:59:17 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/23 03:31:57 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int	ph_exec_node(t_ast *node, t_global *env)
 	if (!command.tab)
 		return ((node->content = NULL), 1);
 	free(node->content);
-	printf("We're running: ");
 	node->content = command.tab;
 	if (!get_files(command.tab, &command, env))
 		return (0);
@@ -42,10 +41,8 @@ static int	ph_exec_node(t_ast *node, t_global *env)
 	while (command.tab[i])
 	{
 		command.tab[i] = remove_quotes(command.tab[i]);
-		printf("[%s] ", command.tab[i]);
 		i += 1;
 	}
-	printf("with fds %d %d\n", command.in, command.out);
 	launch_cmd(&command, env);
 	return (0);
 }
@@ -66,6 +63,8 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 		return (0);
 	while (1)
 	{
+		if (!tree->r)
+			env->par_flag = true;
 		if (tree->type == TEXT)
 			return (ph_exec_node(tree, env));
 		else if (tree->type == PARENTHESIS)
@@ -84,8 +83,6 @@ int	ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env)
 	}
 }
 
-void	print_ast(t_ast *ast, int ind);
-
 static int	handle_command(char *command, int *exit_cmd,
 	t_global *env, struct termios *term)
 {
@@ -96,14 +93,19 @@ static int	handle_command(char *command, int *exit_cmd,
 		*exit_cmd = 0;
 	else
 	{
-		ast_tree = build_ast(tokenize(command));
+		ast_tree = build_ast(tokenize(command, env));
 		if (!ast_tree)
-			return (free(command), 0);
+			return (env->hflag = true, free(command), 0);
+		env->hflag = false;
 		def_sig();
 		tcgetattr(0, term);
+		env->ast = ast_tree;
+		env->cmd = command;
 		ph_exec_tree(ast_tree, exit_cmd, env);
 		free_ast(ast_tree);
 		free(command);
+		env->cmd = NULL;
+		env->ast = NULL;
 		env->exit_pipe = false;
 	}
 	return (1);
@@ -126,11 +128,12 @@ int	main(int ac, char **av, char **envp)
 			handle_command(ft_strdup(command), &exit_cmd, &env, &term);
 		else
 			ft_exit(&env, (char *[2]){"exit", NULL});
-		(add_history(command), ft_append_history(command, env.history_fd));
+		if (env.hflag == false)
+			(add_history(command), ft_append_history(command, env.history_fd),
+				fribille((void**)env.fribi));
 		env.prompt = get_prompt(env.env);
-		get_shlvl(&env);
 		g_exit_status = wait_status(&env);
-		(status_env(&env.env, g_exit_status), free(command));
+		(get_shlvl(&env), status_env(&env.env, g_exit_status), free(command));
 	}
 	rl_clear_history();
 	exit_cmd = ft_atoi(env.env->content);

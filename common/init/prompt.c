@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 08:21:39 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/10 13:52:14 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/25 05:59:48 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*add_dollars(char *prompt)
 {
 	char	*final_prompt;
 
-	final_prompt = ft_strjoin2(prompt, "$ ");
+	final_prompt = ft_strjoin2(prompt, "\001\e[0;32m\002$ \001\e[0m\002");
 	if (!final_prompt)
 		return (NULL);
 	return (final_prompt);

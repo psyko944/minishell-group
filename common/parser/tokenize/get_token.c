@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:30:24 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/21 15:19:15 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/23 01:06:45 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	get_par_len(const char *s)
 	return (ret);
 }
 
-t_token	*get_parenthesis(const char **s_ptr)
+t_token	*get_parenthesis(const char **s_ptr, t_global *glo)
 {
 	int			len;
 	const char	*temp;
@@ -62,7 +62,7 @@ t_token	*get_parenthesis(const char **s_ptr)
 		return (NULL);
 	}
 	*s_ptr += len;
-	res = new_token(PARENTHESIS, ft_strndup_e(temp + 1, len - 2));
+	res = new_token(PARENTHESIS, ft_strndup_e(temp + 1, len - 2), glo);
 	if (!res)
 		print_parse_err(")");
 	return (res);
@@ -99,7 +99,7 @@ int	get_sub_tok_count(const char *s)
 		else
 			step = 1;
 		if (step == -1)
-			return (-1);
+			return (ft_putstr_fd("Parse error: Unclosed quote\n", 2), -1);
 		len += step;
 		s += step;
 	}
@@ -116,11 +116,11 @@ t_token	*get_word(const char **s)
 	if (step)
 	{
 		*s += step;
-		return (new_token(SEPARATOR, ft_strndup_e(s2, step)));
+		return (new_token(SEPARATOR, ft_strndup_e(s2, step), NULL));
 	}
 	step = get_sub_tok_count(s2);
 	if (step == -1)
 		return (NULL);
 	*s += step;
-	return (new_token(TEXT, (void *)s2));
+	return (new_token(TEXT, (void *)s2, NULL));
 }

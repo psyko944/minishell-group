@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:17:19 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/13 13:06:31 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/23 00:51:25 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,30 @@ static void	replace_elements(char **tab)
 	ft_memmove(tab, tab + 2, (i - 1) * sizeof(char *));
 }
 
+static void	fd_par(t_global *mini_s, t_command *storage)
+{
+	if (mini_s->par_flag)
+	{
+		if (mini_s->parenthese_in != -1)
+		{
+			storage->in = mini_s->parenthese_in;
+			mini_s->parenthese_in = -1;
+		}
+		if (mini_s->parenthese_out != -1)
+		{
+			storage->out = mini_s->parenthese_out;
+			mini_s->parenthese_out = -1;
+		}
+	}
+}
+
 int	get_files(char **command, t_command *storage, t_global *mini_s)
 {
 	int	i;
 	int	success;
 
 	i = 0;
-	if (mini_s->parenthese_in != -1)
-	{
-		storage->in = mini_s->parenthese_in;
-		mini_s->parenthese_in = -1;
-	}
-	if (mini_s->parenthese_out != -1)
-	{
-		storage->out = mini_s->parenthese_out;
-		mini_s->parenthese_out = -1;
-	}
+	fd_par(mini_s, storage);
 	while (command[i])
 	{
 		success = handle_fd(command[i], command[i + 1], storage, mini_s);

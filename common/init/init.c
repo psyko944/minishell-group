@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:56:59 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/22 13:38:08 by arlarzil         ###   ########.fr       */
+/*   Updated: 2024/08/23 01:03:17 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init(t_global *mini_s, char **envp)
 	mini_s->old_stdin = dup(STDIN_FILENO);
 	mini_s->old_stdout = dup(STDOUT_FILENO);
 	g_exit_status = 0;
+	ft_bzero(mini_s->fribi, 128 * sizeof(void *));
 	prompt_sig();
 	deactivate_signal_echo();
 }

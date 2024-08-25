@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:47:04 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/22 01:09:05 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/25 05:29:16 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ static void	parse_export(t_global *mini_s, char *value)
 		key = get_key(value);
 		if (search_in_env(mini_s->env, key))
 		{
-			tmp = get_value_search(mini_s->env, key);
-			if (!tmp)
+			tmp = get_value(value);
+			if (tmp)
 				replace_env(mini_s->env, value);
 			free(tmp);
 		}
@@ -91,7 +91,7 @@ void	print_export_env(t_env_var *env)
 	while (tmp)
 	{
 		if (tmp->content != NULL && ft_strncmp(tmp->key, "?", 1))
-			printf("export %s=\%s\n", tmp->key, tmp->content);
+			printf("export %s=\"%s\"\n", tmp->key, tmp->content);
 		else
 			printf("export %s\n", tmp->key);
 		tmp = tmp->next;

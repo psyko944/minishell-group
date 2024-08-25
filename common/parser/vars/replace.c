@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:18:22 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/07 15:12:43 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/22 21:01:04 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	*get_var(char *s, t_env_var *env)
 	if (!name)
 		return (NULL);
 	if (*name == '?')
-		return (ft_itoa(g_exit_status));
+		return (free(s), ft_itoa(g_exit_status));
 	else if (!*name)
 		return (s);
 	while (env)

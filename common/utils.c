@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:12:48 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/22 01:41:24 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/23 00:50:49 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,17 @@ void	free_env(t_global *mini_s)
 	mini_s->env = NULL;
 }
 
-void	err_msg(char *msg)
+void	fribille(void **fribi)
 {
-	ft_putstr_fd(msg, 2);
+	int	i;
+
+	i = 0;
+	while (fribi[i])
+	{
+		free(fribi[i]);
+		i += 1;
+	}
+	ft_bzero(fribi, 128 * 8);
 }
 
 void	assign_new_path(t_global *mini_s, char *key)

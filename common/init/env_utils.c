@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:14:22 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/08/10 09:56:36 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/22 22:55:34 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	concat_env(t_env_var **env, char *value)
 			tmp->content = ft_strjoin2(tmp->content, concat);
 		tmp = tmp->next;
 	}
+	free(key);
 	free(concat);
 }
 
@@ -93,7 +94,7 @@ void	print_env(t_env_var *lst)
 	while (tmp)
 	{
 		if (tmp->content != NULL && tmp->key && ft_strncmp(tmp->key, "?", 1))
-			printf("%s=%s\n", tmp->key, tmp->content);
+			printf("%s=\"%s\"\n", tmp->key, tmp->content);
 		tmp = tmp->next;
 	}
 }

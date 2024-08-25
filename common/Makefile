@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: arlarzil <arlarzil@student.42.fr>          +#+  +:+       +#+         #
+#    By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:48:07 by mekherbo          #+#    #+#              #
-#    Updated: 2024/08/22 13:41:28 by arlarzil         ###   ########.fr        #
+#    Updated: 2024/08/23 01:06:12 by mekherbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ builtin/export.c				\
 builtin/parse_builtins.c		\
 builtin/echo.c					\
 builtin/exit.c					\
+utils2.c                        \
 main.c							\
 
 # colors

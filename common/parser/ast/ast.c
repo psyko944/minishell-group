@@ -38,7 +38,6 @@ bool	is_redirec_token(const char *tok)
 		}
 		++tok;
 	}
-	printf("Check ok\n");
 	return (true);
 }
 

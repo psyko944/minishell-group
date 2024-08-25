@@ -6,7 +6,7 @@
 /*   By: mekherbo <mekherbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:31:28 by arlarzil          #+#    #+#             */
-/*   Updated: 2024/08/22 01:37:46 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/08/23 02:20:11 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <struct.h>
 # include <signal.h>
 # include <termios.h>
 # include <string.h>
@@ -42,40 +43,43 @@
 # define COMMAND_SIGQUIT 131
 # define HISTORY_NAME "ValhallaShell"
 
-typedef struct s_env_var
-{
-	char				*key;
-	char				*content;
-	struct s_env_var	*next;
-}	t_env_var;
+// typedef struct s_env_var
+// {
+// 	char				*key;
+// 	char				*content;
+// 	struct s_env_var	*next;
+// }	t_env_var;
 
-typedef struct s_global
-{
-	int			shlvl;
-	t_env_var	*env;
-	char		**envp;
-	pid_t		pid;
-	int			wait_status;
-	int			history_fd;
-	int			code;
-	char		*prompt;
-	bool		pipe;
-	bool		check;
-	bool		exit_pipe;
-	int			parenthese_in;
-	int			parenthese_out;
-	int			count_pipe;
-	int			old_stdin;
-	int			old_stdout;
-	int			fd[2];
-}	t_global;
+// typedef struct s_global
+// {
+// 	int			shlvl;
+// 	t_env_var	*env;
+// 	char		**envp;
+// 	pid_t		pid;
+// 	int			wait_status;
+// 	int			history_fd;
+// 	int			code;
+// 	char		*prompt;
+// 	bool		pipe;
+// 	bool		check;
+// 	bool		exit_pipe;
+// 	int			parenthese_in;
+// 	int			parenthese_out;
+// 	int			count_pipe;
+// 	int			old_stdin;
+// 	int			old_stdout;
+// 	t_ast		*ast;
+// 	char		*cmd;
+// 	char		*fribi[128];
+// 	int			fd[1];
+// }	t_global;
 
-typedef struct s_command
-{
-	char	**tab;
-	int		in;
-	int		out;
-}			t_command;
+// typedef struct s_command
+// {
+// 	char	**tab;
+// 	int		in;
+// 	int		out;
+// }			t_command;
 
 extern int	g_exit_status;
 int			get_history(t_global *mini_s);
@@ -131,7 +135,7 @@ char		*replace_vars(char *s, t_env_var *env);
 
 // exec functions
 bool		cmd_runtime(t_command *cmd, t_global *env);
-char		*get_cmd(char *cmd, char **envp);
+char		*get_cmd(char *cmd, char **envp, t_global *env);
 int			wait_status(t_global *mini_s);
 int			ph_exec_tree(t_ast *tree, int *exit_cmd, t_global *env);
 int			exec_and_cmd(t_ast *tree, int *exit_cmd, t_global *mini_s);
@@ -141,5 +145,8 @@ char		**new_matrix(t_env_var *env);
 void		assign_new_path(t_global *mini_s, char *key);
 int			set_node(t_ast *node, t_global *env, t_command *command);
 void		launch_cmd(t_command *command, t_global *env);
+void		fribille(void **fribi);
+void		tempfree(char **tab);
+void		freesbie(t_ast *ast);
 
 #endif
